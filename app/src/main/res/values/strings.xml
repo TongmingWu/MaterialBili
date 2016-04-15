@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bilibili</string>
+    <string name="app_name">MaterialBili</string>
     <string name="open_string">HelloWorld</string>
     <string name="close_string">HelloWorld</string>
     <string name="search_lable">Search</string>

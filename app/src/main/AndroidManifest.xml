@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.FirstActivity"
-            android:label="Bilibili">
+            android:label="MaterialBili">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
