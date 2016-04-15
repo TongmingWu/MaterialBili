@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:baselineAligned="false">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@drawable/live_attention_anchor_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="25dp"
+            android:src="@drawable/live_attention_anchor_text" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/live_center_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="25dp"
+            android:src="@drawable/live_center_text" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/live_search_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="25dp"
+            android:src="@drawable/live_search_text" />
+    </RelativeLayout>
+</LinearLayout>

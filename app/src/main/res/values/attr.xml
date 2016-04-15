@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VideoItemView">
+        <attr name="view_desc" format="string"/>
+        <attr name="view_src" format="reference"/>
+        <attr name="view_more" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="PanItemView">
+        <attr name="pan_desc" format="string"/>
+        <attr name="pan_src" format="reference"/>
+    </declare-styleable>
+</resources>

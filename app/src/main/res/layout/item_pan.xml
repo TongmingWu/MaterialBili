@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/iv_pan"
+        android:layout_width="22dp"
+        android:layout_height="22dp" />
+
+    <TextView
+        android:id="@+id/tv_pan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="2dp"
+        android:textColor="#bb000000"
+        android:textSize="16sp" />
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/rectangle_into"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:text="进去看看"/>
+
+    <com.tongming.materialbili.view.CusGridView
+        android:id="@+id/gv_pan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_pan"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp"
+        android:horizontalSpacing="20dp"
+        android:numColumns="2"
+        android:verticalSpacing="15dp" />
+</RelativeLayout>

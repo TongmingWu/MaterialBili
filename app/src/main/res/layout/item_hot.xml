@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/ic_hot"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_header_hot" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="2dp"
+        android:text="热门推荐"
+        android:textColor="#bb000000"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="28dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="2dp"
+        android:background="#ffde01"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/ranks"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_pay_rank"
+            android:tint="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ranks"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/ranks"
+            android:text="排行榜"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv_hot"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/live_gv_height"
+        android:layout_below="@id/ic_hot"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp"
+        android:horizontalSpacing="20dp"
+        android:numColumns="2"
+        android:verticalSpacing="15dp" />
+</RelativeLayout>

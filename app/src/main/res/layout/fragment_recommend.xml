@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/rl_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_top_rec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <com.bigkoo.convenientbanner.ConvenientBanner
+                    android:id="@+id/convenientBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/banner_height"
+                    app:canLoop="true" />
+
+                <include layout="@layout/item_hot" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_refresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="换一波推荐"
+                        android:textColor="#b000"
+                        android:textSize="11sp" />
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_toEndOf="@id/tv_refresh"
+                        android:src="@drawable/ic_category_more_refresh"
+                        android:tint="@color/colorPrimary" />
+                </RelativeLayout>
+                <!--番剧推荐-->
+                <com.tongming.materialbili.view.PanItemView
+                    android:id="@+id/rec_pan"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/pan_gv_height"
+                    app:pan_desc="番剧推荐"
+                    app:pan_src="@drawable/ic_category_t2" />
+                <!--番剧横幅-->
+                <include layout="@layout/rl_pandrama" />
+            </LinearLayout>
+
+            <com.tongming.materialbili.view.CusListView
+                android:id="@+id/lv_rec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null" />
+            <!--动画区-->
+            <!--<com.tongming.materialbili.view.VideoItemView
+                android:id="@+id/rec_anime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:view_more="更多动画"
+                app:view_src="@drawable/ic_category_t3"
+                app:view_desc="动画区"/>
+            &lt;!&ndash;音乐区&ndash;&gt;
+            <com.tongming.materialbili.view.VideoItemView
+                android:id="@+id/rec_music"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:view_src="@drawable/ic_category_t4"
+                app:view_more="更多音乐"
+                app:view_desc="音乐区"/>
+            &lt;!&ndash;舞蹈区&ndash;&gt;
+            <com.tongming.materialbili.view.VideoItemView
+                android:id="@+id/rec_dance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:view_more="更多舞蹈"
+                app:view_src="@drawable/ic_category_t5"
+                app:view_desc="舞蹈区"/>
+            &lt;!&ndash;游戏区&ndash;&gt;
+            <com.tongming.materialbili.view.VideoItemView
+                android:id="@+id/rec_game"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:view_more="更多游戏"
+                app:view_src="@drawable/ic_category_t6"
+                app:view_desc="游戏区"/>
+            &lt;!&ndash;科技区&ndash;&gt;
+            <com.tongming.materialbili.view.VideoItemView
+                android:id="@+id/rec_tec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:view_more="更多科技"
+                app:view_src="@drawable/ic_category_t7"
+                app:view_desc="科技区"/>
+            &lt;!&ndash;娱乐区&ndash;&gt;
+            <com.tongming.materialbili.view.VideoItemView
+                android:id="@+id/rec_fun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:view_more="更多娱乐"
+                app:view_src="@drawable/ic_category_t8"
+                app:view_desc="娱乐区"/>
+            &lt;!&ndash;鬼畜区&ndash;&gt;
+            <com.tongming.materialbili.view.VideoItemView
+                android:id="@+id/rec_ghot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:view_more="更多鬼畜"
+                app:view_src="@drawable/ic_category_t9"
+                app:view_desc="鬼畜区"/>-->
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

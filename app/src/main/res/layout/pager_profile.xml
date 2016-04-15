@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/page_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#b000"
+        android:textSize="16sp"
+        tools:text="视频标题" />
+
+    <RelativeLayout
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_info_play"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_below="@id/description"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ic_info_views2" />
+
+        <!--播放数-->
+        <TextView
+            android:id="@+id/page_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_info_play"
+            android:layout_below="@id/description"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/iv_info_play"
+            android:textSize="10sp"
+            tools:text="1654" />
+
+        <ImageView
+            android:id="@+id/iv_info_danmu"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_below="@id/description"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ic_answer_danmaku2" />
+
+        <!--评论数-->
+        <TextView
+            android:id="@+id/page_danmaku"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_info_danmu"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/description"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/iv_info_danmu"
+            android:textSize="10sp"
+            tools:text="5465" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/page_desc"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="#b000"
+        android:textSize="16sp"
+        tools:text="视频描述" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <!--分享-->
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="80dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rectangle_data"
+                android:textColor="#36c27e"
+                android:textSize="10sp"
+                android:text="4535" />
+
+            <LinearLayout
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/night_video_action_bg"
+                android:backgroundTint="@android:color/white"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_share_green" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="分享"
+                android:textColor="#b000"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!--硬币-->
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/coins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rectangle_data"
+                android:textColor="#fbc02d"
+                android:textSize="10sp"
+                tools:text="4535" />
+
+            <LinearLayout
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/night_video_action_bg"
+                android:backgroundTint="@android:color/white"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_coin" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="投硬币"
+                android:textColor="#b000"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!--收藏-->
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rectangle_data"
+                android:textColor="#f59db6"
+                android:textSize="10sp"
+                tools:text="4535" />
+
+            <LinearLayout
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/night_video_action_bg"
+                android:backgroundTint="@android:color/white"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_collect" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="收藏"
+                android:textColor="#b000"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!--缓存-->
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/night_video_action_bg"
+                android:backgroundTint="@android:color/white"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_download" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="缓存"
+                android:textColor="#b000"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddd" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/author_face"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/night_video_action_bg" />
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/author_face"
+            tools:text="作者名字" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/attention_border"
+            android:gravity="center"
+            android:text="+关注"
+            android:textColor="@color/colorPrimary" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#fddd" />
+
+</LinearLayout>

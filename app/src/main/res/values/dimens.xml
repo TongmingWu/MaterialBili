@@ -1,0 +1,15 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="card__height">145dp</dimen>
+    <dimen name="pan_card__height">127dp</dimen>
+    <dimen name="card_imageView_height">90dp</dimen>
+    <dimen name="gv_height">300dp</dimen>
+    <dimen name="pan_gv_height">340dp</dimen>
+    <dimen name="rl_card_height">95dp</dimen>
+    <dimen name="drawLayout_width">270dp</dimen>
+    <dimen name="live_gv_height">310dp</dimen>
+    <dimen name="rec_gv_height">300dp</dimen>
+    <dimen name="banner_height">120dp</dimen>
+</resources>

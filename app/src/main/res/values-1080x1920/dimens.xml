@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="card__height">185dp</dimen>
+    <dimen name="pan_card__height">180dp</dimen>
+    <dimen name="card_imageView_height">110dp</dimen>
+    <dimen name="gv_height">340dp</dimen>
+    <dimen name="pan_gv_height">385dp</dimen>
+    <dimen name="rl_card_height">115dp</dimen>
+    <dimen name="drawLayout_width">320dp</dimen>
+    <dimen name="live_gv_height">350dp</dimen>
+    <dimen name="rec_gv_height">340dp</dimen>
+    <dimen name="banner_height">135dp</dimen>
+</resources>

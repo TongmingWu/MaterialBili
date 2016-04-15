@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tongming.materialbili">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <application
+        android:name=".base.BaseApplication"
+        android:hardwareAccelerated="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.FirstActivity"
+            android:label="Bilibili">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.GuidePageActivity"/>
+        <activity android:name=".activity.SplashActivity"/>
+        <activity android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.VideoPlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".activity.VideoPreActivity"/>
+        <activity android:name=".activity.SearchResultActivity"/>
+        <activity android:name=".activity.LivePlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+    </application>
+
+</manifest>

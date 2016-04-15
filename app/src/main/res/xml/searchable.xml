@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+    android:hint="请输入av号"
+    android:label="@string/search_lable" />
