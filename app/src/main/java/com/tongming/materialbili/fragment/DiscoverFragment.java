@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.utils.TranslucentUtil;
 
 /**
  * 发现页面
@@ -23,7 +22,7 @@ public class DiscoverFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = super.onCreateView(inflater, container, savedInstanceState);
-        TranslucentUtil.translucentNavigation(getActivity());
+        //TranslucentUtil.translucentNavigation(getActivity());
         return view;
     }
 

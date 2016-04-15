@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.utils.TranslucentUtil;
 
 /**
  * 关注页面
@@ -25,7 +24,7 @@ public class AttentionFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = super.onCreateView(inflater, container, savedInstanceState);
-        TranslucentUtil.translucentNavigation(getActivity());
+        //TranslucentUtil.translucentNavigation(getActivity());
         initView();
         return view;
     }
