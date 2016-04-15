@@ -1,14 +1,11 @@
 package com.tongming.materialbili.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +19,6 @@ import com.tongming.materialbili.model.AidVideo;
 import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.view.GlideGircleTransform;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Tongming on 2016/3/20.
@@ -38,20 +34,8 @@ public class ProfileFragment extends BaseFragment {
     private TextView tv_coins;
     private TextView tv_collect;
     private TextView tv_author;
-    private CircleImageView iv_author;
+    private ImageView iv_author;
     private String aid;
-
-    private Handler handler = new Handler(Looper.getMainLooper()){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case 0 :
-                    Bitmap bitmap = (Bitmap) msg.obj;
-                    iv_author.setImageBitmap(bitmap);
-                    break;
-            }
-        }
-    };
 
     @Nullable
     @Override
@@ -79,7 +63,7 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void initView(){
-        iv_author = (CircleImageView) view.findViewById(R.id.author_face);
+        iv_author = (ImageView) view.findViewById(R.id.author_face);
         tv_title = (TextView) view.findViewById(R.id.page_title);
         tv_play = (TextView) view.findViewById(R.id.page_play);
         tv_comment = (TextView) view.findViewById(R.id.page_danmaku);
@@ -91,7 +75,7 @@ public class ProfileFragment extends BaseFragment {
 
     private void initData(){
         aid = bundle.getString("aid");
-        AidVideo video = (AidVideo) bundle.getParcelable("video");
+        AidVideo video = bundle.getParcelable("video");
         tv_title.setText(video.getTitle());
         tv_play.setText(video.getPlay());
         tv_comment.setText(video.getVideo_review());
