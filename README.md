@@ -1,5 +1,6 @@
 ## 学习Android的第一个项目:Bilibili Android客户端 ##
 ###仅供学习使用<br>
+####目前功能还不完善,还需要修改许多地方<br>
 首页效果<br>
 ![](http://i.imgur.com/MB6cUNS.png)
 ![](http://i.imgur.com/cQkk90s.png)
