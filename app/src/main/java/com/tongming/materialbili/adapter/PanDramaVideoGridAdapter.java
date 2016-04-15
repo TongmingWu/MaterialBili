@@ -101,8 +101,8 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
         } else {
             holder.tv_num.setText("第" + count.get(position) + "话");
         }
-        String[] str = date.get(position).split(" ");
-        holder.tv_date.setText(str[1]);
+        /*String[] str = date.get(position).split(" ");
+        holder.tv_date.setText(str[1]);*/
         return convertView;
     }
 }
