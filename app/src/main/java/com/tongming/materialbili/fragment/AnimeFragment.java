@@ -205,12 +205,12 @@ public class AnimeFragment extends BaseFragment {
     private void initBanner() {
         if (netImages.size() > 0) {
             netImages.clear();
-            for (int i = indexBanner.getBanners().size(); i >= 0; i--) {
+            for (int i = indexBanner.getBanners().size()-1; i >= 0; i--) {
                 netImages.add(indexBanner.getBanners().get(i).getImg());
             }
         } else {
             //初始化banner数据
-            for (int i = 0; i < indexBanner.getBanners().size(); i++) {
+            for (int i = indexBanner.getBanners().size()-1; i >= 0; i--) {
                 netImages.add(indexBanner.getBanners().get(i).getImg());
             }
         }

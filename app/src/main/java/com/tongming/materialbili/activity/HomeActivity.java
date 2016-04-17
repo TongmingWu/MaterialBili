@@ -138,7 +138,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         } else {
             mViewPager = (ViewPager) findViewById(R.id.viewpager);
-            //mViewPager.setOffscreenPageLimit(5);//缓存的数量
+            mViewPager.setOffscreenPageLimit(5);//缓存的数量
             mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
                 @Override
