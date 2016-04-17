@@ -89,16 +89,10 @@ public class LiveFragment extends BaseFragment {
         view = super.onCreateView(inflater, container, savedInstanceState);
         //doRequest();
         LogUtil.i("Fragment", "Live");
-        initView();
+        /*initView();
         isPrepared = true;
-        lazyLoad();
+        lazyLoad();*/
         return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initSwipeRefresh();
     }
 
     @Override
@@ -108,6 +102,10 @@ public class LiveFragment extends BaseFragment {
 
     @Override
     protected void afterCreate(Bundle saveInstanceState) {
+        initView();
+        isPrepared = true;
+        lazyLoad();
+        initSwipeRefresh();
     }
 
     private void initData() {

@@ -1,6 +1,7 @@
 package com.tongming.materialbili.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
@@ -8,6 +9,8 @@ import android.widget.ListView;
  * Created by Tongming on 2016/4/13.
  */
 public class CusListView extends ListView {
+
+    private boolean flag = false;
     public CusListView(Context context) {
         super(context);
     }
@@ -28,5 +31,20 @@ public class CusListView extends ListView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE>>2, MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        flag = true;
+    }
+
+    @Override
+    public void requestLayout() {
+        if(flag){
+            return;
+        }
+        super.requestLayout();
     }
 }

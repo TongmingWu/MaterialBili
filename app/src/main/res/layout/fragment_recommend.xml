@@ -68,63 +68,8 @@
                 android:id="@+id/lv_rec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:descendantFocusability="afterDescendants"
                 android:divider="@null" />
-            <!--动画区-->
-            <!--<com.tongming.materialbili.view.VideoItemView
-                android:id="@+id/rec_anime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:view_more="更多动画"
-                app:view_src="@drawable/ic_category_t3"
-                app:view_desc="动画区"/>
-            &lt;!&ndash;音乐区&ndash;&gt;
-            <com.tongming.materialbili.view.VideoItemView
-                android:id="@+id/rec_music"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:view_src="@drawable/ic_category_t4"
-                app:view_more="更多音乐"
-                app:view_desc="音乐区"/>
-            &lt;!&ndash;舞蹈区&ndash;&gt;
-            <com.tongming.materialbili.view.VideoItemView
-                android:id="@+id/rec_dance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:view_more="更多舞蹈"
-                app:view_src="@drawable/ic_category_t5"
-                app:view_desc="舞蹈区"/>
-            &lt;!&ndash;游戏区&ndash;&gt;
-            <com.tongming.materialbili.view.VideoItemView
-                android:id="@+id/rec_game"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:view_more="更多游戏"
-                app:view_src="@drawable/ic_category_t6"
-                app:view_desc="游戏区"/>
-            &lt;!&ndash;科技区&ndash;&gt;
-            <com.tongming.materialbili.view.VideoItemView
-                android:id="@+id/rec_tec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:view_more="更多科技"
-                app:view_src="@drawable/ic_category_t7"
-                app:view_desc="科技区"/>
-            &lt;!&ndash;娱乐区&ndash;&gt;
-            <com.tongming.materialbili.view.VideoItemView
-                android:id="@+id/rec_fun"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:view_more="更多娱乐"
-                app:view_src="@drawable/ic_category_t8"
-                app:view_desc="娱乐区"/>
-            &lt;!&ndash;鬼畜区&ndash;&gt;
-            <com.tongming.materialbili.view.VideoItemView
-                android:id="@+id/rec_ghot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:view_more="更多鬼畜"
-                app:view_src="@drawable/ic_category_t9"
-                app:view_desc="鬼畜区"/>-->
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

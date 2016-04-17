@@ -101,9 +101,9 @@ public class RecommendFragment extends BaseFragment {
         //doRequest();
         LogUtil.i("Fragment", "Recommend");
         //初始化view的各控件
-        initView();
+        /*initView();
         isPrepared = true;//初始化控件完成
-        lazyLoad();
+        lazyLoad();*/
         return view;
     }
 
@@ -115,6 +115,9 @@ public class RecommendFragment extends BaseFragment {
     //在Activity创建完成之后调用
     @Override
     protected void afterCreate(Bundle saveInstanceState) {
+        initView();
+        isPrepared = true;//初始化控件完成
+        lazyLoad();
     }
 
     private void initView() {

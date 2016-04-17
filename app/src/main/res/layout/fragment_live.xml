@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
@@ -7,50 +8,45 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/ll_top"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <LinearLayout
-                android:id="@+id/ll_top"
+            <com.bigkoo.convenientbanner.ConvenientBanner
+                android:id="@+id/convenientBanner"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:layout_height="@dimen/banner_height"
+                app:canLoop="true"/>
 
-                <com.bigkoo.convenientbanner.ConvenientBanner
-                    android:id="@+id/convenientBanner"
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardElevation="1dp">
+
+                <GridView
+                    android:id="@+id/gv_live"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/banner_height"
-                    app:canLoop="true" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:numColumns="4"
+                    android:verticalSpacing="20dp"/>
+            </android.support.v7.widget.CardView>
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardElevation="1dp">
-
-                    <GridView
-                        android:id="@+id/gv_live"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:numColumns="4"
-                        android:verticalSpacing="20dp" />
-                </android.support.v7.widget.CardView>
-
-                <include layout="@layout/rl_anchor" />
-            </LinearLayout>
+            <include layout="@layout/rl_anchor"/>
 
             <com.tongming.materialbili.view.CusListView
                 android:id="@+id/lv_live"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null" />
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:descendantFocusability="afterDescendants"
+                android:divider="@null"/>
 
             <Button
                 android:id="@+id/btn_more_live"
@@ -63,7 +59,7 @@
                 android:gravity="center"
                 android:text="更多直播"
                 android:textColor="#818181"
-                android:visibility="gone" />
+                android:visibility="gone"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

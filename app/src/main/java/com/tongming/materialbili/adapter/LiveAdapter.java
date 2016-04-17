@@ -59,7 +59,6 @@ public class LiveAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = convertView.inflate(BaseApplication.getInstance(), R.layout.item_live_card, null);
@@ -68,23 +67,25 @@ public class LiveAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Glide.with(BaseApplication.getInstance())
-                .load(lives.get(position).getCover().getSrc())
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                .placeholder(R.drawable.bili_drawerbg_logined)
-                .centerCrop()
-                .crossFade()
-                .skipMemoryCache(true)
-                .into(holder.iv_live);
-        Glide.with(BaseApplication.getInstance()).
-                load(lives.get(position).getOwner().getFace()).
-                diskCacheStrategy(DiskCacheStrategy.RESULT).
-                transform(new GlideGircleTransform(BaseApplication.getInstance())).
-                crossFade().
-                into(holder.iv_face);
-        holder.tv_author.setText(lives.get(position).getOwner().getName());
-        holder.tv_online.setText(lives.get(position).getOnline() + "");
-        holder.tv_title.setText(lives.get(position).getTitle());
+        if (position == parent.getChildCount()) {
+            Glide.with(BaseApplication.getInstance())
+                    .load(lives.get(position).getCover().getSrc())
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .placeholder(R.drawable.bili_drawerbg_logined)
+                    .centerCrop()
+                    .crossFade()
+                    .skipMemoryCache(true)
+                    .into(holder.iv_live);
+            Glide.with(BaseApplication.getInstance()).
+                    load(lives.get(position).getOwner().getFace()).
+                    diskCacheStrategy(DiskCacheStrategy.RESULT).
+                    transform(new GlideGircleTransform(BaseApplication.getInstance())).
+                    crossFade().
+                    into(holder.iv_face);
+            holder.tv_author.setText(lives.get(position).getOwner().getName());
+            holder.tv_online.setText(lives.get(position).getOnline() + "");
+            holder.tv_title.setText(lives.get(position).getTitle());
+        }
         return convertView;
     }
 }

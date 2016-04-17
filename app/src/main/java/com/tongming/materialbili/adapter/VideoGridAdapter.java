@@ -33,9 +33,9 @@ public class VideoGridAdapter extends BaseAdapter {
     private List<HotVideo.TV> tvs;
     private int type;
 
-    public VideoGridAdapter(List<?> list,int type) {
+    public VideoGridAdapter(List<?> list, int type) {
 
-        switch (type){
+        switch (type) {
             case 0:
                 this.animes = (List<HotVideo.AnimeVideo>) list;
                 break;
@@ -110,110 +110,112 @@ public class VideoGridAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (animes != null) {
-            HotVideo.AnimeVideo animeVideo = animes.get(position);
-            Glide.with(BaseApplication.getInstance())
-                    .load(animeVideo.getPic())
-                    .placeholder(R.drawable.bili_drawerbg_logined)
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(holder.iv_video);
-            holder.tv_desc.setText(animeVideo.getDescription());
-            holder.tv_play.setText(animeVideo.getPlay());
-            holder.tv_comment.setText(animeVideo.getComment() + "");
-        }else if(musics!=null){
-            HotVideo.Music music = musics.get(position);
-            Glide.with(BaseApplication.getInstance())
-                    .load(music.getPic())
-                    .placeholder(R.drawable.bili_drawerbg_logined)
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(holder.iv_video);
-            holder.tv_desc.setText(music.getDescription());
-            holder.tv_play.setText(music.getPlay());
-            holder.tv_comment.setText(music.getComment() + "");
-        }else if(dances!=null){
-            HotVideo.DanceVideo danceVideo = dances.get(position);
-            Glide.with(BaseApplication.getInstance())
-                    .load(danceVideo.getPic())
-                    .placeholder(R.drawable.bili_drawerbg_logined)
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(holder.iv_video);
-            holder.tv_desc.setText(danceVideo.getDescription());
-            holder.tv_play.setText(danceVideo.getPlay());
-            holder.tv_comment.setText(danceVideo.getComment() + "");
-        }else if(games!=null){
-            HotVideo.GameVideo gameVideo = games.get(position);
-            Glide.with(BaseApplication.getInstance())
-                    .load(gameVideo.getPic())
-                    .placeholder(R.drawable.bili_drawerbg_logined)
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(holder.iv_video);
-            holder.tv_desc.setText(gameVideo.getDescription());
-            holder.tv_play.setText(gameVideo.getPlay());
-            holder.tv_comment.setText(gameVideo.getComment() + "");
-        }else if(tec!=null){
-            HotVideo.TechnologyVideo tecVideo = tec.get(position);
-            Glide.with(BaseApplication.getInstance())
-                    .load(tecVideo.getPic())
-                    .placeholder(R.drawable.bili_drawerbg_logined)
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(holder.iv_video);
-            holder.tv_desc.setText(tecVideo.getDescription());
-            holder.tv_play.setText(tecVideo.getPlay());
-            holder.tv_comment.setText(tecVideo.getComment() + "");
-        }else if(fun!=null){
-            HotVideo.FunnyVideo funnyVideo = fun.get(position);
-            Glide.with(BaseApplication.getInstance())
-                    .load(funnyVideo.getPic())
-                    .placeholder(R.drawable.bili_drawerbg_logined)
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(holder.iv_video);
-            holder.tv_desc.setText(funnyVideo.getDescription());
-            holder.tv_play.setText(funnyVideo.getPlay());
-            holder.tv_comment.setText(funnyVideo.getComment() + "");
-        }else if(ghot!=null){
-            HotVideo.GhotVideo ghotVideo = ghot.get(position);
-            Glide.with(BaseApplication.getInstance())
-                    .load(ghotVideo.getPic())
-                    .placeholder(R.drawable.bili_drawerbg_logined)
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(holder.iv_video);
-            holder.tv_desc.setText(ghotVideo.getDescription());
-            holder.tv_play.setText(ghotVideo.getPlay());
-            holder.tv_comment.setText(ghotVideo.getComment()+"");
-        }else if(tvs!=null){
-            HotVideo.TV tv = tvs.get(position);
-            Glide.with(BaseApplication.getInstance())
-                    .load(tv.getPic())
-                    .placeholder(R.drawable.bili_drawerbg_logined)
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(holder.iv_video);
-            holder.tv_desc.setText(tv.getDescription());
-            holder.tv_play.setText(tv.getPlay());
-            holder.tv_comment.setText(tv.getComment()+"");
+        if (parent.getChildCount() == position) {
+            if (animes != null) {
+                HotVideo.AnimeVideo animeVideo = animes.get(position);
+                Glide.with(BaseApplication.getInstance())
+                        .load(animeVideo.getPic())
+                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(holder.iv_video);
+                holder.tv_desc.setText(animeVideo.getDescription());
+                holder.tv_play.setText(animeVideo.getPlay());
+                holder.tv_comment.setText(animeVideo.getComment() + "");
+            } else if (musics != null) {
+                HotVideo.Music music = musics.get(position);
+                Glide.with(BaseApplication.getInstance())
+                        .load(music.getPic())
+                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(holder.iv_video);
+                holder.tv_desc.setText(music.getDescription());
+                holder.tv_play.setText(music.getPlay());
+                holder.tv_comment.setText(music.getComment() + "");
+            } else if (dances != null) {
+                HotVideo.DanceVideo danceVideo = dances.get(position);
+                Glide.with(BaseApplication.getInstance())
+                        .load(danceVideo.getPic())
+                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(holder.iv_video);
+                holder.tv_desc.setText(danceVideo.getDescription());
+                holder.tv_play.setText(danceVideo.getPlay());
+                holder.tv_comment.setText(danceVideo.getComment() + "");
+            } else if (games != null) {
+                HotVideo.GameVideo gameVideo = games.get(position);
+                Glide.with(BaseApplication.getInstance())
+                        .load(gameVideo.getPic())
+                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(holder.iv_video);
+                holder.tv_desc.setText(gameVideo.getDescription());
+                holder.tv_play.setText(gameVideo.getPlay());
+                holder.tv_comment.setText(gameVideo.getComment() + "");
+            } else if (tec != null) {
+                HotVideo.TechnologyVideo tecVideo = tec.get(position);
+                Glide.with(BaseApplication.getInstance())
+                        .load(tecVideo.getPic())
+                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(holder.iv_video);
+                holder.tv_desc.setText(tecVideo.getDescription());
+                holder.tv_play.setText(tecVideo.getPlay());
+                holder.tv_comment.setText(tecVideo.getComment() + "");
+            } else if (fun != null) {
+                HotVideo.FunnyVideo funnyVideo = fun.get(position);
+                Glide.with(BaseApplication.getInstance())
+                        .load(funnyVideo.getPic())
+                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(holder.iv_video);
+                holder.tv_desc.setText(funnyVideo.getDescription());
+                holder.tv_play.setText(funnyVideo.getPlay());
+                holder.tv_comment.setText(funnyVideo.getComment() + "");
+            } else if (ghot != null) {
+                HotVideo.GhotVideo ghotVideo = ghot.get(position);
+                Glide.with(BaseApplication.getInstance())
+                        .load(ghotVideo.getPic())
+                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(holder.iv_video);
+                holder.tv_desc.setText(ghotVideo.getDescription());
+                holder.tv_play.setText(ghotVideo.getPlay());
+                holder.tv_comment.setText(ghotVideo.getComment() + "");
+            } else if (tvs != null) {
+                HotVideo.TV tv = tvs.get(position);
+                Glide.with(BaseApplication.getInstance())
+                        .load(tv.getPic())
+                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(holder.iv_video);
+                holder.tv_desc.setText(tv.getDescription());
+                holder.tv_play.setText(tv.getPlay());
+                holder.tv_comment.setText(tv.getComment() + "");
+            }
         }
         return convertView;
     }

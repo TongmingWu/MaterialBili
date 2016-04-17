@@ -102,7 +102,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //TranslucentUtil.translucentNavigation(HomeActivity.this);
-        DoRequest.getUserInfo(mHandler);
         sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
         ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
         int heapSize = manager.getMemoryClass();
@@ -138,7 +137,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         } else {
             mViewPager = (ViewPager) findViewById(R.id.viewpager);
-            mViewPager.setOffscreenPageLimit(5);//缓存的数量
+            //mViewPager.setOffscreenPageLimit(5);//缓存的数量
             mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
                 @Override
@@ -181,6 +180,7 @@ public class HomeActivity extends AppCompatActivity {
                 .into(avatar);
         mTv_coins = (TextView) headerLayout.findViewById(R.id.tv_coin);
         mUserName = (TextView) headerLayout.findViewById(R.id.tv_userName);
+        DoRequest.getUserInfo(mHandler);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             //用于辨别此前是否有选中的条目
             MenuItem preMenuItem;
