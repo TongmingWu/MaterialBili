@@ -193,13 +193,13 @@ public class AnimeFragment extends BaseFragment {
                 date6.add(bangumi.getsaturdays().get(i).getLastupdate_at());
             }
         }
-        gv_sunday.setAdapter(new PanDramaVideoGridAdapter(Images0, title0, date0, count0, activity));
-        gv_monday.setAdapter(new PanDramaVideoGridAdapter(Images1, title1, date1, count1, activity));
-        gv_tuesday.setAdapter(new PanDramaVideoGridAdapter(Images2, title2, date2, count2, activity));
-        gv_wednesday.setAdapter(new PanDramaVideoGridAdapter(Images3, title3, date3, count3, activity));
-        gv_thursday.setAdapter(new PanDramaVideoGridAdapter(Images4, title4, date4, count4, activity));
-        gv_friday.setAdapter(new PanDramaVideoGridAdapter(Images5, title5, date5, count5, activity));
-        gv_saturday.setAdapter(new PanDramaVideoGridAdapter(Images6, title6, date6, count6, activity));
+        gv_sunday.setAdapter(new PanDramaVideoGridAdapter(Images0, title0, date0, count0));
+        gv_monday.setAdapter(new PanDramaVideoGridAdapter(Images1, title1, date1, count1));
+        gv_tuesday.setAdapter(new PanDramaVideoGridAdapter(Images2, title2, date2, count2));
+        gv_wednesday.setAdapter(new PanDramaVideoGridAdapter(Images3, title3, date3, count3));
+        gv_thursday.setAdapter(new PanDramaVideoGridAdapter(Images4, title4, date4, count4));
+        gv_friday.setAdapter(new PanDramaVideoGridAdapter(Images5, title5, date5, count5));
+        gv_saturday.setAdapter(new PanDramaVideoGridAdapter(Images6, title6, date6, count6));
     }
 
     private void initBanner() {
@@ -236,7 +236,7 @@ public class AnimeFragment extends BaseFragment {
 
         @Override
         public void UpdateUI(Context context, int position, String data) {
-            Glide.with(context).load(data).into(imageView);
+            Glide.with(BaseApplication.getInstance()).load(data).into(imageView);
         }
     }
 

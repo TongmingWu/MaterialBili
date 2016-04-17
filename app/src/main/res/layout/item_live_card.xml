@@ -55,6 +55,7 @@
             tools:text="直播标题"
             android:textSize="12sp"
             android:layout_marginBottom="2dp"
+            android:textColor="#b000"
             android:layout_alignBottom="@id/watcher_num"
             android:layout_alignStart="@id/userName" />
     </RelativeLayout>

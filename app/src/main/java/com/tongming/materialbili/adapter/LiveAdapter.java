@@ -1,6 +1,5 @@
 package com.tongming.materialbili.adapter;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -20,25 +19,14 @@ import java.util.List;
  * Created by Tongming on 2016/3/26.
  */
 public class LiveAdapter extends BaseAdapter {
-    private List<String> uname;
-    private List<String> title;
-    private List<String> cover;
-    private List<String> face;
-    private List<Integer> online;
-    private List<LiveVideo.DataEntity.PartitionsEntity.LivesEntity> lives;
-    private Context context;
 
-    public LiveAdapter(List<LiveVideo.DataEntity.PartitionsEntity.LivesEntity> lives, Context context) {
-        /*this.uname = uname;
-        this.title = title;
-        this.cover = cover;
-        this.face = face;
-        this.online = online;*/
+    private List<LiveVideo.DataEntity.PartitionsEntity.LivesEntity> lives;
+
+    public LiveAdapter(List<LiveVideo.DataEntity.PartitionsEntity.LivesEntity> lives) {
         this.lives = lives;
-        this.context = context;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         public ImageView iv_live;
         public ImageView iv_face;
         public TextView tv_author;
@@ -74,7 +62,7 @@ public class LiveAdapter extends BaseAdapter {
 
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = convertView.inflate(context, R.layout.item_live_card, null);
+            convertView = convertView.inflate(BaseApplication.getInstance(), R.layout.item_live_card, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -86,11 +74,13 @@ public class LiveAdapter extends BaseAdapter {
                 .placeholder(R.drawable.bili_drawerbg_logined)
                 .centerCrop()
                 .crossFade()
+                .skipMemoryCache(true)
                 .into(holder.iv_live);
         Glide.with(BaseApplication.getInstance()).
                 load(lives.get(position).getOwner().getFace()).
                 diskCacheStrategy(DiskCacheStrategy.RESULT).
                 transform(new GlideGircleTransform(BaseApplication.getInstance())).
+                crossFade().
                 into(holder.iv_face);
         holder.tv_author.setText(lives.get(position).getOwner().getName());
         holder.tv_online.setText(lives.get(position).getOnline() + "");

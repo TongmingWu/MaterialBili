@@ -1,6 +1,5 @@
 package com.tongming.materialbili.adapter;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -33,9 +32,8 @@ public class VideoGridAdapter extends BaseAdapter {
     private List<HotVideo.GhotVideo> ghot;
     private List<HotVideo.TV> tvs;
     private int type;
-    private Context context;
 
-    public VideoGridAdapter(List<?> list, Context context,int type) {
+    public VideoGridAdapter(List<?> list,int type) {
 
         switch (type){
             case 0:
@@ -64,18 +62,16 @@ public class VideoGridAdapter extends BaseAdapter {
                 break;
         }
         this.type = type;
-        this.context = context;
     }
 
-    public VideoGridAdapter(List<String> imgPath, List<String> titles, List<String> plays, List<String> comments, Context context) {
+    public VideoGridAdapter(List<String> imgPath, List<String> titles, List<String> plays, List<String> comments) {
         this.imgPath = imgPath;
         this.titles = titles;
         this.plays = plays;
         this.comments = comments;
-        this.context = context;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         public ImageView iv_video;
         public TextView tv_desc;
         public TextView tv_play;
@@ -108,7 +104,7 @@ public class VideoGridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.item_recommend_card, null);
+            convertView = View.inflate(BaseApplication.getInstance(), R.layout.item_recommend_card, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -121,6 +117,7 @@ public class VideoGridAdapter extends BaseAdapter {
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()
+                    .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(holder.iv_video);
             holder.tv_desc.setText(animeVideo.getDescription());
@@ -133,6 +130,7 @@ public class VideoGridAdapter extends BaseAdapter {
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()
+                    .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(holder.iv_video);
             holder.tv_desc.setText(music.getDescription());
@@ -145,6 +143,7 @@ public class VideoGridAdapter extends BaseAdapter {
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()
+                    .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(holder.iv_video);
             holder.tv_desc.setText(danceVideo.getDescription());
@@ -157,6 +156,7 @@ public class VideoGridAdapter extends BaseAdapter {
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()
+                    .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(holder.iv_video);
             holder.tv_desc.setText(gameVideo.getDescription());
@@ -169,6 +169,7 @@ public class VideoGridAdapter extends BaseAdapter {
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()
+                    .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(holder.iv_video);
             holder.tv_desc.setText(tecVideo.getDescription());
@@ -181,6 +182,7 @@ public class VideoGridAdapter extends BaseAdapter {
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()
+                    .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(holder.iv_video);
             holder.tv_desc.setText(funnyVideo.getDescription());
@@ -193,6 +195,7 @@ public class VideoGridAdapter extends BaseAdapter {
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()
+                    .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(holder.iv_video);
             holder.tv_desc.setText(ghotVideo.getDescription());
@@ -205,6 +208,7 @@ public class VideoGridAdapter extends BaseAdapter {
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()
+                    .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(holder.iv_video);
             holder.tv_desc.setText(tv.getDescription());
@@ -212,19 +216,5 @@ public class VideoGridAdapter extends BaseAdapter {
             holder.tv_comment.setText(tv.getComment()+"");
         }
         return convertView;
-    }
-
-    private ViewHolder initData(ViewHolder holder, int position) {
-        Glide.with(BaseApplication.getInstance())
-                .load(imgPath.get(position))
-                .placeholder(R.drawable.bili_drawerbg_logined)
-                .centerCrop()
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                .into(holder.iv_video);
-        holder.tv_desc.setText(titles.get(position));
-        holder.tv_play.setText(plays.get(position));
-        holder.tv_comment.setText(comments.get(position) + "");
-        return holder;
     }
 }

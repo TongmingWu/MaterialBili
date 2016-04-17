@@ -1,6 +1,5 @@
 package com.tongming.materialbili.adapter;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,25 +26,22 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
     private List<String> count;
     private Boolean flag = true;
 
-    private Context context;
 
-    public PanDramaVideoGridAdapter(List<String> imgPath, List<String> titles, List<String> date, Context context) {
+    public PanDramaVideoGridAdapter(List<String> imgPath, List<String> titles, List<String> date) {
         this.imgPath = imgPath;
         this.titles = titles;
         this.date = date;
-        this.context = context;
     }
 
-    public PanDramaVideoGridAdapter(List<String> imgPath, List<String> titles, List<String> date, List<String> count, Context context) {
+    public PanDramaVideoGridAdapter(List<String> imgPath, List<String> titles, List<String> date, List<String> count) {
         this.imgPath = imgPath;
         this.titles = titles;
         this.date = date;
         this.count = count;
-        this.context = context;
         flag = false;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         public ImageView iv_pic;
         public TextView tv_name;
         public TextView tv_num;
@@ -72,7 +68,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(context, R.layout.item_pan_card, null);
+            convertView = View.inflate(BaseApplication.getInstance(), R.layout.item_pan_card, null);
             holder.iv_pic = (ImageView) convertView.findViewById(R.id.iv_pan);
             holder.tv_name = (TextView) convertView.findViewById(R.id.pan_name);
             holder.tv_num = (TextView) convertView.findViewById(R.id.pan_num);
@@ -86,6 +82,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
                 .placeholder(R.drawable.bili_drawerbg_logined)
                 .centerCrop()
                 .crossFade()
+                .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(holder.iv_pic);
         holder.tv_name.setText(titles.get(position));
@@ -101,8 +98,8 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
         } else {
             holder.tv_num.setText("第" + count.get(position) + "话");
         }
-        /*String[] str = date.get(position).split(" ");
-        holder.tv_date.setText(str[1]);*/
+        String[] str = date.get(position).split(" ");
+        holder.tv_date.setText(str[1]);
         return convertView;
     }
 }

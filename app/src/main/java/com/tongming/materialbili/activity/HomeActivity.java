@@ -1,12 +1,12 @@
 package com.tongming.materialbili.activity;
 
+import android.app.ActivityManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
@@ -47,6 +47,7 @@ import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.ToastUtil;
 import com.tongming.materialbili.view.GlideGircleTransform;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     private final String TAG = "HOME";
-    private boolean isExit;
+    private static boolean isExit;
     private final String[] TAB = {"直播", "番剧", "推荐", "分区", "关注", "发现"};
     private TabLayout tabLayout;
     private DrawerLayout drawerLayout;
@@ -66,33 +67,46 @@ public class HomeActivity extends AppCompatActivity {
     private List<String> tabTitles = new ArrayList<>();
     private ViewPager mViewPager;
     private NavigationView navigationView;
-    private Handler handler = new Handler(Looper.getMainLooper()) {
+    private final MyHandler mHandler = new MyHandler(this);
+
+    private static class MyHandler extends Handler{
+        private final WeakReference<HomeActivity> mActivity;
+
+        private MyHandler(HomeActivity activity) {
+            mActivity = new WeakReference<HomeActivity>(activity);
+        }
+
         @Override
         public void handleMessage(Message msg) {
-            isExit = false;
-            switch (msg.what) {
-                case 0:
-                    User user = (User) msg.obj;
-                    mTv_coins.setText("硬币:" + user.getCoins());
-                    mUserName.setText(user.getName());
+            HomeActivity activity = mActivity.get();
+            if(activity!=null){
+                isExit = false;
+                switch (msg.what) {
+                    case 0:
+                        User user = (User) msg.obj;
+                        mTv_coins.setText("硬币:" + user.getCoins());
+                        mUserName.setText(user.getName());
+                }
             }
         }
-    };
+    }
     private SearchView mSearchView;
     private MenuItem menuItem;
     private SharedPreferences sharedPreferences;
     private InputMethodManager manager;
-    private TextView mTv_coins;
-    private TextView mUserName;
+    private static TextView mTv_coins;
+    private static TextView mUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //TranslucentUtil.translucentNavigation(HomeActivity.this);
-        DoRequest.getUserInfo(handler);
+        DoRequest.getUserInfo(mHandler);
         sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-        LogUtil.i(TAG, "HomeActivity执行onCreate()");
+        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        int heapSize = manager.getMemoryClass();
+        LogUtil.i(TAG,heapSize+"");
         initViews();
 
     }
@@ -345,7 +359,7 @@ public class HomeActivity extends AppCompatActivity {
         if (!isExit) {
             isExit = true;
             ToastUtil.showToast(HomeActivity.this, "再点一次退出");
-            handler.sendEmptyMessageDelayed(0, 2000);
+            mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
@@ -357,6 +371,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        mHandler.removeCallbacksAndMessages(null);
     }
 }

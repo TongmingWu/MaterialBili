@@ -35,7 +35,7 @@ public class SearchVideoAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    private class ViewHolder{
+    private static class ViewHolder{
         public ImageView img;
         public TextView title;
         public TextView up;
@@ -78,6 +78,7 @@ public class SearchVideoAdapter extends BaseAdapter {
                 .placeholder(R.drawable.bili_drawerbg_logined)
                 .centerCrop()
                 .crossFade()
+                .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(holder.img);
         holder.title.setText(title.get(position));

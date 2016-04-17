@@ -1,6 +1,5 @@
 package com.tongming.materialbili.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
  * Created by Tongming on 2016/3/20.
  */
 public abstract class BaseFragment extends Fragment {
-    protected Activity activity;
     protected View mRootView;
     protected boolean isVisible = false;
 
@@ -34,13 +32,6 @@ public abstract class BaseFragment extends Fragment {
     protected abstract int getLayoutId();
 
     protected abstract void afterCreate(Bundle saveInstanceState);
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = getActivity();
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

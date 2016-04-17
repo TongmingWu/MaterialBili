@@ -65,7 +65,7 @@ public class GridInListAdapter extends BaseAdapter {
         return 0;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         public VideoItemView itemView;
         public GridView gv;
 
@@ -127,7 +127,7 @@ public class GridInListAdapter extends BaseAdapter {
             }
             holder.itemView.setTvMore("查看更多");
             final List<LiveVideo.DataEntity.PartitionsEntity.LivesEntity> lives = partitionsEntity.get(position).getLives();
-            holder.gv.setAdapter(new LiveAdapter(lives, context));
+            holder.gv.setAdapter(new LiveAdapter(lives));
             holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -144,7 +144,7 @@ public class GridInListAdapter extends BaseAdapter {
                     holder.itemView.setIvView(R.drawable.ic_category_t3);
                     holder.itemView.setTvDesc("动画区");
                     holder.itemView.setTvMore("更多动画");
-                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getanimeVideos(), context, 0));
+                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getanimeVideos(), 0));
                     holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -160,7 +160,7 @@ public class GridInListAdapter extends BaseAdapter {
                     holder.itemView.setIvView(R.drawable.ic_category_t4);
                     holder.itemView.setTvDesc("音乐区");
                     holder.itemView.setTvMore("更多音乐");
-                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getmusics(), context, 1));
+                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getmusics(), 1));
                     holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -176,7 +176,7 @@ public class GridInListAdapter extends BaseAdapter {
                     holder.itemView.setIvView(R.drawable.ic_category_t5);
                     holder.itemView.setTvDesc("舞蹈区");
                     holder.itemView.setTvMore("更多舞蹈");
-                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getdanceVideos(), context, 2));
+                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getdanceVideos(), 2));
                     holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -192,7 +192,7 @@ public class GridInListAdapter extends BaseAdapter {
                     holder.itemView.setIvView(R.drawable.ic_category_t6);
                     holder.itemView.setTvDesc("游戏区");
                     holder.itemView.setTvMore("更多游戏");
-                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getgameVideos(), context, 3));
+                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getgameVideos(), 3));
                     holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -208,7 +208,7 @@ public class GridInListAdapter extends BaseAdapter {
                     holder.itemView.setIvView(R.drawable.ic_category_t7);
                     holder.itemView.setTvDesc("科技区");
                     holder.itemView.setTvMore("更多科技");
-                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.gettechnologyVideos(), context, 4));
+                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.gettechnologyVideos(), 4));
                     holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -224,7 +224,7 @@ public class GridInListAdapter extends BaseAdapter {
                     holder.itemView.setIvView(R.drawable.ic_category_t8);
                     holder.itemView.setTvDesc("娱乐区");
                     holder.itemView.setTvMore("更多娱乐");
-                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getfunnyVideos(), context, 5));
+                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getfunnyVideos(), 5));
                     holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -240,7 +240,7 @@ public class GridInListAdapter extends BaseAdapter {
                     holder.itemView.setIvView(R.drawable.ic_category_t9);
                     holder.itemView.setTvDesc("鬼畜区");
                     holder.itemView.setTvMore("更多鬼畜");
-                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getghotVideos(), context, 6));
+                    holder.gv.setAdapter(new VideoGridAdapter(hotVideo.getghotVideos(), 6));
                     holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

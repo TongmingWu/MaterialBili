@@ -45,7 +45,6 @@ public class DoRequest {
             .readTimeout(30, TimeUnit.SECONDS)
             .build();
     private static Gson gson = new GsonBuilder().create();
-    private Handler handler;
 
 
     //获取用户信息

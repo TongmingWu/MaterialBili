@@ -139,7 +139,7 @@ public class RecommendFragment extends BaseFragment {
                 date.add(hotVideo.getpanDramas().get(i).getCreate());
                 panAid.add(hotVideo.getpanDramas().get(i).getAid());
             }
-        gvHot.setAdapter(new VideoGridAdapter(hotVideo.gettvs(),getActivity(),7));
+        gvHot.setAdapter(new VideoGridAdapter(hotVideo.gettvs(),7));
         gvHot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -150,7 +150,7 @@ public class RecommendFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-        gvPan.setAdapter(new PanDramaVideoGridAdapter(panImages,titles,date,getActivity()));
+        gvPan.setAdapter(new PanDramaVideoGridAdapter(panImages,titles,date));
         gvPan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

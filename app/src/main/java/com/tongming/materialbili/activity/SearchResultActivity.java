@@ -98,33 +98,6 @@ public class SearchResultActivity extends AppCompatActivity {
         Map<String, String> map = new HashMap<>();
         map.put("content", search);
         DoRequest.doSearch(map,handler);
-        /*FormBody.Builder builder = new FormBody.Builder();
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            builder.add(entry.getKey(),entry.getValue());
-        }
-        RequestBody formBody = builder.build();
-        Request request = new Request.Builder()
-                .url(URLUtil.SEARCH_URL)
-                .post(formBody)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                LogUtil.i("Search","搜索失败");
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //LogUtil.i("Search",response.body().string());
-                String result = response.body().string();
-                Message msg = new Message();
-                msg.what = 0;
-                msg.obj = result;
-                SearchResultActivity.handler.sendMessage(msg);
-                LogUtil.i("Search","搜索成功");
-            }
-        });*/
     }
 
     private void initView() {

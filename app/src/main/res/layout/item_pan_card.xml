@@ -49,6 +49,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/pan_num"
             android:layout_marginRight="5dp"
+            android:textColor="#b000"
             android:textSize="12sp"
             android:text="上午10:40" />
     </RelativeLayout>

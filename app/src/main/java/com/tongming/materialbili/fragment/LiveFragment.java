@@ -139,7 +139,7 @@ public class LiveFragment extends BaseFragment {
                 .setPageIndicator(new int[]{R.drawable.point_bg_normal, R.drawable.point_bg_enable})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
         gv_live = (GridView) view.findViewById(R.id.gv_live);
-        gv_live.setAdapter(new IconGridAdapter(mItems, imagesId2, activity));
+        gv_live.setAdapter(new IconGridAdapter(mItems, imagesId2, BaseApplication.getInstance()));
 
         lvLive = (ListView) view.findViewById(R.id.lv_live);
 
@@ -149,7 +149,7 @@ public class LiveFragment extends BaseFragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
     }
 
-    public class NetworkImageHolderView implements Holder<String> {
+    private static class NetworkImageHolderView implements Holder<String> {
         private ImageView imageView;
 
         @Override
@@ -161,7 +161,7 @@ public class LiveFragment extends BaseFragment {
 
         @Override
         public void UpdateUI(Context context, int position, String data) {
-            Glide.with(activity).load(data).into(imageView);
+            Glide.with(BaseApplication.getInstance()).load(data).into(imageView);
         }
     }
 
