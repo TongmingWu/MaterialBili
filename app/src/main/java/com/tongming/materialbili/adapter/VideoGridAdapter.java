@@ -108,6 +108,7 @@ public class VideoGridAdapter extends BaseAdapter {
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
+            
             holder = (ViewHolder) convertView.getTag();
         }
         if (parent.getChildCount() == position) {

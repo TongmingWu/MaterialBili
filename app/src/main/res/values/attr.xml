@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="VideoItemView">
         <attr name="view_desc" format="string"/>
-        <attr name="view_src" format="reference"/>
+        <attr name="view_src" format="integer"/>
         <attr name="view_more" format="string"/>
     </declare-styleable>
 

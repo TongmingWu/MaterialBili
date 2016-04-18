@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.tongming.materialbili.R;
+import com.tongming.materialbili.model.HashKey;
+import com.tongming.materialbili.utils.JsoupLoginBilibili;
 import com.tongming.materialbili.utils.LoadNetImage;
 
 /**
@@ -40,6 +42,10 @@ public class LoginActivity extends Activity {
                     Bitmap bitmap = (Bitmap) msg.obj;
                     iv_vdcode.setImageBitmap(bitmap);
                     break;
+                case 1:
+                    HashKey key = (HashKey) msg.obj;
+                    JsoupLoginBilibili.okLogin(key, account, pwd, vdcode);
+                    break;
             }
         }
     };
@@ -55,14 +61,14 @@ public class LoginActivity extends Activity {
         iv_33 = (ImageView) findViewById(R.id.iv_33);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
         et_account = (EditText) findViewById(R.id.et_account);
-        et_account.setText(sharedPreferences.getString("userid",""));
+        et_account.setText(sharedPreferences.getString("userid", ""));
         et_vd = (EditText) findViewById(R.id.et_vd);
         initView();
     }
 
     private void initData() {
         account = et_account.getText().toString();
-        sharedPreferences.edit().putString("userid",account).apply();
+        sharedPreferences.edit().putString("userid", account).apply();
         pwd = et_pwd.getText().toString();
         vdcode = et_vd.getText().toString().toUpperCase();
     }
@@ -83,26 +89,25 @@ public class LoginActivity extends Activity {
         });
 
         //获取验证码
-        LoadNetImage.getVd(vdUrl,handler);
+        LoadNetImage.getVd(vdUrl, handler);
     }
 
     public void login(View view) {
         initData();
-        if (!TextUtils.isEmpty(account)&&!TextUtils.isEmpty(pwd)&&!TextUtils.isEmpty(vdcode)) {
+        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(vdcode)) {
             //第三方登录b站
             //JsoupLoginBilibili.login(account, pwd, vdcode);
             //JsoupLoginBilibili.okLogin(account,pwd,vdcode);
-            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-            sharedPreferences.edit().putBoolean("isLogin",true).apply();
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            sharedPreferences.edit().putBoolean("isLogin", true).apply();
         }
 
     }
 
 
-
     //换一换验证码
     public void changeVd(View view) {
-        LoadNetImage.getVd(vdUrl,handler);
+        LoadNetImage.getVd(vdUrl, handler);
     }
 
 

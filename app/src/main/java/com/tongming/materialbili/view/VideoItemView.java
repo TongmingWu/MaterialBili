@@ -25,7 +25,6 @@ public class VideoItemView extends LinearLayout {
     private TextView tvMore;
     private String more;
 
-
     public VideoItemView(Context context) {
         super(context);
     }

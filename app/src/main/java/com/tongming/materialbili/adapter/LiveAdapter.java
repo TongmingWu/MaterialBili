@@ -70,7 +70,7 @@ public class LiveAdapter extends BaseAdapter {
         if (position == parent.getChildCount()) {
             Glide.with(BaseApplication.getInstance())
                     .load(lives.get(position).getCover().getSrc())
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.bili_drawerbg_logined)
                     .centerCrop()
                     .crossFade()

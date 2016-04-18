@@ -67,7 +67,7 @@ public class VideoPlayActivity extends FragmentActivity {
                 case 0:
                     //获取弹幕文件成功
                     InputStream stream = (InputStream) msg.obj;
-                    player.play(url,stream);
+                    player.play(url, stream);
                     fab_video.setVisibility(View.GONE);
                     break;
                 case 1:
@@ -78,7 +78,6 @@ public class VideoPlayActivity extends FragmentActivity {
             }
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,12 +109,13 @@ public class VideoPlayActivity extends FragmentActivity {
     }
 
 
-    private void doRequest(){
+    private void doRequest() {
         String danmaku = URLUtil.getDanmaku(bundle.getString("cid"));
-        LogUtil.i(TAG,danmaku);
+        LogUtil.i(TAG, danmaku);
         //获取弹幕文件
-        DoRequest.getDanmaku(danmaku,handler);
+        DoRequest.getDanmaku(danmaku, handler);
     }
+
     //初始化播放器
     private void initPlayer() {
         Intent intent = getIntent();
@@ -215,7 +215,7 @@ public class VideoPlayActivity extends FragmentActivity {
                 rl_player.setVisibility(View.VISIBLE);
                 LogUtil.i(TAG, "执行了");
                 return false;
-            }else {
+            } else {
                 onBackPressed();
             }
         }

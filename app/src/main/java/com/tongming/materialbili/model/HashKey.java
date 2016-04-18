@@ -3,7 +3,7 @@ package com.tongming.materialbili.model;
 /**
  * Created by Tongming on 2016/4/5.
  */
-class HashKey {
+public class HashKey {
 
     private String hash;
     private String key;

@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.tongming.materialbili.model.AidVideo;
 import com.tongming.materialbili.model.Bangumi;
+import com.tongming.materialbili.model.HashKey;
 import com.tongming.materialbili.model.HotVideo;
 import com.tongming.materialbili.model.IndexBanner;
 import com.tongming.materialbili.model.LiveVideo;
@@ -48,7 +49,7 @@ public class DoRequest {
 
 
     //获取用户信息
-    public static void getUserInfo(final Handler handler){
+    public static void getUserInfo(final Handler handler) {
         final Request requestVideo = new Request.Builder().url(URLUtil.USER).build();
         client.newCall(requestVideo).enqueue(new Callback() {
             @Override
@@ -69,6 +70,7 @@ public class DoRequest {
             }
         });
     }
+
     //获取视频分类的信息
     public static void getHotVideo(final Handler handler) {
         final Request requestVideo = new Request.Builder().url(URLUtil.HOT_VIEDO).build();
@@ -288,7 +290,7 @@ public class DoRequest {
                 msg.what = 1;
                 handler.sendMessage(msg);
                 //ToastUtil.showToast(VideoPlayActivity.this,"获取弹幕失败- -");
-                LogUtil.i(TAG,"获取弹幕文件失败");
+                LogUtil.i(TAG, "获取弹幕文件失败");
             }
 
             @Override
@@ -296,12 +298,33 @@ public class DoRequest {
                 //数据经过Deflate压缩
                 InputStream stream = response.body().byteStream();
                 stream = new BufferedInputStream(stream);//缓冲
-                stream = new InflaterInputStream(stream,new Inflater(true));//解压,忽略zlib头
+                stream = new InflaterInputStream(stream, new Inflater(true));//解压,忽略zlib头
                 Message msg = handler.obtainMessage();
                 msg.what = 0;
                 msg.obj = stream;
                 handler.sendMessage(msg);
-                LogUtil.i(TAG,"获取弹幕文件成功");
+                LogUtil.i(TAG, "获取弹幕文件成功");
+            }
+        });
+    }
+
+    //获取hash值
+    public static void getHash(final Handler handler) {
+        Request request = new Request.Builder().url(URLUtil.KEY).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                HashKey hashKey = gson.fromJson(response.body().string(),new TypeToken<HashKey>(){}.getType());
+                Message msg = handler.obtainMessage();
+                msg.what = 1;
+                msg.obj = hashKey;
+                handler.sendMessage(msg);
+                LogUtil.i(TAG,"获取key成功");
             }
         });
     }
