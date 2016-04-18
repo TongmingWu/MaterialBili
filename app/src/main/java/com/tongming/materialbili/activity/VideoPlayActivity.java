@@ -23,12 +23,14 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.fragment.ProfileFragment;
 import com.tongming.materialbili.fragment.ReviewFragment;
 import com.tongming.materialbili.model.AidVideo;
+import com.tongming.materialbili.model.VideoUrl;
 import com.tongming.materialbili.network.DoRequest;
 import com.tongming.materialbili.player.GiraffePlayer;
 import com.tongming.materialbili.utils.LogUtil;
@@ -60,24 +62,42 @@ public class VideoPlayActivity extends FragmentActivity {
     private LinearLayout rl_player;
     private AppBarLayout appbar;
 
+    private static Handler mHandler;
     private Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    //获取弹幕文件成功
-                    InputStream stream = (InputStream) msg.obj;
-                    player.play(url, stream);
-                    fab_video.setVisibility(View.GONE);
+                    Bundle msgBundle = msg.getData();
+                    String cid = msgBundle.getString("cid");
+                    video = msgBundle.getParcelable("video");
+                    initPlayer();
+                    Message fMsg = mHandler.obtainMessage();
+                    fMsg.what = 0;
+                    fMsg.obj = video;
+                    mHandler.sendMessage(fMsg);
+                    DoRequest.getUrl(cid, handler);
                     break;
                 case 1:
+                    VideoUrl videoUrl = (VideoUrl) msg.obj;
+                    url = videoUrl.getUrl();
+                    mRlLater.setVisibility(View.GONE);
+                    break;
+                case 2:
+                    //获取弹幕文件成功
+                    InputStream stream = (InputStream) msg.obj;
+                    player.play(VideoPlayActivity.this.url, stream);
+                    fab_video.setVisibility(View.GONE);
+                    break;
+                case 3:
                     //获取弹幕文件失败
-                    player.play(url);
+                    player.play(VideoPlayActivity.this.url);
                     fab_video.setVisibility(View.GONE);
                     break;
             }
         }
     };
+    private RelativeLayout mRlLater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +106,6 @@ public class VideoPlayActivity extends FragmentActivity {
         //TranslucentUtil.translucentNavigation(VideoPlayActivity.this);
         vp_video = (ViewPager) findViewById(R.id.vp_video);
         fab_video = (FloatingActionButton) findViewById(R.id.fab_play);
-        initPlayer();
         initData();
         initView();
         playVideo();
@@ -118,18 +137,12 @@ public class VideoPlayActivity extends FragmentActivity {
 
     //初始化播放器
     private void initPlayer() {
-        Intent intent = getIntent();
-        bundle = intent.getExtras();
-        video = (AidVideo) bundle.getParcelable("video");
-        review = video.getReview();
-        url = bundle.getString("urlVideo");
         player = new GiraffePlayer(VideoPlayActivity.this);
         player.setTitle(video.getTitle());
     }
 
-    //使fragment获得视频的具体信息
-    public Bundle getInfo() {
-        return bundle;
+    public void setHandler(Handler handler) {
+        mHandler = handler;
     }
 
     private void initData() {
@@ -137,6 +150,11 @@ public class VideoPlayActivity extends FragmentActivity {
         fragmentList.add(new ReviewFragment());
         titleList.add("简介");
         titleList.add("评论(" + review + ")");
+
+        Intent intent = getIntent();
+        bundle = intent.getExtras();
+        String aid = bundle.getString("aid");
+        DoRequest.getCid(aid, handler);
     }
 
     private void initView() {
@@ -145,6 +163,7 @@ public class VideoPlayActivity extends FragmentActivity {
         rl_player = (LinearLayout) findViewById(R.id.rl_player);
         tabLayout = (TabLayout) findViewById(R.id.tl_video);
         tabLayout.setupWithViewPager(vp_video);
+        mRlLater = (RelativeLayout) findViewById(R.id.rl_later);
     }
 
     private void initViewPager() {

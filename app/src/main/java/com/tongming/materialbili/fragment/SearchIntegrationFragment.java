@@ -1,6 +1,7 @@
 package com.tongming.materialbili.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +14,7 @@ import android.widget.ListView;
 import com.squareup.leakcanary.RefWatcher;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.activity.SearchResultActivity;
-import com.tongming.materialbili.activity.VideoPreActivity;
+import com.tongming.materialbili.activity.VideoPlayActivity;
 import com.tongming.materialbili.adapter.SearchVideoAdapter;
 import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.base.BaseFragment;
@@ -78,7 +79,7 @@ public class SearchIntegrationFragment extends BaseFragment {
         lv_integration.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), VideoPreActivity.class);
+                Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("aid",aid.get(position));
                 intent.putExtras(bundle);
@@ -97,10 +98,12 @@ public class SearchIntegrationFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        SearchResultActivity mActivity = (SearchResultActivity) activity;
-        mActivity.setHandler(handler);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof Activity){
+            SearchResultActivity mActivity = (SearchResultActivity) context;
+            mActivity.setHandler(handler);
+        }
     }
 
     @Override

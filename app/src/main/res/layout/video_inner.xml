@@ -1,63 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cl_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        >
-
-        <include
-            layout="@layout/giraffe_player"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
-        android:id="@+id/rl_player"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/cl_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true">
 
-        <android.support.v7.widget.CardView
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="210dp"
+            >
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tl_video"
+            <include
+                layout="@layout/giraffe_player"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                app:tabMaxWidth="100dp"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextColor="@android:color/black"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-        </android.support.v7.widget.CardView>
+                android:layout_height="match_parent"/>
+        </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_video"
+        <LinearLayout
+            android:id="@+id/rl_player"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_fab_play"
-        app:backgroundTint="@color/colorPrimary"
-        app:backgroundTintMode="multiply"
-        app:fabSize="normal"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|end|right"
-        app:rippleColor="@color/colorPrimaryDark" />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tl_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    app:tabMaxWidth="100dp"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextColor="@android:color/black"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_video"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_fab_play"
+            app:backgroundTint="@color/colorPrimary"
+            app:backgroundTintMode="multiply"
+            app:fabSize="normal"
+            app:layout_anchor="@id/appbar"
+            app:layout_anchorGravity="bottom|end|right"
+            app:rippleColor="@color/colorPrimaryDark"/>
 
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+    <RelativeLayout
+        android:id="@+id/rl_later"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@android:color/white">
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seekBar"
+            android:textSize="16sp"
+            android:textColor="@color/font_black"
+            android:text="请稍候..."/>
+    </RelativeLayout>
+</FrameLayout>

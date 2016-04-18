@@ -1,6 +1,11 @@
 package com.tongming.materialbili.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +31,6 @@ import com.tongming.materialbili.view.GlideGircleTransform;
 public class ProfileFragment extends BaseFragment {
 
     private View view;
-    private Bundle bundle;
     private TextView tv_title;
     private TextView tv_play;
     private TextView tv_comment;
@@ -35,7 +39,19 @@ public class ProfileFragment extends BaseFragment {
     private TextView tv_collect;
     private TextView tv_author;
     private ImageView iv_author;
-    private String aid;
+
+    private Handler mHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    video = (AidVideo) msg.obj;
+                    initData();
+                    break;
+            }
+        }
+    };
+    private AidVideo video;
 
     @Nullable
     @Override
@@ -51,10 +67,8 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     protected void afterCreate(Bundle saveInstanceState) {
-        bundle = ((VideoPlayActivity)getActivity()).getInfo();
         initView();
-        initData();
-        LogUtil.i("pro","开始执行");
+        LogUtil.i("pro", "开始执行");
     }
 
     @Override
@@ -62,7 +76,7 @@ public class ProfileFragment extends BaseFragment {
 
     }
 
-    private void initView(){
+    private void initView() {
         iv_author = (ImageView) view.findViewById(R.id.author_face);
         tv_title = (TextView) view.findViewById(R.id.page_title);
         tv_play = (TextView) view.findViewById(R.id.page_play);
@@ -73,9 +87,8 @@ public class ProfileFragment extends BaseFragment {
         tv_author = (TextView) view.findViewById(R.id.tv_author);
     }
 
-    private void initData(){
-        aid = bundle.getString("aid");
-        AidVideo video = bundle.getParcelable("video");
+    private void initData() {
+        //aid = bundle.getString("aid");
         tv_title.setText(video.getTitle());
         tv_play.setText(video.getPlay());
         tv_comment.setText(video.getVideo_review());
@@ -83,11 +96,20 @@ public class ProfileFragment extends BaseFragment {
         tv_coins.setText(video.getCoins());
         tv_collect.setText(video.getFavorites());
         tv_author.setText(video.getAuthor());
-        Glide.with(this).load(video.getFace())
+        Glide.with(BaseApplication.getInstance()).load(video.getFace())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .transform(new GlideGircleTransform(getActivity()))
                 .into(iv_author);
         //LoadNetImage.getVd(video.getFace(),handler);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof Activity){
+            VideoPlayActivity mActivity = (VideoPlayActivity) context;
+            mActivity.setHandler(mHandler);
+        }
     }
 
     @Override

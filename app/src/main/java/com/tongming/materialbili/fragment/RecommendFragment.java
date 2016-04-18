@@ -23,7 +23,7 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.squareup.leakcanary.RefWatcher;
 import com.tongming.materialbili.R;
-import com.tongming.materialbili.activity.VideoPreActivity;
+import com.tongming.materialbili.activity.VideoPlayActivity;
 import com.tongming.materialbili.adapter.GridInListAdapter;
 import com.tongming.materialbili.adapter.PanDramaVideoGridAdapter;
 import com.tongming.materialbili.adapter.VideoGridAdapter;
@@ -146,7 +146,7 @@ public class RecommendFragment extends BaseFragment {
         gvHot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), VideoPreActivity.class);
+                Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("aid",hotVideo.gettvs().get(position).getAid());
                 intent.putExtras(bundle);
@@ -157,7 +157,7 @@ public class RecommendFragment extends BaseFragment {
         gvPan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), VideoPreActivity.class);
+                Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("aid",panAid.get(position));
                 intent.putExtras(bundle);

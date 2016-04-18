@@ -11,7 +11,7 @@ import android.widget.GridView;
 
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.activity.LivePlayActivity;
-import com.tongming.materialbili.activity.VideoPreActivity;
+import com.tongming.materialbili.activity.VideoPlayActivity;
 import com.tongming.materialbili.model.Bangumi;
 import com.tongming.materialbili.model.HotVideo;
 import com.tongming.materialbili.model.LiveVideo;
@@ -153,7 +153,7 @@ public class GridInListAdapter extends BaseAdapter {
                             holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(context, VideoPreActivity.class);
+                                    Intent intent = new Intent(context, VideoPlayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("aid", hotVideo.getanimeVideos().get(position).getAid());
                                     intent.putExtras(bundle);
@@ -171,7 +171,7 @@ public class GridInListAdapter extends BaseAdapter {
                             holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(context, VideoPreActivity.class);
+                                    Intent intent = new Intent(context, VideoPlayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("aid", hotVideo.getmusics().get(position).getAid());
                                     intent.putExtras(bundle);
@@ -189,7 +189,7 @@ public class GridInListAdapter extends BaseAdapter {
                             holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(context, VideoPreActivity.class);
+                                    Intent intent = new Intent(context, VideoPlayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("aid", hotVideo.getdanceVideos().get(position).getAid());
                                     intent.putExtras(bundle);
@@ -207,7 +207,7 @@ public class GridInListAdapter extends BaseAdapter {
                             holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(context, VideoPreActivity.class);
+                                    Intent intent = new Intent(context, VideoPlayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("aid", hotVideo.getgameVideos().get(position).getAid());
                                     intent.putExtras(bundle);
@@ -225,7 +225,7 @@ public class GridInListAdapter extends BaseAdapter {
                             holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(context, VideoPreActivity.class);
+                                    Intent intent = new Intent(context, VideoPlayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("aid", hotVideo.gettechnologyVideos().get(position).getAid());
                                     intent.putExtras(bundle);
@@ -243,7 +243,7 @@ public class GridInListAdapter extends BaseAdapter {
                             holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(context, VideoPreActivity.class);
+                                    Intent intent = new Intent(context, VideoPlayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("aid", hotVideo.getfunnyVideos().get(position).getAid());
                                     intent.putExtras(bundle);
@@ -261,7 +261,7 @@ public class GridInListAdapter extends BaseAdapter {
                             holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(context, VideoPreActivity.class);
+                                    Intent intent = new Intent(context, VideoPlayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("aid", hotVideo.getghotVideos().get(position).getAid());
                                     intent.putExtras(bundle);

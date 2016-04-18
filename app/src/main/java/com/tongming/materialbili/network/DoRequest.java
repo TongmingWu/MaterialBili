@@ -287,7 +287,7 @@ public class DoRequest {
             @Override
             public void onFailure(Call call, IOException e) {
                 Message msg = handler.obtainMessage();
-                msg.what = 1;
+                msg.what = 3;
                 handler.sendMessage(msg);
                 //ToastUtil.showToast(VideoPlayActivity.this,"获取弹幕失败- -");
                 LogUtil.i(TAG, "获取弹幕文件失败");
@@ -300,7 +300,7 @@ public class DoRequest {
                 stream = new BufferedInputStream(stream);//缓冲
                 stream = new InflaterInputStream(stream, new Inflater(true));//解压,忽略zlib头
                 Message msg = handler.obtainMessage();
-                msg.what = 0;
+                msg.what = 2;
                 msg.obj = stream;
                 handler.sendMessage(msg);
                 LogUtil.i(TAG, "获取弹幕文件成功");
