@@ -76,6 +76,11 @@ public class URLUtil {
         return "http://comment.bilibili.cn/" + cid + ".xml";
     }
 
+    //获取评论
+    public static String getReview(String aid){
+        return "http://api.bilibili.cn/feedback?aid="+aid+"&ver=2";
+    }
+
     //获取直播视频
     public static final String LIVEVIDEO = "http://live.bilibili.com/api/playurl?player=1&quality=0&cid=";
 }

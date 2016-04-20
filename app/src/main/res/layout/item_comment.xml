@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_left"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/face_comment"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            />
+
+        <ImageView
+            android:id="@+id/level_comment"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/face_comment"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/user_comment"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/rl_left"
+        android:textColor="@color/font_black"
+        tools:text="评论者名字"/>
+
+    <TextView
+        android:id="@+id/floor_comment"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rl_left"
+        android:layout_below="@id/user_comment"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/font_black"
+        tools:text="18l"/>
+
+    <TextView
+        android:id="@+id/date_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_comment"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/floor_comment"
+        android:textColor="@color/font_black"
+        tools:text="12:10:20"/>
+
+    <TextView
+        android:id="@+id/msg_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/floor_comment"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:layout_toRightOf="@id/rl_left"
+        android:textColor="@color/font_black"
+        tools:text="评论评论评论"/>
+
+    <ImageView
+        android:id="@+id/iv_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/tv_reply"
+        android:src="@drawable/ic_feedback_grey"/>
+
+    <TextView
+        android:id="@id/tv_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/iv_good"
+        android:textColor="@color/font_black"
+        tools:text="10"/>
+
+    <ImageView
+        android:id="@id/iv_good"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/tv_good"
+        android:src="@drawable/ic_feedback_support"/>
+
+    <TextView
+        android:id="@id/tv_good"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/comment_more"
+        android:textColor="@color/font_black"
+        tools:text="15"/>
+
+    <ImageView
+        android:id="@id/comment_more"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+        android:backgroundTint="@android:color/darker_gray"/>
+
+</RelativeLayout>

@@ -63,6 +63,7 @@ public class VideoPlayActivity extends FragmentActivity {
     private AppBarLayout appbar;
 
     private static Handler mHandler;
+    private static Handler reviewHandler;
     private Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
@@ -72,6 +73,11 @@ public class VideoPlayActivity extends FragmentActivity {
                     String cid = msgBundle.getString("cid");
                     video = msgBundle.getParcelable("video");
                     initPlayer();
+                    initViewPager();
+                    Message rMsg = reviewHandler.obtainMessage();
+                    rMsg.what = 0;
+                    rMsg.obj = aid;
+                    reviewHandler.sendMessage(rMsg);
                     Message fMsg = mHandler.obtainMessage();
                     fMsg.what = 0;
                     fMsg.obj = video;
@@ -98,6 +104,7 @@ public class VideoPlayActivity extends FragmentActivity {
         }
     };
     private RelativeLayout mRlLater;
+    private String aid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,29 +151,30 @@ public class VideoPlayActivity extends FragmentActivity {
     public void setHandler(Handler handler) {
         mHandler = handler;
     }
+    public void setReviewHandler(Handler handler) {
+        reviewHandler = handler;
+    }
 
     private void initData() {
-        fragmentList.add(new ProfileFragment());
-        fragmentList.add(new ReviewFragment());
-        titleList.add("简介");
-        titleList.add("评论(" + review + ")");
-
         Intent intent = getIntent();
         bundle = intent.getExtras();
-        String aid = bundle.getString("aid");
+        aid = bundle.getString("aid");
         DoRequest.getCid(aid, handler);
     }
 
     private void initView() {
-        initViewPager();
+        //initViewPager();
         appbar = (AppBarLayout) findViewById(R.id.appbar);
         rl_player = (LinearLayout) findViewById(R.id.rl_player);
         tabLayout = (TabLayout) findViewById(R.id.tl_video);
-        tabLayout.setupWithViewPager(vp_video);
         mRlLater = (RelativeLayout) findViewById(R.id.rl_later);
     }
 
     private void initViewPager() {
+        fragmentList.add(new ProfileFragment());
+        fragmentList.add(new ReviewFragment());
+        titleList.add("简介");
+        titleList.add("评论(" + video.getReview() + ")");
         vp_video.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public CharSequence getPageTitle(int position) {
@@ -183,6 +191,7 @@ public class VideoPlayActivity extends FragmentActivity {
                 return fragmentList.size();
             }
         });
+        tabLayout.setupWithViewPager(vp_video);
     }
 
     @Override

@@ -12,7 +12,7 @@ import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -47,6 +47,7 @@ import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.ToastUtil;
 import com.tongming.materialbili.view.GlideGircleTransform;
 
+import java.io.BufferedReader;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -68,6 +69,8 @@ public class HomeActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private NavigationView navigationView;
     private final MyHandler mHandler = new MyHandler(this);
+    private BufferedReader bin;
+    private static boolean flag;
 
     private static class MyHandler extends Handler{
         private final WeakReference<HomeActivity> mActivity;
@@ -83,9 +86,12 @@ public class HomeActivity extends AppCompatActivity {
                 isExit = false;
                 switch (msg.what) {
                     case 0:
-                        User user = (User) msg.obj;
-                        mTv_coins.setText("硬币:" + user.getCoins());
-                        mUserName.setText(user.getName());
+                        if(!flag){
+                            User user = (User) msg.obj;
+                            mTv_coins.setText("硬币:" + user.getCoins());
+                            mUserName.setText(user.getName());
+                            flag = true;
+                        }
                 }
             }
         }
@@ -108,6 +114,7 @@ public class HomeActivity extends AppCompatActivity {
         LogUtil.i(TAG,heapSize+"");
         initViews();
 
+        //测试
     }
 
     //初始化控件
@@ -138,7 +145,7 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             mViewPager = (ViewPager) findViewById(R.id.viewpager);
             //mViewPager.setOffscreenPageLimit(5);//缓存的数量
-            mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
 
                 @Override
                 public void destroyItem(ViewGroup container, int position, Object object) {

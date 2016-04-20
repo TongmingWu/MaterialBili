@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.tongming.materialbili.model.AidVideo;
 import com.tongming.materialbili.model.Bangumi;
+import com.tongming.materialbili.model.Comment;
 import com.tongming.materialbili.model.HashKey;
 import com.tongming.materialbili.model.HotVideo;
 import com.tongming.materialbili.model.IndexBanner;
@@ -19,10 +20,15 @@ import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.URLUtil;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
@@ -308,6 +314,89 @@ public class DoRequest {
         });
     }
 
+    //获取评论
+    public static void getComment(String aid, final Handler handler) {
+        LogUtil.i(TAG,URLUtil.getReview(aid));
+        new Thread(new Runnable() {
+            BufferedReader bin;
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("http://api.bilibili.cn/feedback?aid=4401573&ver=2");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestProperty("Accept-Encoding", "gzip,deflate");
+                    conn.connect();
+                    LogUtil.i(TAG,conn.getContentEncoding()+"");
+                    InputStream in = conn.getInputStream();
+
+                    GZIPInputStream gzin = new GZIPInputStream(in);
+
+                    bin = new BufferedReader(new InputStreamReader(gzin, "GB2312"));
+                    String s = null;
+                    StringBuilder sb = new StringBuilder();
+                    while((s= bin.readLine())!=null){
+                        sb.append(s);
+                    }
+                    LogUtil.i(TAG,sb.toString());
+                    Comment comment = gson.fromJson(
+                            sb.toString(),
+                            new TypeToken<Comment>() {
+                            }.getType()
+                    );
+                    Message msg = handler.obtainMessage();
+                    msg.what = 1;
+                    msg.obj = comment;
+                    handler.sendMessage(msg);
+                    LogUtil.i(TAG, "获取评论信息成功");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    bin.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        /*Request request = new Request.Builder().url(URLUtil.getDanmaku(aid))
+                .addHeader("Accept-Encoding","gzip,deflate")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                LogUtil.i(TAG, "获取评论失败");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //评论经过gzip压缩
+                InputStream stream = response.body().byteStream();
+                stream = new BufferedInputStream(stream);//缓冲
+                stream = new GZIPInputStream(stream);
+                GZIPInputStream gzin = new GZIPInputStream(stream);
+
+                BufferedReader bin = new BufferedReader(new InputStreamReader(gzin, "GB2312"));
+                String s = null;
+                StringBuilder sb = new StringBuilder();
+                while((s= bin.readLine())!=null){
+                    sb.append(s);
+                }
+                LogUtil.i(TAG,sb.toString());
+                *//*Comment comment = gson.fromJson(
+                        sb.toString(),
+                        new TypeToken<Comment>() {
+                        }.getType()
+                );*/
+               /* Message msg = handler.obtainMessage();
+                msg.what = 1;
+                msg.obj = comment;
+                handler.sendMessage(msg);*//*
+                LogUtil.i(TAG, "获取评论信息成功");
+            }
+        });*/
+    }
+
+
     //获取hash值
     public static void getHash(final Handler handler) {
         Request request = new Request.Builder().url(URLUtil.KEY).build();
@@ -319,12 +408,13 @@ public class DoRequest {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                HashKey hashKey = gson.fromJson(response.body().string(),new TypeToken<HashKey>(){}.getType());
+                HashKey hashKey = gson.fromJson(response.body().string(), new TypeToken<HashKey>() {
+                }.getType());
                 Message msg = handler.obtainMessage();
                 msg.what = 1;
                 msg.obj = hashKey;
                 handler.sendMessage(msg);
-                LogUtil.i(TAG,"获取key成功");
+                LogUtil.i(TAG, "获取key成功");
             }
         });
     }

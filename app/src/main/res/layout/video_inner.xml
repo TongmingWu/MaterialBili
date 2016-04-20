@@ -51,6 +51,42 @@
                 android:layout_height="match_parent"/>
         </LinearLayout>
 
+        <!--<android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ic_emoji"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_emoji"
+                    android:backgroundTint="@color/colorPrimary"/>
+
+                <EditText
+                    android:id="@+id/et_msg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_toEndOf="@id/ic_emoji"
+                    android:layout_weight="1"
+                    android:hint="请留下点什么..."
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/et_msg"
+                    android:src="@drawable/ic_send_grey"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>-->
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_play"
             android:layout_width="wrap_content"
@@ -64,24 +100,26 @@
             app:layout_anchorGravity="bottom|end|right"
             app:rippleColor="@color/colorPrimaryDark"/>
 
-
     </android.support.design.widget.CoordinatorLayout>
+
     <RelativeLayout
         android:id="@+id/rl_later"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:gravity="center">
+
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/seekBar"
-            android:textSize="16sp"
+            android:text="请稍候..."
             android:textColor="@color/font_black"
-            android:text="请稍候..."/>
+            android:textSize="16sp"/>
     </RelativeLayout>
 </FrameLayout>

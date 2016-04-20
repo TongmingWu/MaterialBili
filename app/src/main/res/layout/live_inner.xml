@@ -122,11 +122,11 @@
                 android:layout_marginTop="8dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
-        <!--<RelativeLayout
+        <!--<include
+            layout="@layout/send_msg"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom">
-
-        </RelativeLayout>-->
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            />-->
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
