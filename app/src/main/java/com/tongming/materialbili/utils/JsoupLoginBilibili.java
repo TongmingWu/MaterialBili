@@ -66,7 +66,7 @@ public class JsoupLoginBilibili {
                             .execute();
 
                     //带着cookies访问需要的网址
-                    *//**//**//**//**//**//**//**//*Document document = Jsoup.connect("http://www.bilibili.com")
+                    Document document = Jsoup.connect("http://www.bilibili.com")
                             .cookies(login.cookies()).get();*//**//**//**//**//**//**//*
                     LogUtil.i("Login", login.statusCode() + "");
                     LogUtil.i("Login", login.body());

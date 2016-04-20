@@ -58,7 +58,7 @@ public class CommentAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (hot != null) {
-            return 3;
+            return 2;
         } else {
             return normal.size();
         }

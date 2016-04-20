@@ -17,6 +17,7 @@ import com.tongming.materialbili.adapter.CommentAdapter;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.Comment;
 import com.tongming.materialbili.network.DoRequest;
+import com.tongming.materialbili.utils.ListViewUtil;
 import com.tongming.materialbili.view.CusListView;
 
 /**
@@ -55,6 +56,8 @@ public class ReviewFragment extends BaseFragment {
     private void initData(){
         mHotComment.setAdapter(new CommentAdapter(mComment.getHotList(),0));
         mNormalComment.setAdapter(new CommentAdapter(mComment.getList(),1));
+        ListViewUtil.setListViewHeightBasedOnChildren(mHotComment);
+        ListViewUtil.setListViewHeightBasedOnChildren(mNormalComment);
     }
 
     private void initView(){
