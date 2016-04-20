@@ -30,7 +30,7 @@ public class VideoGridAdapter extends BaseAdapter {
     private List<HotVideo.TechnologyVideo> tec;
     private List<HotVideo.FunnyVideo> fun;
     private List<HotVideo.GhotVideo> ghot;
-    private List<HotVideo.TV> tvs;
+    private List<HotVideo.Movie> tvs;
     private int type;
 
     public VideoGridAdapter(List<?> list, int type) {
@@ -58,7 +58,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 this.ghot = (List<HotVideo.GhotVideo>) list;
                 break;
             case 7:
-                this.tvs = (List<HotVideo.TV>) list;
+                this.tvs = (List<HotVideo.Movie>) list;
                 break;
         }
         this.type = type;
@@ -204,7 +204,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 holder.tv_play.setText(ghotVideo.getPlay());
                 holder.tv_comment.setText(ghotVideo.getComment() + "");
             } else if (tvs != null) {
-                HotVideo.TV tv = tvs.get(position);
+                HotVideo.Movie tv = tvs.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(tv.getPic())
                         .placeholder(R.drawable.bili_drawerbg_logined)

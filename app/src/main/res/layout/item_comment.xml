@@ -71,8 +71,8 @@
 
     <ImageView
         android:id="@+id/iv_reply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@+id/tv_reply"
         android:src="@drawable/ic_feedback_grey"/>
@@ -88,8 +88,8 @@
 
     <ImageView
         android:id="@id/iv_good"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@+id/tv_good"
         android:src="@drawable/ic_feedback_support"/>

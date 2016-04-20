@@ -337,7 +337,7 @@ public class DoRequest {
                     while((s= bin.readLine())!=null){
                         sb.append(s);
                     }
-                    LogUtil.i(TAG,sb.toString());
+                    //LogUtil.i(TAG,sb.toString());
                     Comment comment = gson.fromJson(
                             sb.toString(),
                             new TypeToken<Comment>() {

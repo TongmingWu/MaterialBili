@@ -184,7 +184,7 @@ public class CommentAdapter extends BaseAdapter {
                         break;
                 }
                 holder.name.setText(normal.get(position).getNick());
-                holder.floor.setText(normal.get(position).getLv() + "");
+                holder.floor.setText("#"+normal.get(position).getLv() + "");
                 holder.date.setText(normal.get(position).getCreate_at());
                 holder.msg.setText(normal.get(position).getMsg());
                 holder.reply.setText(normal.get(position).getReply_count() + "");

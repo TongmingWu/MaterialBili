@@ -142,13 +142,13 @@ public class RecommendFragment extends BaseFragment {
                 date.add(hotVideo.getpanDramas().get(i).getCreate());
                 panAid.add(hotVideo.getpanDramas().get(i).getAid());
             }
-        gvHot.setAdapter(new VideoGridAdapter(hotVideo.gettvs(),7));
+        gvHot.setAdapter(new VideoGridAdapter(hotVideo.getmovies(),7));
         gvHot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("aid",hotVideo.gettvs().get(position).getAid());
+                bundle.putString("aid",hotVideo.getmovies().get(position).getAid());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
