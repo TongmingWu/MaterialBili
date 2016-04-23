@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -31,10 +30,9 @@ import com.tongming.materialbili.fragment.ProfileFragment;
 import com.tongming.materialbili.fragment.ReviewFragment;
 import com.tongming.materialbili.model.AidVideo;
 import com.tongming.materialbili.model.VideoUrl;
-import com.tongming.materialbili.network.DoRequest;
 import com.tongming.materialbili.player.GiraffePlayer;
+import com.tongming.materialbili.presenter.VideoPlayPresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.utils.URLUtil;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -43,7 +41,7 @@ import java.util.List;
 /**
  * Created by Tongming on 2016/3/20.
  */
-public class VideoPlayActivity extends FragmentActivity {
+public class VideoPlayActivity extends FragmentActivity implements IVideoPlayView {
 
     private static final String TAG = "Play";
     private GiraffePlayer player;
@@ -64,47 +62,10 @@ public class VideoPlayActivity extends FragmentActivity {
 
     private static Handler mHandler;
     private static Handler reviewHandler;
-    private Handler handler = new Handler(Looper.getMainLooper()) {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    Bundle msgBundle = msg.getData();
-                    String cid = msgBundle.getString("cid");
-                    video = msgBundle.getParcelable("video");
-                    initPlayer();
-                    initViewPager();
-                    Message rMsg = reviewHandler.obtainMessage();
-                    rMsg.what = 0;
-                    rMsg.obj = aid;
-                    reviewHandler.sendMessage(rMsg);
-                    Message fMsg = mHandler.obtainMessage();
-                    fMsg.what = 0;
-                    fMsg.obj = video;
-                    mHandler.sendMessage(fMsg);
-                    DoRequest.getUrl(cid, handler);
-                    break;
-                case 1:
-                    VideoUrl videoUrl = (VideoUrl) msg.obj;
-                    url = videoUrl.getUrl();
-                    mRlLater.setVisibility(View.GONE);
-                    break;
-                case 2:
-                    //获取弹幕文件成功
-                    InputStream stream = (InputStream) msg.obj;
-                    player.play(VideoPlayActivity.this.url, stream);
-                    fab_video.setVisibility(View.GONE);
-                    break;
-                case 3:
-                    //获取弹幕文件失败
-                    player.play(VideoPlayActivity.this.url);
-                    fab_video.setVisibility(View.GONE);
-                    break;
-            }
-        }
-    };
+
     private RelativeLayout mRlLater;
     private String aid;
+    private VideoPlayPresenterCompl mPlayPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +74,8 @@ public class VideoPlayActivity extends FragmentActivity {
         //TranslucentUtil.translucentNavigation(VideoPlayActivity.this);
         vp_video = (ViewPager) findViewById(R.id.vp_video);
         fab_video = (FloatingActionButton) findViewById(R.id.fab_play);
-        initData();
         initView();
+        initData();
         playVideo();
     }
 
@@ -125,21 +86,13 @@ public class VideoPlayActivity extends FragmentActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    doRequest();
+                    mPlayPresenter.getComment(video.getList().getZero().getCid()+"");
                     fab_video.startAnimation(fabAnimation);
                     return true;
                 }
                 return true;
             }
         });
-    }
-
-
-    private void doRequest() {
-        String danmaku = URLUtil.getDanmaku(bundle.getString("cid"));
-        LogUtil.i(TAG, danmaku);
-        //获取弹幕文件
-        DoRequest.getDanmaku(danmaku, handler);
     }
 
     //初始化播放器
@@ -159,7 +112,8 @@ public class VideoPlayActivity extends FragmentActivity {
         Intent intent = getIntent();
         bundle = intent.getExtras();
         aid = bundle.getString("aid");
-        DoRequest.getCid(aid, handler);
+        //DoRequest.getCid(aid, handler);
+        mPlayPresenter.getInfo(aid);
     }
 
     private void initView() {
@@ -168,6 +122,8 @@ public class VideoPlayActivity extends FragmentActivity {
         rl_player = (LinearLayout) findViewById(R.id.rl_player);
         tabLayout = (TabLayout) findViewById(R.id.tl_video);
         mRlLater = (RelativeLayout) findViewById(R.id.rl_later);
+
+        mPlayPresenter = new VideoPlayPresenterCompl(this);
     }
 
     private void initViewPager() {
@@ -269,9 +225,45 @@ public class VideoPlayActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        //handler.removeCallbacksAndMessages(null);
         if (player != null) {
             player.onDestroy();
         }
+    }
+
+    @Override
+    public void onGetVideoInfo(AidVideo video) {
+        this.video = video;
+        initPlayer();
+        initViewPager();
+        Message rMsg = reviewHandler.obtainMessage();
+        rMsg.what = 0;
+        rMsg.obj = aid;
+        reviewHandler.sendMessage(rMsg);
+        Message fMsg = mHandler.obtainMessage();
+        fMsg.what = 0;
+        fMsg.obj = video;
+        mHandler.sendMessage(fMsg);
+        //DoRequest.getUrl(cid, handler);
+        mPlayPresenter.getUrl(video.getList().getZero().getCid()+"");
+    }
+
+    @Override
+    public void onGetUrl(VideoUrl videoUrl) {
+        url = videoUrl.getUrl();
+        mRlLater.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onGetCommentFail() {
+        //获取弹幕文件失败
+        player.play(VideoPlayActivity.this.url);
+        fab_video.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onGetCommentSuccess(InputStream stream) {
+        player.play(VideoPlayActivity.this.url, stream);
+        fab_video.setVisibility(View.GONE);
     }
 }

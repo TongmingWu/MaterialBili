@@ -1,23 +1,18 @@
 package com.tongming.materialbili.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
-import com.bumptech.glide.Glide;
 import com.squareup.leakcanary.RefWatcher;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.adapter.PanDramaVideoGridAdapter;
@@ -25,8 +20,9 @@ import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.Bangumi;
 import com.tongming.materialbili.model.IndexBanner;
-import com.tongming.materialbili.network.DoRequest;
+import com.tongming.materialbili.presenter.AnimePresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
+import com.tongming.materialbili.view.NetworkImageHolderView;
 import com.tongming.materialbili.view.PanItemView;
 
 import java.util.ArrayList;
@@ -36,7 +32,7 @@ import java.util.List;
  * 番剧页面
  * Created by Tongming on 2016/3/2.
  */
-public class AnimeFragment extends BaseFragment {
+public class AnimeFragment extends BaseFragment implements IAnimeView {
     private final String TAG = "Anime";
     private boolean isPrepared;
     private ConvenientBanner convenientBanner;
@@ -85,44 +81,18 @@ public class AnimeFragment extends BaseFragment {
     private GridView gv_friday;
     private GridView gv_saturday;
 
-    private Bangumi bangumi;
-    private IndexBanner indexBanner;
     private List<String> netImages = new ArrayList<>();
     private boolean flag = false;
 
-    private Handler handler = new Handler(Looper.getMainLooper()) {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    bangumi = (Bangumi) msg.obj;
-                    initVideo();
-                    break;
-                case 1:
-                    indexBanner = (IndexBanner) msg.obj;
-                    initBanner();
-                    swipeRefreshLayout.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    });
-                    mRoot.setVisibility(View.VISIBLE);
-                    break;
-            }
-        }
-    };
+    private Handler handler = new Handler(Looper.getMainLooper());
+
     private LinearLayout mRoot;
+    private AnimePresenterCompl mAnimePresenterCompl;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = super.onCreateView(inflater, container, savedInstanceState);
-        //doRequest();
-        LogUtil.i("Fragment", "Anime");
-        initView();
-        isPrepared = true;
-        lazyLoad();
         return view;
     }
 
@@ -133,10 +103,13 @@ public class AnimeFragment extends BaseFragment {
 
     @Override
     protected void afterCreate(Bundle saveInstanceState) {
-
+        LogUtil.i("Fragment", "Anime");
+        initView();
+        isPrepared = true;
+        lazyLoad();
     }
 
-    private void initVideo() {
+    private void initVideo(Bangumi bangumi) {
         if (bangumi.getsundays() != null) {
             for (int i = 0; i < bangumi.getsundays().size(); i++) {
                 Images0.add(bangumi.getsundays().get(i).getCover());
@@ -202,17 +175,10 @@ public class AnimeFragment extends BaseFragment {
         gv_saturday.setAdapter(new PanDramaVideoGridAdapter(Images6, title6, date6, count6));
     }
 
-    private void initBanner() {
-        if (netImages.size() > 0) {
-            netImages.clear();
-            for (int i = indexBanner.getBanners().size()-1; i >= 0; i--) {
-                netImages.add(indexBanner.getBanners().get(i).getImg());
-            }
-        } else {
-            //初始化banner数据
-            for (int i = indexBanner.getBanners().size()-1; i >= 0; i--) {
-                netImages.add(indexBanner.getBanners().get(i).getImg());
-            }
+    private void initBanner(IndexBanner indexBanner) {
+        //初始化banner数据
+        for (int i = indexBanner.getBanners().size() - 1; i >= 0; i--) {
+            netImages.add(indexBanner.getBanners().get(i).getImg());
         }
         convenientBanner.setPages(new CBViewHolderCreator() {
             @Override
@@ -222,22 +188,6 @@ public class AnimeFragment extends BaseFragment {
         }, netImages)
                 .setPageIndicator(new int[]{R.drawable.point_bg_normal, R.drawable.point_bg_enable})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
-    }
-
-    private static class NetworkImageHolderView implements Holder<String> {
-        private ImageView imageView;
-
-        @Override
-        public View createView(Context context) {
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            return imageView;
-        }
-
-        @Override
-        public void UpdateUI(Context context, int position, String data) {
-            Glide.with(BaseApplication.getInstance()).load(data).into(imageView);
-        }
     }
 
     private void initView() {
@@ -266,6 +216,8 @@ public class AnimeFragment extends BaseFragment {
         PanItemView piv_sat = (PanItemView) view.findViewById(R.id.pan_sat);
         gv_saturday = piv_sat.getGvView();
         gv_saturday.setFocusable(false);
+
+        mAnimePresenterCompl = new AnimePresenterCompl(this);
 
     }
 
@@ -301,8 +253,8 @@ public class AnimeFragment extends BaseFragment {
                     swipeRefreshLayout.setRefreshing(true);
                 }
             });
-            DoRequest.getBangumi(handler);
-            DoRequest.getBanner(handler);
+            mAnimePresenterCompl.getVideo();
+            mAnimePresenterCompl.getBanner();
             flag = true;
         }
     }
@@ -328,5 +280,22 @@ public class AnimeFragment extends BaseFragment {
         handler.removeCallbacksAndMessages(null);
         RefWatcher refWatcher = BaseApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);
+    }
+
+    @Override
+    public void onGetAnimeResult(Bangumi bangumi) {
+        initVideo(bangumi);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        mRoot.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onGetBannerResult(IndexBanner banner) {
+        initBanner(banner);
     }
 }

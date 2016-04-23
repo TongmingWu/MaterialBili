@@ -1,26 +1,11 @@
 package com.tongming.materialbili.utils;
 
-import android.os.Message;
-
-import com.tongming.materialbili.activity.SearchResultActivity;
-
-import java.io.IOException;
-import java.util.Map;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
 /**
  * post请求
  * Created by Tongming on 2016/4/2.
  */
 class PostUtil {
-    private static final String URL = "http://bilibili-service.daoapp.io/search";
+    /*private static final String URL = "http://bilibili-service.daoapp.io/search";
     private static String result;
     public static void doPost(Map<String, String> param) {
         OkHttpClient client = new OkHttpClient();
@@ -54,5 +39,5 @@ class PostUtil {
                 LogUtil.i("Search","搜索成功");
             }
         });
-    }
+    }*/
 }

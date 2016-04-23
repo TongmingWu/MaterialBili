@@ -1,6 +1,5 @@
 package com.tongming.materialbili.activity;
 
-import android.app.ActivityManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +42,6 @@ import com.tongming.materialbili.fragment.SubareaFragment;
 import com.tongming.materialbili.model.User;
 import com.tongming.materialbili.network.DoRequest;
 import com.tongming.materialbili.utils.CommonUtil;
-import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.ToastUtil;
 import com.tongming.materialbili.view.GlideGircleTransform;
 
@@ -109,9 +107,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //TranslucentUtil.translucentNavigation(HomeActivity.this);
         sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        /*ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
         int heapSize = manager.getMemoryClass();
-        LogUtil.i(TAG,heapSize+"");
+        LogUtil.i(TAG,heapSize+"");*/
         initViews();
 
         //测试

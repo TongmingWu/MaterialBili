@@ -16,14 +16,14 @@ import com.tongming.materialbili.activity.VideoPlayActivity;
 import com.tongming.materialbili.adapter.CommentAdapter;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.Comment;
-import com.tongming.materialbili.network.DoRequest;
+import com.tongming.materialbili.presenter.ReviewPresenterCompl;
 import com.tongming.materialbili.utils.ListViewUtil;
 import com.tongming.materialbili.view.CusListView;
 
 /**
  * Created by Tongming on 2016/3/20.
  */
-public class ReviewFragment extends BaseFragment {
+public class ReviewFragment extends BaseFragment implements IReviewView {
 
     private View view;
 
@@ -33,18 +33,20 @@ public class ReviewFragment extends BaseFragment {
             switch (msg.what) {
                 case 0:
                     String aid = (String) msg.obj;
-                    DoRequest.getComment(aid,mHandler);
+                    //DoRequest.getComment(aid,mHandler);
+                    mReviewPresenterCompl.getReview(aid);
                     break;
-                case 1:
+                /*case 1:
                     mComment = (Comment) msg.obj;
                     initData();
-                    break;
+                    break;*/
             }
         }
     };
     private Comment mComment;
     private CusListView mHotComment;
     private CusListView mNormalComment;
+    private ReviewPresenterCompl mReviewPresenterCompl;
 
     @Nullable
     @Override
@@ -53,7 +55,8 @@ public class ReviewFragment extends BaseFragment {
         return view;
     }
 
-    private void initData(){
+    private void initData(Comment comment){
+        mComment = comment;
         mHotComment.setAdapter(new CommentAdapter(mComment.getHotList(),0));
         mNormalComment.setAdapter(new CommentAdapter(mComment.getList(),1));
         ListViewUtil.setListViewHeightBasedOnChildren(mHotComment);
@@ -73,6 +76,7 @@ public class ReviewFragment extends BaseFragment {
     @Override
     protected void afterCreate(Bundle saveInstanceState) {
         initView();
+        mReviewPresenterCompl = new ReviewPresenterCompl(this);
     }
 
     @Override
@@ -87,5 +91,10 @@ public class ReviewFragment extends BaseFragment {
             VideoPlayActivity mActivity = (VideoPlayActivity) context;
             mActivity.setReviewHandler(mHandler);
         }
+    }
+
+    @Override
+    public void onGetReviewResult(Comment comment) {
+        initData(comment);
     }
 }

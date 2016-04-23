@@ -24,10 +24,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
@@ -315,14 +318,14 @@ public class DoRequest {
     }
 
     //获取评论
-    public static void getComment(String aid, final Handler handler) {
+    public static void getComment(final String aid, final Handler handler) {
         LogUtil.i(TAG,URLUtil.getReview(aid));
         new Thread(new Runnable() {
             BufferedReader bin;
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://api.bilibili.cn/feedback?aid=4401573&ver=2");
+                    URL url = new URL(URLUtil.getReview(aid));
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestProperty("Accept-Encoding", "gzip,deflate");
                     conn.connect();
@@ -331,7 +334,7 @@ public class DoRequest {
 
                     GZIPInputStream gzin = new GZIPInputStream(in);
 
-                    bin = new BufferedReader(new InputStreamReader(gzin, "GB2312"));
+                    bin = new BufferedReader(new InputStreamReader(gzin, "UTF-8"));
                     String s = null;
                     StringBuilder sb = new StringBuilder();
                     while((s= bin.readLine())!=null){
@@ -358,42 +361,54 @@ public class DoRequest {
                 }
             }
         }).start();
-        /*Request request = new Request.Builder().url(URLUtil.getDanmaku(aid))
-                .addHeader("Accept-Encoding","gzip,deflate")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                LogUtil.i(TAG, "获取评论失败");
-            }
+    }
 
+    //获取直播弹幕
+    public static void getLiveDanmaku(final String roomid, final Handler handler){
+        new Thread(new Runnable() {
+            BufferedReader bin;
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //评论经过gzip压缩
-                InputStream stream = response.body().byteStream();
-                stream = new BufferedInputStream(stream);//缓冲
-                stream = new GZIPInputStream(stream);
-                GZIPInputStream gzin = new GZIPInputStream(stream);
+            public void run() {
+                try {
+                    URL url = new URL("http://live.bilibili.com/ajax/msg");
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestProperty("Accept-Encoding", "gzip,deflate");
+                    connection.setRequestMethod("POST");
+                    connection.setReadTimeout(5000);
+                    connection.setConnectTimeout(5000);
+                    connection.setDoOutput(true);
+                    String data = "roomid="+roomid;
+                    OutputStream stream = connection.getOutputStream();
+                    stream.write(data.getBytes());
+                    stream.flush();
+                    stream.close();
+                    if(connection.getResponseCode()==200){
+                        //LogUtil.i(TAG,connection.getContentEncoding()+"");
+                        InputStream in = connection.getInputStream();
 
-                BufferedReader bin = new BufferedReader(new InputStreamReader(gzin, "GB2312"));
-                String s = null;
-                StringBuilder sb = new StringBuilder();
-                while((s= bin.readLine())!=null){
-                    sb.append(s);
+                        GZIPInputStream gzin = new GZIPInputStream(in);
+
+                        bin = new BufferedReader(new InputStreamReader(gzin, "GB2312"));
+                        String s = null;
+                        StringBuilder sb = new StringBuilder();
+                        while((s= bin.readLine())!=null){
+                            sb.append(s);
+                        }
+                        String str = sb.toString();
+                        Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
+                        Matcher matcher = pattern.matcher(str);
+                        char ch;
+                        while (matcher.find()) {
+                            ch = (char) Integer.parseInt(matcher.group(2), 16);
+                            str = str.replace(matcher.group(1), ch + "");
+                        }
+                        LogUtil.i(TAG,str);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                LogUtil.i(TAG,sb.toString());
-                *//*Comment comment = gson.fromJson(
-                        sb.toString(),
-                        new TypeToken<Comment>() {
-                        }.getType()
-                );*/
-               /* Message msg = handler.obtainMessage();
-                msg.what = 1;
-                msg.obj = comment;
-                handler.sendMessage(msg);*//*
-                LogUtil.i(TAG, "获取评论信息成功");
             }
-        });*/
+        }).start();
     }
 
 

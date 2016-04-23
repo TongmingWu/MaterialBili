@@ -1,10 +1,8 @@
 package com.tongming.materialbili.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -12,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
-import com.bumptech.glide.Glide;
 import com.squareup.leakcanary.RefWatcher;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.adapter.GridInListAdapter;
@@ -27,8 +22,9 @@ import com.tongming.materialbili.adapter.IconGridAdapter;
 import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.LiveVideo;
-import com.tongming.materialbili.network.DoRequest;
+import com.tongming.materialbili.presenter.LivePresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
+import com.tongming.materialbili.view.NetworkImageHolderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +33,7 @@ import java.util.List;
  * 直播页面
  * Created by Tongming on 2016/3/2.
  */
-public class LiveFragment extends BaseFragment {
+public class LiveFragment extends BaseFragment implements ILiveView {
 
     private final String TAG = "Live";
     private boolean isPrepared;
@@ -56,42 +52,20 @@ public class LiveFragment extends BaseFragment {
     private GridView gv_live;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private LiveVideo live;
     private boolean flag = false;
 
-    private Handler handler = new Handler(Looper.getMainLooper()) {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    live = (LiveVideo) msg.obj;
-                    //填充各控件的数据
-                    initData();
-                    swipeRefreshLayout.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    });
-                    moreLive.setVisibility(View.VISIBLE);
-                    mLlTop.setVisibility(View.VISIBLE);
-                    break;
-            }
-        }
-    };
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+
     private ListView lvLive;
     private Button moreLive;
     private LinearLayout mLlTop;
+    private LivePresenterCompl mPresenterCompl;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = super.onCreateView(inflater, container, savedInstanceState);
-        //doRequest();
         LogUtil.i("Fragment", "Live");
-        /*initView();
-        isPrepared = true;
-        lazyLoad();*/
         return view;
     }
 
@@ -108,26 +82,19 @@ public class LiveFragment extends BaseFragment {
         initSwipeRefresh();
     }
 
-    private void initData() {
+    private void initData(LiveVideo live) {
 
         if (live != null) {
-
-            initSwipeRefresh();
-
-            lvLive.setAdapter(new GridInListAdapter(getActivity(),live.getData().getPartitions()));
+            lvLive.setAdapter(new GridInListAdapter(getActivity(), live.getData().getPartitions()));
         }
     }
 
     private void initView() {
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
-        if (imgs.size() > 0) {
-            imgs.clear();
-            imgs.add("http://i2.hdslb.com/u_user/77ff62edd818248945ee734557cbc2df.jpg");
-            imgs.add("http://i2.hdslb.com/u_user/29749bd2f327952b890210c22ac2dc17.jpg");
-        } else {
-            imgs.add("http://i2.hdslb.com/u_user/77ff62edd818248945ee734557cbc2df.jpg");
-            imgs.add("http://i2.hdslb.com/u_user/29749bd2f327952b890210c22ac2dc17.jpg");
-        }
+
+        imgs.add("http://i2.hdslb.com/u_user/77ff62edd818248945ee734557cbc2df.jpg");
+        imgs.add("http://i2.hdslb.com/u_user/29749bd2f327952b890210c22ac2dc17.jpg");
+
         convenientBanner.setPages(new CBViewHolderCreator() {
             @Override
             public Object createHolder() {
@@ -145,22 +112,21 @@ public class LiveFragment extends BaseFragment {
         moreLive = (Button) view.findViewById(R.id.btn_more_live);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+
+        mPresenterCompl = new LivePresenterCompl(this);
     }
 
-    private static class NetworkImageHolderView implements Holder<String> {
-        private ImageView imageView;
-
-        @Override
-        public View createView(Context context) {
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            return imageView;
-        }
-
-        @Override
-        public void UpdateUI(Context context, int position, String data) {
-            Glide.with(BaseApplication.getInstance()).load(data).into(imageView);
-        }
+    @Override
+    public void onGetLiveResult(LiveVideo live) {
+        initData(live);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        moreLive.setVisibility(View.VISIBLE);
+        mLlTop.setVisibility(View.VISIBLE);
     }
 
     private void initSwipeRefresh() {
@@ -172,7 +138,7 @@ public class LiveFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                handler.postDelayed(new Runnable() {
+                mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         //通过setRefreshing(false)使动画停止
@@ -195,7 +161,7 @@ public class LiveFragment extends BaseFragment {
                     swipeRefreshLayout.setRefreshing(true);
                 }
             });
-            DoRequest.getLive(handler);
+            mPresenterCompl.getVideo();
             flag = true;
         }
     }
@@ -217,7 +183,7 @@ public class LiveFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        //handler.removeCallbacksAndMessages(null);
         RefWatcher refWatcher = BaseApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);
     }
