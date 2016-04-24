@@ -8,7 +8,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/ll_pan_root"
@@ -27,8 +27,9 @@
 
             <include layout="@layout/rl_pandrama" />
 
-            <com.tongming.materialbili.view.CusListView
+            <com.tongming.materialbili.CusView.CusListView
                 android:id="@+id/lv_pan"
+                android:divider="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <!--&lt;!&ndash;周日&ndash;&gt;

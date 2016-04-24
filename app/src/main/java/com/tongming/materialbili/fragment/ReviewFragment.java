@@ -18,7 +18,7 @@ import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.Comment;
 import com.tongming.materialbili.presenter.ReviewPresenterCompl;
 import com.tongming.materialbili.utils.ListViewUtil;
-import com.tongming.materialbili.view.CusListView;
+import com.tongming.materialbili.CusView.CusListView;
 
 /**
  * Created by Tongming on 2016/3/20.

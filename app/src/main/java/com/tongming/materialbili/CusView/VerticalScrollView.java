@@ -1,4 +1,4 @@
-package com.tongming.materialbili.view;
+package com.tongming.materialbili.CusView;
 
 import android.content.Context;
 import android.util.AttributeSet;

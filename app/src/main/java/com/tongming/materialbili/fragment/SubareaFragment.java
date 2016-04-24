@@ -38,7 +38,7 @@ public class SubareaFragment extends BaseFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         gv_sub = (GridView) view.findViewById(R.id.gv_sub);
         initData();
-        gv_sub.setAdapter(new IconGridAdapter(mItems,imagesId,getActivity()));
+        gv_sub.setAdapter(new IconGridAdapter(mItems,imagesId));
         return view;
     }
 

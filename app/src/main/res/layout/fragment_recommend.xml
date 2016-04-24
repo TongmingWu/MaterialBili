@@ -54,7 +54,7 @@
                         android:tint="@color/colorPrimary" />
                 </RelativeLayout>
                 <!--番剧推荐-->
-                <com.tongming.materialbili.view.PanItemView
+                <com.tongming.materialbili.CusView.PanItemView
                     android:id="@+id/rec_pan"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/pan_gv_height"
@@ -64,7 +64,7 @@
                 <include layout="@layout/rl_pandrama" />
             </LinearLayout>
 
-            <com.tongming.materialbili.view.CusListView
+            <com.tongming.materialbili.CusView.CusListView
                 android:id="@+id/lv_rec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

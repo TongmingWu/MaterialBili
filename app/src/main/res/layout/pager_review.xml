@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.tongming.materialbili.view.CusListView
+        <com.tongming.materialbili.CusView.CusListView
             android:id="@+id/lv_hot_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:text="更多热门评论"
             android:textColor="@color/colorPrimary"/>
 
-        <com.tongming.materialbili.view.CusListView
+        <com.tongming.materialbili.CusView.CusListView
             android:id="@+id/lv_normal_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

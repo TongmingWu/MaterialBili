@@ -40,12 +40,11 @@ import com.tongming.materialbili.fragment.LiveFragment;
 import com.tongming.materialbili.fragment.RecommendFragment;
 import com.tongming.materialbili.fragment.SubareaFragment;
 import com.tongming.materialbili.model.User;
-import com.tongming.materialbili.network.DoRequest;
+import com.tongming.materialbili.presenter.UserPresenterCompl;
 import com.tongming.materialbili.utils.CommonUtil;
 import com.tongming.materialbili.utils.ToastUtil;
-import com.tongming.materialbili.view.GlideGircleTransform;
+import com.tongming.materialbili.CusView.GlideGircleTransform;
 
-import java.io.BufferedReader;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -53,7 +52,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements IUserView {
 
     private final String TAG = "HOME";
     private static boolean isExit;
@@ -67,10 +66,10 @@ public class HomeActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private NavigationView navigationView;
     private final MyHandler mHandler = new MyHandler(this);
-    private BufferedReader bin;
     private static boolean flag;
+    private ImageView mAvatar;
 
-    private static class MyHandler extends Handler{
+    private static class MyHandler extends Handler {
         private final WeakReference<HomeActivity> mActivity;
 
         private MyHandler(HomeActivity activity) {
@@ -80,20 +79,12 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             HomeActivity activity = mActivity.get();
-            if(activity!=null){
+            if (activity != null) {
                 isExit = false;
-                switch (msg.what) {
-                    case 0:
-                        if(!flag){
-                            User user = (User) msg.obj;
-                            mTv_coins.setText("硬币:" + user.getCoins());
-                            mUserName.setText(user.getName());
-                            flag = true;
-                        }
-                }
             }
         }
     }
+
     private SearchView mSearchView;
     private MenuItem menuItem;
     private SharedPreferences sharedPreferences;
@@ -174,18 +165,29 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(drawerToggle);
     }
 
+
+    @Override
+    public void onGetUserInfo(User user) {
+        if (!flag) {
+            Glide.with(this)
+                    .load(user.getFace())
+                    .transform(new GlideGircleTransform(this))
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .into(mAvatar);
+            mTv_coins.setText("硬币:" + user.getCoins());
+            mUserName.setText(user.getName());
+            flag = true;
+        }
+    }
+
     //处理Navigation的方法
     private void handNavigation() {
         View headerLayout = navigationView.inflateHeaderView(R.layout.navigation_header);
-        ImageView avatar = (ImageView) headerLayout.findViewById(R.id.iv_avatar);
-        Glide.with(this)
-                .load("http://i1.hdslb.com/bfs/face/c6a5972c0b0a1b1b6d59a728ab91593bde00cdbd.jpg")
-                .transform(new GlideGircleTransform(this))
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                .into(avatar);
+        mAvatar = (ImageView) headerLayout.findViewById(R.id.iv_avatar);
         mTv_coins = (TextView) headerLayout.findViewById(R.id.tv_coin);
         mUserName = (TextView) headerLayout.findViewById(R.id.tv_userName);
-        DoRequest.getUserInfo(mHandler);
+        UserPresenterCompl presenterCompl = new UserPresenterCompl(this);
+        presenterCompl.getUserInfo();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             //用于辨别此前是否有选中的条目
             MenuItem preMenuItem;
@@ -241,13 +243,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
-    //在Activity中定义一个方法用来设置Handler兑现
-    /*public void setHandler(Handler handler) {
-        mHandler = handler;
-    }*/
-
-    //然后在Activity中发送消息给Fragment中的Handler进行交互
 
 
     @Override

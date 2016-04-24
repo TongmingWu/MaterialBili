@@ -33,7 +33,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true">
 
-            <com.tongming.materialbili.view.SearchEdit
+            <com.tongming.materialbili.CusView.SearchEdit
                 android:id="@+id/et_result"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

@@ -19,10 +19,6 @@ import java.util.List;
  * Created by Tongming on 2016/3/7.
  */
 public class VideoGridAdapter extends BaseAdapter {
-    private List<String> imgPath;
-    private List<String> plays;
-    private List<String> comments;
-    private List<String> titles;
     private List<HotVideo.AnimeVideo> animes;
     private List<HotVideo.Music> musics;
     private List<HotVideo.DanceVideo> dances;
@@ -62,13 +58,6 @@ public class VideoGridAdapter extends BaseAdapter {
                 break;
         }
         this.type = type;
-    }
-
-    public VideoGridAdapter(List<String> imgPath, List<String> titles, List<String> plays, List<String> comments) {
-        this.imgPath = imgPath;
-        this.titles = titles;
-        this.plays = plays;
-        this.comments = comments;
     }
 
     private static class ViewHolder {

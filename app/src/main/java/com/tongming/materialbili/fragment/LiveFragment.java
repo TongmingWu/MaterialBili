@@ -24,7 +24,7 @@ import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.LiveVideo;
 import com.tongming.materialbili.presenter.LivePresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.view.NetworkImageHolderView;
+import com.tongming.materialbili.CusView.NetworkImageHolderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +104,7 @@ public class LiveFragment extends BaseFragment implements ILiveView {
                 .setPageIndicator(new int[]{R.drawable.point_bg_normal, R.drawable.point_bg_enable})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
         gv_live = (GridView) view.findViewById(R.id.gv_live);
-        gv_live.setAdapter(new IconGridAdapter(mItems, imagesId2, BaseApplication.getInstance()));
+        gv_live.setAdapter(new IconGridAdapter(mItems, imagesId2));
 
         lvLive = (ListView) view.findViewById(R.id.lv_live);
 

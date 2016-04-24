@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.model.Comment;
-import com.tongming.materialbili.view.GlideGircleTransform;
+import com.tongming.materialbili.CusView.GlideGircleTransform;
 
 import java.util.List;
 

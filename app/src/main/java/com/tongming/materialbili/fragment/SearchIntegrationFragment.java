@@ -20,9 +20,6 @@ import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.Search;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Tongming on 2016/4/2.
  */
@@ -30,13 +27,6 @@ public class SearchIntegrationFragment extends BaseFragment {
     private boolean isPrepared;
     private ListView lv_integration;
     private Search search ;
-
-    private List<String> pic = new ArrayList<>();
-    private List<String> title = new ArrayList<>();
-    private List<String> up = new ArrayList<>();
-    private List<String> play = new ArrayList<>();
-    private List<String> danmaku = new ArrayList<>();
-    private List<String> aid = new ArrayList<>();
 
     private Handler handler = new Handler(Looper.getMainLooper()){
         @Override
@@ -66,22 +56,13 @@ public class SearchIntegrationFragment extends BaseFragment {
     }
 
     private void initData(){
-        List<Search.ResultEntity.VideoEntity> video = search.getResult().getVideo();
-        for(int i = 0; i<video.size();i++){
-            pic.add(video.get(i).getPic());
-            title.add(video.get(i).getTitle());
-            up.add(video.get(i).getAuthor());
-            play.add(video.get(i).getPlay()+"");
-            danmaku.add(video.get(i).getVideo_review()+"");
-            aid.add(video.get(i).getAid());
-        }
-        lv_integration.setAdapter(new SearchVideoAdapter(pic,title,up,play,danmaku,getActivity()));
+        lv_integration.setAdapter(new SearchVideoAdapter(search));
         lv_integration.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("aid",aid.get(position));
+                bundle.putString("aid",search.getResult().getVideo().get(position).getAid());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

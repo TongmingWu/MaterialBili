@@ -21,8 +21,8 @@ import com.tongming.materialbili.model.Bangumi;
 import com.tongming.materialbili.model.IndexBanner;
 import com.tongming.materialbili.presenter.AnimePresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.view.CusListView;
-import com.tongming.materialbili.view.NetworkImageHolderView;
+import com.tongming.materialbili.CusView.CusListView;
+import com.tongming.materialbili.CusView.NetworkImageHolderView;
 
 import java.util.ArrayList;
 import java.util.List;

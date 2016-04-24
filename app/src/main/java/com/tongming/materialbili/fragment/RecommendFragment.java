@@ -26,8 +26,8 @@ import com.tongming.materialbili.model.HotVideo;
 import com.tongming.materialbili.model.IndexBanner;
 import com.tongming.materialbili.presenter.RecPresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.view.NetworkImageHolderView;
-import com.tongming.materialbili.view.PanItemView;
+import com.tongming.materialbili.CusView.NetworkImageHolderView;
+import com.tongming.materialbili.CusView.PanItemView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +41,6 @@ public class RecommendFragment extends BaseFragment implements IRecView {
     private final String TAG = "Rec";
     //标志位,标志已经初始化完成
     private boolean isPrepared;
-    //网络视频集合
-
-    private List<String> panImages = new ArrayList<>();
-    private List<String> titles = new ArrayList<>();
-    private List<String> date = new ArrayList<>();
-    private List<String> panAid = new ArrayList<>();
 
     private View view;
     private ConvenientBanner convenientBanner;
@@ -117,12 +111,6 @@ public class RecommendFragment extends BaseFragment implements IRecView {
 
     //初始化数据
     private void initVideo(final HotVideo hotVideo) {
-        for (int i = 0; i < 4; i++) {
-            panImages.add(hotVideo.getpanDramas().get(i).getPic());
-            titles.add(hotVideo.getpanDramas().get(i).getTitle());
-            date.add(hotVideo.getpanDramas().get(i).getCreate());
-            panAid.add(hotVideo.getpanDramas().get(i).getAid());
-        }
         gvHot.setAdapter(new VideoGridAdapter(hotVideo.getmovies(), 7));
         gvHot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -134,13 +122,13 @@ public class RecommendFragment extends BaseFragment implements IRecView {
                 startActivity(intent);
             }
         });
-        gvPan.setAdapter(new PanDramaVideoGridAdapter(panImages, titles, date));
+        gvPan.setAdapter(new PanDramaVideoGridAdapter(hotVideo.getpanDramas()));
         gvPan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("aid", panAid.get(position));
+                bundle.putString("aid", hotVideo.getpanDramas().get(position).getAid());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

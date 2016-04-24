@@ -22,7 +22,7 @@ import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.AidVideo;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.view.GlideGircleTransform;
+import com.tongming.materialbili.CusView.GlideGircleTransform;
 
 
 /**

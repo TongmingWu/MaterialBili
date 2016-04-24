@@ -319,9 +319,10 @@ public class DoRequest {
 
     //获取评论
     public static void getComment(final String aid, final Handler handler) {
-        LogUtil.i(TAG,URLUtil.getReview(aid));
+        LogUtil.i(TAG, URLUtil.getReview(aid));
         new Thread(new Runnable() {
             BufferedReader bin;
+
             @Override
             public void run() {
                 try {
@@ -329,7 +330,7 @@ public class DoRequest {
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestProperty("Accept-Encoding", "gzip,deflate");
                     conn.connect();
-                    LogUtil.i(TAG,conn.getContentEncoding()+"");
+                    LogUtil.i(TAG, conn.getContentEncoding() + "");
                     InputStream in = conn.getInputStream();
 
                     GZIPInputStream gzin = new GZIPInputStream(in);
@@ -337,7 +338,7 @@ public class DoRequest {
                     bin = new BufferedReader(new InputStreamReader(gzin, "UTF-8"));
                     String s = null;
                     StringBuilder sb = new StringBuilder();
-                    while((s= bin.readLine())!=null){
+                    while ((s = bin.readLine()) != null) {
                         sb.append(s);
                     }
                     //LogUtil.i(TAG,sb.toString());
@@ -364,9 +365,10 @@ public class DoRequest {
     }
 
     //获取直播弹幕
-    public static void getLiveDanmaku(final String roomid, final Handler handler){
+    public static void getLiveDanmaku(final String roomid, final Handler handler) {
         new Thread(new Runnable() {
             BufferedReader bin;
+
             @Override
             public void run() {
                 try {
@@ -377,21 +379,21 @@ public class DoRequest {
                     connection.setReadTimeout(5000);
                     connection.setConnectTimeout(5000);
                     connection.setDoOutput(true);
-                    String data = "roomid="+roomid;
+                    String data = "roomid=" + roomid;
                     OutputStream stream = connection.getOutputStream();
                     stream.write(data.getBytes());
                     stream.flush();
                     stream.close();
-                    if(connection.getResponseCode()==200){
+                    if (connection.getResponseCode() == 200) {
                         //LogUtil.i(TAG,connection.getContentEncoding()+"");
                         InputStream in = connection.getInputStream();
 
                         GZIPInputStream gzin = new GZIPInputStream(in);
 
-                        bin = new BufferedReader(new InputStreamReader(gzin, "GB2312"));
+                        bin = new BufferedReader(new InputStreamReader(gzin, "UTF-8"));
                         String s = null;
                         StringBuilder sb = new StringBuilder();
-                        while((s= bin.readLine())!=null){
+                        while ((s = bin.readLine()) != null) {
                             sb.append(s);
                         }
                         String str = sb.toString();
@@ -402,7 +404,7 @@ public class DoRequest {
                             ch = (char) Integer.parseInt(matcher.group(2), 16);
                             str = str.replace(matcher.group(1), ch + "");
                         }
-                        LogUtil.i(TAG,str);
+                        LogUtil.i(TAG, str);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

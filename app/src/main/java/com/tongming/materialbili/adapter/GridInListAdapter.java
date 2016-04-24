@@ -12,11 +12,12 @@ import android.widget.GridView;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.activity.LivePlayActivity;
 import com.tongming.materialbili.activity.VideoPlayActivity;
+import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.model.Bangumi;
 import com.tongming.materialbili.model.HotVideo;
 import com.tongming.materialbili.model.LiveVideo;
-import com.tongming.materialbili.view.PanItemView;
-import com.tongming.materialbili.view.VideoItemView;
+import com.tongming.materialbili.CusView.PanItemView;
+import com.tongming.materialbili.CusView.VideoItemView;
 
 import java.util.List;
 
@@ -94,10 +95,10 @@ public class GridInListAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             if(bangumi!=null){
-                convertView = View.inflate(context,R.layout.item_lv_pan,null);
+                convertView = View.inflate(BaseApplication.getInstance(),R.layout.item_lv_pan,null);
                 holder = new ViewHolder(convertView,1);
             }else {
-                convertView = View.inflate(context, R.layout.item_listview, null);
+                convertView = View.inflate(BaseApplication.getInstance(), R.layout.item_listview, null);
                 holder = new ViewHolder(convertView,0);
             }
             convertView.setTag(holder);
@@ -297,7 +298,6 @@ public class GridInListAdapter extends BaseAdapter {
                         holder.mPanItemView.setTvDesc("周末番剧");
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getsundays(),0));
-                            holder.gv.setFocusable(false);
                         }
                         break;
                     case 1:
@@ -341,6 +341,8 @@ public class GridInListAdapter extends BaseAdapter {
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getsaturdays(),6));
                         }
+                        break;
+                    default:
                         break;
                 }
             }

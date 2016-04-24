@@ -1,4 +1,4 @@
-package com.tongming.materialbili.view;
+package com.tongming.materialbili.CusView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tongming.materialbili.R;
@@ -15,42 +15,38 @@ import com.tongming.materialbili.R;
 /**
  * Created by Tongming on 2016/4/12.
  */
-public class VideoItemView extends LinearLayout {
+public class PanItemView extends RelativeLayout {
 
     private ImageView ivView;
     private TextView tvDesc;
     private String mDesc;
     private int mImg;
     private GridView gvView;
-    private TextView tvMore;
-    private String more;
 
-    public VideoItemView(Context context) {
+    public PanItemView(Context context) {
         super(context);
     }
 
-    public VideoItemView(Context context, AttributeSet attrs) {
+    public PanItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         //加载视图布局
-        LayoutInflater.from(context).inflate(R.layout.view_video_item,this,true);
+        LayoutInflater.from(context).inflate(R.layout.item_pan,this,true);
 
         //加载自定义的属性
-        TypedArray array = context.obtainStyledAttributes(attrs,R.styleable.VideoItemView);
-        mDesc = array.getString(R.styleable.VideoItemView_view_desc);
-        mImg = array.getResourceId(R.styleable.VideoItemView_view_src,0);
-        more = array.getString(R.styleable.VideoItemView_view_more);
+        TypedArray array = context.obtainStyledAttributes(attrs,R.styleable.PanItemView);
+        mDesc = array.getString(R.styleable.PanItemView_pan_desc);
+        mImg = array.getResourceId(R.styleable.PanItemView_pan_src,R.drawable.bangumi_sunday);
 
         //回收资源
         array.recycle();
-
     }
 
-    public VideoItemView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PanItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public VideoItemView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public PanItemView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -63,17 +59,12 @@ public class VideoItemView extends LinearLayout {
     }
 
     private void initView(){
-
-        ivView = (ImageView) findViewById(R.id.iv_view);
-        tvDesc = (TextView) findViewById(R.id.tv_view_desc);
-        gvView = (GridView) findViewById(R.id.gv_view);
-        tvMore = (TextView) findViewById(R.id.tv_view_more);
+        ivView = (ImageView) findViewById(R.id.iv_pan);
+        tvDesc = (TextView) findViewById(R.id.tv_pan);
+        gvView = (GridView) findViewById(R.id.gv_pan);
 
         if(!TextUtils.isEmpty(mDesc)){
             setTvDesc(mDesc);
-        }
-        if(!TextUtils.isEmpty(more)){
-            setTvMore(more);
         }
         setIvView(mImg);
     }
@@ -88,9 +79,5 @@ public class VideoItemView extends LinearLayout {
 
     public void setIvView(int id){
         ivView.setImageResource(id);
-    }
-
-    public void setTvMore(String more){
-        tvMore.setText(more);
     }
 }

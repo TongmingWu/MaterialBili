@@ -25,7 +25,7 @@ import com.tongming.materialbili.model.LiveVideo;
 import com.tongming.materialbili.network.DoRequest;
 import com.tongming.materialbili.player.GiraffePlayer;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.view.GlideGircleTransform;
+import com.tongming.materialbili.CusView.GlideGircleTransform;
 
 import java.util.ArrayList;
 import java.util.List;

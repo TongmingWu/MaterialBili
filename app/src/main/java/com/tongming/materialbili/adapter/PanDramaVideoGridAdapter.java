@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.model.Bangumi;
+import com.tongming.materialbili.model.HotVideo;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -21,11 +22,10 @@ import java.util.regex.Pattern;
  * Created by Tongming on 2016/3/7.
  */
 public class PanDramaVideoGridAdapter extends BaseAdapter {
-    private List<String> imgPath;
-    private List<String> titles;
-    private List<String> date;
-    private List<String> count;
+
     private Boolean flag = true;
+
+    private List<HotVideo.PanDrama> mPanDramas;
 
     private List<Bangumi.Sunday> sun;
     private List<Bangumi.Monday> mon;
@@ -62,21 +62,9 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
         }
     }
 
-
-    public PanDramaVideoGridAdapter(List<String> imgPath, List<String> titles, List<String> date) {
-        this.imgPath = imgPath;
-        this.titles = titles;
-        this.date = date;
+    public PanDramaVideoGridAdapter(List<HotVideo.PanDrama> panDramas) {
+        mPanDramas = panDramas;
     }
-
-    public PanDramaVideoGridAdapter(List<String> imgPath, List<String> titles, List<String> date, List<String> count) {
-        this.imgPath = imgPath;
-        this.titles = titles;
-        this.date = date;
-        this.count = count;
-        flag = false;
-    }
-
 
     private static class ViewHolder {
         public ImageView iv_pic;
@@ -222,29 +210,27 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
                 holder.tv_num.setText("第" + sat.get(position).getBgmcount() + "话");
                 String[] str = sat.get(position).getLastupdate_at().split(" ");
                 holder.tv_date.setText(str[1]);
-            }
-            if (flag) {
-                Glide.with(BaseApplication.getInstance()).
-                        load(imgPath.get(position))
-                        .placeholder(R.drawable.bili_drawerbg_logined)
-                        .centerCrop()
-                        .crossFade()
-                        .skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                        .into(holder.iv_pic);
-                holder.tv_name.setText(titles.get(position));
-                //从title中提取出第几话
-                String reg = "\\d{2,3}";
-                Pattern pattern = Pattern.compile(reg);
-                Matcher matcher = pattern.matcher(titles.get(position));
-                if (matcher.find()) {
-                    holder.tv_num.setText("第" + matcher.group(0).toString() + "话");
-                    //LogUtil.i("Pan",matcher.group(0));
-
-                    String[] str = date.get(position).split(" ");
-                    holder.tv_date.setText(str[1]);
+            } else {
+                if (flag) {
+                    Glide.with(BaseApplication.getInstance()).
+                            load(mPanDramas.get(position).getPic())
+                            .placeholder(R.drawable.bili_drawerbg_logined)
+                            .centerCrop()
+                            .crossFade()
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                            .into(holder.iv_pic);
+                    holder.tv_name.setText(mPanDramas.get(position).getTitle());
+                    //从title中提取出第几话
+                    String reg = "\\d{2,3}";
+                    Pattern pattern = Pattern.compile(reg);
+                    Matcher matcher = pattern.matcher(mPanDramas.get(position).getTitle());
+                    if (matcher.find()) {
+                        holder.tv_num.setText("第" + matcher.group(0).toString() + "话");
+                        String[] str = mPanDramas.get(position).getCreate().split(" ");
+                        holder.tv_date.setText(str[1]);
+                    }
                 }
-
             }
         }
         return convertView;
