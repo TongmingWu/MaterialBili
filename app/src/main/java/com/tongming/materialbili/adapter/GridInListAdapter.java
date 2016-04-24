@@ -15,6 +15,7 @@ import com.tongming.materialbili.activity.VideoPlayActivity;
 import com.tongming.materialbili.model.Bangumi;
 import com.tongming.materialbili.model.HotVideo;
 import com.tongming.materialbili.model.LiveVideo;
+import com.tongming.materialbili.view.PanItemView;
 import com.tongming.materialbili.view.VideoItemView;
 
 import java.util.List;
@@ -39,6 +40,11 @@ public class GridInListAdapter extends BaseAdapter {
         this.hotVideo = hotVideo;
     }
 
+    public GridInListAdapter(Bangumi bangumi, Context context) {
+        this.bangumi = bangumi;
+        this.context = context;
+    }
+
     @Override
     public int getCount() {
         if (partitionsEntity != null) {
@@ -46,8 +52,9 @@ public class GridInListAdapter extends BaseAdapter {
         } else if (hotVideo != null) {
             //return hotVideo.getanimeVideos().size();
             return 7;
+        } else {
+            return 7;
         }
-        return 0;
     }
 
     @Override
@@ -56,8 +63,9 @@ public class GridInListAdapter extends BaseAdapter {
             return partitionsEntity.get(position);
         } else if (hotVideo != null) {
             return hotVideo.getanimeVideos().get(position);
+        } else {
+            return bangumi.getsundays().get(position);
         }
-        return null;
     }
 
     @Override
@@ -67,11 +75,17 @@ public class GridInListAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         public VideoItemView itemView;
+        public PanItemView mPanItemView;
         public GridView gv;
 
-        public ViewHolder(View v) {
-            itemView = (VideoItemView) v.findViewById(R.id.list_video);
-            gv = itemView.getGvView();
+        public ViewHolder(View v,int type) {
+            if(type==0){
+                itemView = (VideoItemView) v.findViewById(R.id.list_video);
+                gv = itemView.getGvView();
+            }else {
+                mPanItemView = (PanItemView) v.findViewById(R.id.list_pan);
+                gv = mPanItemView.getGvView();
+            }
         }
     }
 
@@ -79,8 +93,13 @@ public class GridInListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.item_listview, null);
-            holder = new ViewHolder(convertView);
+            if(bangumi!=null){
+                convertView = View.inflate(context,R.layout.item_lv_pan,null);
+                holder = new ViewHolder(convertView,1);
+            }else {
+                convertView = View.inflate(context, R.layout.item_listview, null);
+                holder = new ViewHolder(convertView,0);
+            }
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -268,6 +287,59 @@ public class GridInListAdapter extends BaseAdapter {
                                     context.startActivity(intent);
                                 }
                             });
+                        }
+                        break;
+                }
+            } else if (bangumi != null) {
+                switch (position){
+                    case 0:
+                        holder.mPanItemView.setIvView(R.drawable.bangumi_sunday);
+                        holder.mPanItemView.setTvDesc("周末番剧");
+                        if(holder.gv.getAdapter()==null){
+                            holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getsundays(),0));
+                            holder.gv.setFocusable(false);
+                        }
+                        break;
+                    case 1:
+                        holder.mPanItemView.setIvView(R.drawable.bangumi_monday);
+                        holder.mPanItemView.setTvDesc("周一番剧");
+                        if(holder.gv.getAdapter()==null){
+                            holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getmondays(),1));
+                        }
+                        break;
+                    case 2:
+                        holder.mPanItemView.setIvView(R.drawable.bangumi_tuesday);
+                        holder.mPanItemView.setTvDesc("周二番剧");
+                        if(holder.gv.getAdapter()==null){
+                            holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.gettuesdays(),2));
+                        }
+                        break;
+                    case 3:
+                        holder.mPanItemView.setIvView(R.drawable.bangumi_wednesday);
+                        holder.mPanItemView.setTvDesc("周三番剧");
+                        if(holder.gv.getAdapter()==null){
+                            holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getwednesdays(),3));
+                        }
+                        break;
+                    case 4:
+                        holder.mPanItemView.setIvView(R.drawable.bangumi_thursday);
+                        holder.mPanItemView.setTvDesc("周四番剧");
+                        if(holder.gv.getAdapter()==null){
+                            holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getthursdays(),4));
+                        }
+                        break;
+                    case 5:
+                        holder.mPanItemView.setIvView(R.drawable.bangumi_friday);
+                        holder.mPanItemView.setTvDesc("周五番剧");
+                        if(holder.gv.getAdapter()==null){
+                            holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getfridays(),5));
+                        }
+                        break;
+                    case 6:
+                        holder.mPanItemView.setIvView(R.drawable.bangumi_saturday);
+                        holder.mPanItemView.setTvDesc("周六番剧");
+                        if(holder.gv.getAdapter()==null){
+                            holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getsaturdays(),6));
                         }
                         break;
                 }

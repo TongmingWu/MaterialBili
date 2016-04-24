@@ -15,6 +15,8 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <com.bigkoo.convenientbanner.ConvenientBanner
@@ -25,7 +27,11 @@
 
             <include layout="@layout/rl_pandrama" />
 
-            <!--周日-->
+            <com.tongming.materialbili.view.CusListView
+                android:id="@+id/lv_pan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <!--&lt;!&ndash;周日&ndash;&gt;
             <com.tongming.materialbili.view.PanItemView
                 android:id="@+id/pan_sun"
                 android:layout_width="match_parent"
@@ -33,7 +39,7 @@
                 app:pan_desc="周日番剧"
                 app:pan_src="@drawable/bangumi_sunday"
                 />
-            <!--周一-->
+            &lt;!&ndash;周一&ndash;&gt;
             <com.tongming.materialbili.view.PanItemView
                 android:id="@+id/pan_mon"
                 android:layout_width="match_parent"
@@ -41,7 +47,7 @@
                 app:pan_desc="周一番剧"
                 app:pan_src="@drawable/bangumi_monday"
                 />
-            <!--周二更新-->
+            &lt;!&ndash;周二更新&ndash;&gt;
             <com.tongming.materialbili.view.PanItemView
                 android:id="@+id/pan_tues"
                 android:layout_width="match_parent"
@@ -49,7 +55,7 @@
                 app:pan_desc="周二番剧"
                 app:pan_src="@drawable/bangumi_tuesday"
                 />
-            <!--周三更新-->
+            &lt;!&ndash;周三更新&ndash;&gt;
             <com.tongming.materialbili.view.PanItemView
                 android:id="@+id/pan_wen"
                 android:layout_width="match_parent"
@@ -57,7 +63,7 @@
                 app:pan_desc="周三番剧"
                 app:pan_src="@drawable/bangumi_wednesday"
                 />
-            <!--周四更新-->
+            &lt;!&ndash;周四更新&ndash;&gt;
             <com.tongming.materialbili.view.PanItemView
                 android:id="@+id/pan_thur"
                 android:layout_width="match_parent"
@@ -65,7 +71,7 @@
                 app:pan_desc="周四番剧"
                 app:pan_src="@drawable/bangumi_thursday"
                 />
-            <!--周五更新-->
+            &lt;!&ndash;周五更新&ndash;&gt;
             <com.tongming.materialbili.view.PanItemView
                 android:id="@+id/pan_fri"
                 android:layout_width="match_parent"
@@ -73,14 +79,14 @@
                 app:pan_desc="周五番剧"
                 app:pan_src="@drawable/bangumi_friday"
                 />
-            <!--周六更新-->
+            &lt;!&ndash;周六更新&ndash;&gt;
             <com.tongming.materialbili.view.PanItemView
                 android:id="@+id/pan_sat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:pan_desc="周六番剧"
                 app:pan_src="@drawable/bangumi_saturday"
-                />
+                />-->
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

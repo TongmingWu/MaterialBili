@@ -8,22 +8,21 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.squareup.leakcanary.RefWatcher;
 import com.tongming.materialbili.R;
-import com.tongming.materialbili.adapter.PanDramaVideoGridAdapter;
+import com.tongming.materialbili.adapter.GridInListAdapter;
 import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.Bangumi;
 import com.tongming.materialbili.model.IndexBanner;
 import com.tongming.materialbili.presenter.AnimePresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
+import com.tongming.materialbili.view.CusListView;
 import com.tongming.materialbili.view.NetworkImageHolderView;
-import com.tongming.materialbili.view.PanItemView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,48 +38,6 @@ public class AnimeFragment extends BaseFragment implements IAnimeView {
     private View view;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private List<String> Images0 = new ArrayList<>();
-    private List<String> count0 = new ArrayList<>();
-    private List<String> title0 = new ArrayList<>();
-    private List<String> date0 = new ArrayList<>();
-
-    private List<String> Images1 = new ArrayList<>();
-    private List<String> count1 = new ArrayList<>();
-    private List<String> title1 = new ArrayList<>();
-    private List<String> date1 = new ArrayList<>();
-
-    private List<String> Images2 = new ArrayList<>();
-    private List<String> count2 = new ArrayList<>();
-    private List<String> title2 = new ArrayList<>();
-    private List<String> date2 = new ArrayList<>();
-
-    private List<String> Images3 = new ArrayList<>();
-    private List<String> count3 = new ArrayList<>();
-    private List<String> title3 = new ArrayList<>();
-    private List<String> date3 = new ArrayList<>();
-
-    private List<String> Images4 = new ArrayList<>();
-    private List<String> count4 = new ArrayList<>();
-    private List<String> title4 = new ArrayList<>();
-    private List<String> date4 = new ArrayList<>();
-
-    private List<String> Images5 = new ArrayList<>();
-    private List<String> count5 = new ArrayList<>();
-    private List<String> title5 = new ArrayList<>();
-    private List<String> date5 = new ArrayList<>();
-
-    private List<String> Images6 = new ArrayList<>();
-    private List<String> count6 = new ArrayList<>();
-    private List<String> title6 = new ArrayList<>();
-    private List<String> date6 = new ArrayList<>();
-    private GridView gv_sunday;
-    private GridView gv_monday;
-    private GridView gv_tuesday;
-    private GridView gv_wednesday;
-    private GridView gv_thursday;
-    private GridView gv_friday;
-    private GridView gv_saturday;
-
     private List<String> netImages = new ArrayList<>();
     private boolean flag = false;
 
@@ -88,6 +45,7 @@ public class AnimeFragment extends BaseFragment implements IAnimeView {
 
     private LinearLayout mRoot;
     private AnimePresenterCompl mAnimePresenterCompl;
+    private CusListView mLv_pan;
 
     @Nullable
     @Override
@@ -110,69 +68,9 @@ public class AnimeFragment extends BaseFragment implements IAnimeView {
     }
 
     private void initVideo(Bangumi bangumi) {
-        if (bangumi.getsundays() != null) {
-            for (int i = 0; i < bangumi.getsundays().size(); i++) {
-                Images0.add(bangumi.getsundays().get(i).getCover());
-                count0.add(bangumi.getsundays().get(i).getBgmcount());
-                title0.add(bangumi.getsundays().get(i).getTitle());
-                date0.add(bangumi.getsundays().get(i).getLastupdate_at());
-            }
+        if(bangumi!=null){
+            mLv_pan.setAdapter(new GridInListAdapter(bangumi,getActivity()));
         }
-        if (bangumi.getmondays() != null) {
-            for (int i = 0; i < bangumi.getmondays().size(); i++) {
-                Images1.add(bangumi.getmondays().get(i).getCover());
-                count1.add(bangumi.getmondays().get(i).getBgmcount());
-                title1.add(bangumi.getmondays().get(i).getTitle());
-                date1.add(bangumi.getmondays().get(i).getLastupdate_at());
-            }
-        }
-        if (bangumi.gettuesdays() != null) {
-            for (int i = 0; i < bangumi.gettuesdays().size(); i++) {
-                Images2.add(bangumi.gettuesdays().get(i).getCover());
-                count2.add(bangumi.gettuesdays().get(i).getBgmcount());
-                title2.add(bangumi.gettuesdays().get(i).getTitle());
-                date2.add(bangumi.gettuesdays().get(i).getLastupdate_at());
-            }
-        }
-        if (bangumi.getwednesdays() != null) {
-            for (int i = 0; i < bangumi.getwednesdays().size(); i++) {
-                Images3.add(bangumi.getwednesdays().get(i).getCover());
-                count3.add(bangumi.getwednesdays().get(i).getBgmcount());
-                title3.add(bangumi.getwednesdays().get(i).getTitle());
-                date3.add(bangumi.getwednesdays().get(i).getLastupdate_at());
-            }
-        }
-        if (bangumi.getthursdays() != null) {
-            for (int i = 0; i < bangumi.getthursdays().size(); i++) {
-                Images4.add(bangumi.getthursdays().get(i).getCover());
-                count4.add(bangumi.getthursdays().get(i).getBgmcount());
-                title4.add(bangumi.getthursdays().get(i).getTitle());
-                date4.add(bangumi.getthursdays().get(i).getLastupdate_at());
-            }
-        }
-        if (bangumi.getfridays() != null) {
-            for (int i = 0; i < bangumi.getmondays().size(); i++) {
-                Images5.add(bangumi.getmondays().get(i).getCover());
-                count5.add(bangumi.getmondays().get(i).getBgmcount());
-                title5.add(bangumi.getmondays().get(i).getTitle());
-                date5.add(bangumi.getmondays().get(i).getLastupdate_at());
-            }
-        }
-        if (bangumi.getsaturdays() != null) {
-            for (int i = 0; i < bangumi.getsaturdays().size(); i++) {
-                Images6.add(bangumi.getsaturdays().get(i).getCover());
-                count6.add(bangumi.getsaturdays().get(i).getBgmcount());
-                title6.add(bangumi.getsaturdays().get(i).getTitle());
-                date6.add(bangumi.getsaturdays().get(i).getLastupdate_at());
-            }
-        }
-        gv_sunday.setAdapter(new PanDramaVideoGridAdapter(Images0, title0, date0, count0));
-        gv_monday.setAdapter(new PanDramaVideoGridAdapter(Images1, title1, date1, count1));
-        gv_tuesday.setAdapter(new PanDramaVideoGridAdapter(Images2, title2, date2, count2));
-        gv_wednesday.setAdapter(new PanDramaVideoGridAdapter(Images3, title3, date3, count3));
-        gv_thursday.setAdapter(new PanDramaVideoGridAdapter(Images4, title4, date4, count4));
-        gv_friday.setAdapter(new PanDramaVideoGridAdapter(Images5, title5, date5, count5));
-        gv_saturday.setAdapter(new PanDramaVideoGridAdapter(Images6, title6, date6, count6));
     }
 
     private void initBanner(IndexBanner indexBanner) {
@@ -195,27 +93,7 @@ public class AnimeFragment extends BaseFragment implements IAnimeView {
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         initSwipeRefresh();
-        PanItemView piv_sun = (PanItemView) view.findViewById(R.id.pan_sun);
-        gv_sunday = piv_sun.getGvView();
-        gv_sunday.setFocusable(false);
-        PanItemView piv_mon = (PanItemView) view.findViewById(R.id.pan_mon);
-        gv_monday = piv_mon.getGvView();
-        gv_monday.setFocusable(false);
-        PanItemView piv_tue = (PanItemView) view.findViewById(R.id.pan_tues);
-        gv_tuesday = piv_tue.getGvView();
-        gv_tuesday.setFocusable(false);
-        PanItemView piv_wed = (PanItemView) view.findViewById(R.id.pan_wen);
-        gv_wednesday = piv_wed.getGvView();
-        gv_wednesday.setFocusable(false);
-        PanItemView piv_thur = (PanItemView) view.findViewById(R.id.pan_thur);
-        gv_thursday = piv_thur.getGvView();
-        gv_thursday.setFocusable(false);
-        PanItemView piv_fri = (PanItemView) view.findViewById(R.id.pan_fri);
-        gv_friday = piv_fri.getGvView();
-        gv_friday.setFocusable(false);
-        PanItemView piv_sat = (PanItemView) view.findViewById(R.id.pan_sat);
-        gv_saturday = piv_sat.getGvView();
-        gv_saturday.setFocusable(false);
+        mLv_pan = (CusListView) view.findViewById(R.id.lv_pan);
 
         mAnimePresenterCompl = new AnimePresenterCompl(this);
 
