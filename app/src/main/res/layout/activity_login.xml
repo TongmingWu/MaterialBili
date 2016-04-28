@@ -71,7 +71,6 @@
                 android:id="@+id/et_account"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:digits="1069505260@qq.com"
                 android:hint="请输入手机号或者邮箱号" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -123,8 +122,6 @@
             android:id="@+id/vdcode"
             android:layout_width="120dp"
             android:layout_height="30dp"
-            android:clickable="true"
-            android:onClick="changeVd"
             android:layout_toEndOf="@id/til_vd"/>
     </RelativeLayout>
     <RelativeLayout

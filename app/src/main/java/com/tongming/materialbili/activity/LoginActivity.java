@@ -1,6 +1,7 @@
 package com.tongming.materialbili.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,15 +15,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.tongming.materialbili.R;
-import com.tongming.materialbili.model.HashKey;
-import com.tongming.materialbili.utils.JsoupLoginBilibili;
+import com.tongming.materialbili.presenter.LoginPresenterCompl;
 import com.tongming.materialbili.utils.LoadNetImage;
+import com.tongming.materialbili.utils.LogUtil;
+import com.tongming.materialbili.utils.URLUtil;
 
 /**
  * Created by Tongming on 2016/3/18.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements ILoginView{
 
+    private static final String TAG = "Login";
     private final String vdUrl = "https://passport.bilibili.com/captcha";
     private ImageView iv_vdcode;
     private EditText et_pwd;
@@ -42,14 +45,11 @@ public class LoginActivity extends Activity {
                     Bitmap bitmap = (Bitmap) msg.obj;
                     iv_vdcode.setImageBitmap(bitmap);
                     break;
-                case 1:
-                    HashKey key = (HashKey) msg.obj;
-                    JsoupLoginBilibili.okLogin(key, account, pwd, vdcode);
-                    break;
             }
         }
     };
     private SharedPreferences sharedPreferences;
+    private ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class LoginActivity extends Activity {
         account = et_account.getText().toString();
         sharedPreferences.edit().putString("userid", account).apply();
         pwd = et_pwd.getText().toString();
-        vdcode = et_vd.getText().toString().toUpperCase();
+        vdcode = et_vd.getText().toString();
     }
 
     private void initView() {
@@ -87,8 +87,12 @@ public class LoginActivity extends Activity {
                 }
             }
         });
-
-        //获取验证码
+        iv_vdcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadNetImage.getVd(URLUtil.CAPTCHA, handler);
+            }
+        });
         LoadNetImage.getVd(vdUrl, handler);
     }
 
@@ -96,18 +100,14 @@ public class LoginActivity extends Activity {
         initData();
         if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(vdcode)) {
             //第三方登录b站
-            //JsoupLoginBilibili.login(account, pwd, vdcode);
-            //JsoupLoginBilibili.okLogin(account,pwd,vdcode);
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            sharedPreferences.edit().putBoolean("isLogin", true).apply();
+            //LoginBilibili.okLogin(account, pwd, vdcode);
+            LoginPresenterCompl loginPresenterCompl = new LoginPresenterCompl(this);
+            loginPresenterCompl.getUid(account,pwd,vdcode);
+            mDialog = new ProgressDialog(this);
+            mDialog.setMessage("登录中...");
+            mDialog.show();
         }
 
-    }
-
-
-    //换一换验证码
-    public void changeVd(View view) {
-        LoadNetImage.getVd(vdUrl, handler);
     }
 
 
@@ -115,5 +115,24 @@ public class LoginActivity extends Activity {
     protected void onStop() {
         super.onStop();
         finish();
+    }
+
+    @Override
+    public void onSuccess(String uid) {
+        LogUtil.i(TAG,uid);
+        mDialog.dismiss();
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("uid",uid);
+        bundle.putString("classID","Login");
+        intent.putExtras(bundle);
+        startActivity(intent);
+        sharedPreferences.edit().putBoolean("isLogin", true).apply();
+        sharedPreferences.edit().putString("uid",uid).apply();
+    }
+
+    @Override
+    public void onFailed() {
+
     }
 }

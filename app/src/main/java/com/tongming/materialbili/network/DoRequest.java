@@ -58,8 +58,8 @@ public class DoRequest {
 
 
     //获取用户信息
-    public static void getUserInfo(final Handler handler) {
-        final Request requestVideo = new Request.Builder().url(URLUtil.USER).build();
+    public static void getUserInfo(String id,final Handler handler) {
+        final Request requestVideo = new Request.Builder().url(URLUtil.GetUserId(id)).build();
         client.newCall(requestVideo).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

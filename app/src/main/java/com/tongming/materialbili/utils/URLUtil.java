@@ -14,8 +14,12 @@ public class URLUtil {
     public static final String GHOT = "119";//鬼畜
     public static final String DANCE = "129";//舞蹈
 
+    //python服务器地址
+    public static String PYTHON = "http://10.12.243.252:5000/";
     //获取用户信息
-    public static String USER = "http://api.bilibili.cn/userinfo?mid=5125795";
+    public static String GetUserId(String id){
+        return "http://api.bilibili.cn/userinfo?mid="+id;
+    }
     //public static String USER = "http://api.bilibili.cn/userinfo?user=莫到家了";
 
     //主要分类下的前9个热门视频
@@ -83,4 +87,7 @@ public class URLUtil {
 
     //获取直播视频
     public static final String LIVEVIDEO = "http://live.bilibili.com/api/playurl?player=1&quality=0&cid=";
+
+    //获取验证码
+    public static final String CAPTCHA = "https://passport.bilibili.com/captcha";
 }

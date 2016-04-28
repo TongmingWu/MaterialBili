@@ -37,7 +37,11 @@ public class SplashActivity extends Activity {
             public void run() {
                 //判断是否已经登录
                 if (sharedPreferences.getBoolean("isLogin", true)) {
-                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    Intent intent = new Intent(SplashActivity.this,HomeActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("classID","Splash");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                     //startActivity(new Intent(SplashActivity.this,LoginActivity.class));
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));

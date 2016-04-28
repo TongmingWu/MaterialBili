@@ -32,8 +32,8 @@ public class UserPresenterCompl implements IUserPresenter {
     }
 
     @Override
-    public void getUserInfo() {
-        final Request requestVideo = new Request.Builder().url(URLUtil.USER).build();
+    public void getUserInfo(String id) {
+        final Request requestVideo = new Request.Builder().url(URLUtil.GetUserId(id)).build();
         BaseApplication.client.newCall(requestVideo).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

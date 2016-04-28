@@ -1,9 +1,6 @@
 package com.tongming.materialbili.utils;
 
-import com.tongming.materialbili.model.HashKey;
-
 import java.io.IOException;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +19,7 @@ import okhttp3.Response;
  * 模拟登录B站
  * Created by Tongming on 2016/3/17.
  */
-public class JsoupLoginBilibili {
+public class LoginBilibili {
 
 //    private static Connection connection;
 
@@ -67,7 +64,7 @@ public class JsoupLoginBilibili {
 
                     //带着cookies访问需要的网址
                     Document document = Jsoup.connect("http://www.bilibili.com")
-                            .cookies(login.cookies()).get();*//**//**//**//**//**//**//*
+                            .cookies(login.cookies()).get();
                     LogUtil.i("Login", login.statusCode() + "");
                     LogUtil.i("Login", login.body());
                 } catch (Exception e) {
@@ -76,7 +73,7 @@ public class JsoupLoginBilibili {
             }
         }).start();
     }*/
-    public static void okLogin(HashKey key ,String userid, String pwd, String vdcode) {
+    public static void okLogin(String userid, String pwd, String vdcode) {
         OkHttpClient client = new OkHttpClient.Builder().cookieJar(new CookieJar() {
             private final HashMap<String, List<Cookie>> cookieStore = new HashMap<String, List<Cookie>>();
 
@@ -92,27 +89,21 @@ public class JsoupLoginBilibili {
             }
         }).build();
         //String hash = BaseApplication.getKey().getHash();
-        try {
+        /*try {
             PublicKey publicKey = RSA.loadPublicKey(key.getKey());
             byte[] encryptByte = RSA.encryptData((key.getHash() + pwd).getBytes(), publicKey);
             pwd = Base64Utils.encode(encryptByte);
             LogUtil.i("Login", pwd);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         FormBody formbody = new FormBody.Builder()
-                .add("act", "login")
-                .add("gourl", "http://www.bilibili.com/")
-                .add("keeptime", "604800")
                 .add("userid", userid)
                 .add("pwd", pwd)
                 .add("vdcode", vdcode)
-                .add("keeptime", "604800")
                 .build();
-        Request request = new Request.Builder().url(URLUtil.LOGIN_URL)
-                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36")
-                .addHeader("Referer","https://passport.bilibili.com/login")
+        Request request = new Request.Builder().url(URLUtil.PYTHON)
                 .post(formbody)
                 .build();
 
@@ -124,7 +115,8 @@ public class JsoupLoginBilibili {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                LogUtil.i("Login", response.body().string());
+                String uid = response.body().string();
+
             }
         });
     }

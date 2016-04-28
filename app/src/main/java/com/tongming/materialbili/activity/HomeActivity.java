@@ -27,12 +27,15 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.tongming.materialbili.CusView.GlideGircleTransform;
 import com.tongming.materialbili.R;
+import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.fragment.AnimeFragment;
 import com.tongming.materialbili.fragment.AttentionFragment;
 import com.tongming.materialbili.fragment.DiscoverFragment;
@@ -43,7 +46,6 @@ import com.tongming.materialbili.model.User;
 import com.tongming.materialbili.presenter.UserPresenterCompl;
 import com.tongming.materialbili.utils.CommonUtil;
 import com.tongming.materialbili.utils.ToastUtil;
-import com.tongming.materialbili.CusView.GlideGircleTransform;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
@@ -68,6 +70,11 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
     private final MyHandler mHandler = new MyHandler(this);
     private static boolean flag;
     private ImageView mAvatar;
+    private RelativeLayout mRlOutLogin;
+    private RelativeLayout mRlLogin;
+    private UserPresenterCompl mPresenterCompl;
+    private ImageView mLevel;
+    private ImageView mSex;
 
     private static class MyHandler extends Handler {
         private final WeakReference<HomeActivity> mActivity;
@@ -98,9 +105,7 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
         setContentView(R.layout.activity_main);
         //TranslucentUtil.translucentNavigation(HomeActivity.this);
         sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-        /*ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-        int heapSize = manager.getMemoryClass();
-        LogUtil.i(TAG,heapSize+"");*/
+        mPresenterCompl = new UserPresenterCompl(this);
         initViews();
 
         //测试
@@ -168,15 +173,63 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
 
     @Override
     public void onGetUserInfo(User user) {
-        if (!flag) {
+        Glide.with(this)
+                .load(user.getFace())
+                .transform(new GlideGircleTransform(this))
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .into(mAvatar);
+        mTv_coins.setText("硬币:" + user.getCoins());
+        mUserName.setText(user.getName());
+        int level = user.getLevel_info().getCurrent_level();
+        switch (level){
+            case 0:
+                Glide.with(this)
+                        .load(R.drawable.ic_lv0)
+                        .into(mLevel);
+                break;
+            case 1:
+                Glide.with(this)
+                        .load(R.drawable.ic_lv1)
+                        .into(mLevel);
+                break;
+            case 2:
+                Glide.with(this)
+                        .load(R.drawable.ic_lv2)
+                        .into(mLevel);
+                break;
+            case 3:
+                Glide.with(this)
+                        .load(R.drawable.ic_lv3)
+                        .into(mLevel);
+                break;
+            case 4:
+                Glide.with(this)
+                        .load(R.drawable.ic_lv4)
+                        .into(mLevel);
+                break;
+            case 5:
+                Glide.with(this)
+                        .load(R.drawable.ic_lv5)
+                        .into(mLevel);
+                break;
+            case 6:
+                Glide.with(this)
+                        .load(R.drawable.ic_lv6)
+                        .into(mLevel);
+                break;
+        }
+        if(user.getSex().equals("男")){
             Glide.with(this)
-                    .load(user.getFace())
-                    .transform(new GlideGircleTransform(this))
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(mAvatar);
-            mTv_coins.setText("硬币:" + user.getCoins());
-            mUserName.setText(user.getName());
-            flag = true;
+                    .load(R.drawable.ic_user_male)
+                    .into(mSex);
+        }else if(user.getSex().equals("女")){
+            Glide.with(this)
+                    .load(R.drawable.ic_user_female)
+                    .into(mSex);
+        }else {
+            Glide.with(this)
+                    .load(R.drawable.ic_user_gay)
+                    .into(mSex);
         }
     }
 
@@ -186,8 +239,27 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
         mAvatar = (ImageView) headerLayout.findViewById(R.id.iv_avatar);
         mTv_coins = (TextView) headerLayout.findViewById(R.id.tv_coin);
         mUserName = (TextView) headerLayout.findViewById(R.id.tv_userName);
-        UserPresenterCompl presenterCompl = new UserPresenterCompl(this);
-        presenterCompl.getUserInfo();
+        mLevel = (ImageView) headerLayout.findViewById(R.id.iv_level);
+        mSex = (ImageView) headerLayout.findViewById(R.id.iv_sex);
+        mRlOutLogin = (RelativeLayout) headerLayout.findViewById(R.id.rl_outLogin);
+        mRlLogin = (RelativeLayout) headerLayout.findViewById(R.id.rl_login);
+        final ImageView iv_out = (ImageView) headerLayout.findViewById(R.id.iv_outLogin);
+        TextView tv_out = (TextView) headerLayout.findViewById(R.id.tv_outLogin);
+        tv_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        if (sharedPreferences.getBoolean("isLogin", true)) {
+            mRlOutLogin.setVisibility(View.GONE);
+            mRlLogin.setVisibility(View.VISIBLE);
+        } else {
+            mRlOutLogin.setVisibility(View.VISIBLE);
+            mRlLogin.setVisibility(View.GONE);
+            Glide.with(BaseApplication.getInstance()).load(R.drawable.ic_outlogin).transform(new GlideGircleTransform(BaseApplication.getInstance())).into(iv_out);
+        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             //用于辨别此前是否有选中的条目
             MenuItem preMenuItem;
@@ -232,9 +304,12 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
                             break;
                         case R.id.logout:
                             //退出登录
+                            mRlOutLogin.setVisibility(View.VISIBLE);
+                            mRlLogin.setVisibility(View.GONE);
+                            Glide.with(BaseApplication.getInstance()).load(R.drawable.ic_outlogin).transform(new GlideGircleTransform(BaseApplication.getInstance())).into(iv_out);
                             sharedPreferences.edit().putBoolean("isLogin", false).apply();
-                            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                            finish();
+                            /*startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                            finish();*/
                             break;
                     }
                 }
@@ -337,6 +412,15 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
     @Override
     protected void onResume() {
         super.onResume();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle.getString("classID").equals("Splash") && sharedPreferences.getBoolean("isLogin", true)) {
+            mPresenterCompl.getUserInfo(sharedPreferences.getString("uid",""));
+        } else if(bundle.getString("classID").equals("Login")) {
+            mPresenterCompl.getUserInfo(bundle.getString("uid"));
+        }else {
+
+        }
         //启动应用时跳转到第三个页面:推荐页
         //mViewPager.setCurrentItem(2);
     }
