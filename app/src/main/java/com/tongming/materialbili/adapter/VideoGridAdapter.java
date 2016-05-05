@@ -105,7 +105,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 HotVideo.AnimeVideo animeVideo = animes.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(animeVideo.getPic())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -118,7 +118,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 HotVideo.Music music = musics.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(music.getPic())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -131,7 +131,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 HotVideo.DanceVideo danceVideo = dances.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(danceVideo.getPic())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -144,7 +144,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 HotVideo.GameVideo gameVideo = games.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(gameVideo.getPic())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -157,7 +157,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 HotVideo.TechnologyVideo tecVideo = tec.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(tecVideo.getPic())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -170,7 +170,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 HotVideo.FunnyVideo funnyVideo = fun.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(funnyVideo.getPic())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -183,7 +183,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 HotVideo.GhotVideo ghotVideo = ghot.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(ghotVideo.getPic())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -196,7 +196,7 @@ public class VideoGridAdapter extends BaseAdapter {
                 HotVideo.Movie tv = tvs.get(position);
                 Glide.with(BaseApplication.getInstance())
                         .load(tv.getPic())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)

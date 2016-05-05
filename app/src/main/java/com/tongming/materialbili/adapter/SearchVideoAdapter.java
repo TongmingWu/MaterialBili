@@ -63,7 +63,7 @@ public class SearchVideoAdapter extends BaseAdapter {
         }
         Glide.with(BaseApplication.getInstance())
                 .load(mSearch.getResult().getVideo().get(position).getPic())
-                .placeholder(R.drawable.bili_drawerbg_logined)
+                .placeholder(R.drawable.bili_default_image_tv)
                 .centerCrop()
                 .crossFade()
                 .skipMemoryCache(true)

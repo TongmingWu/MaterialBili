@@ -106,6 +106,7 @@ public class GiraffePlayer {
     final private int initHeight;
     private int defaultTimeout = 3000;
     private int screenWidthPixels;
+    private boolean isShowDanmaku = true;//是否显示弹幕
 
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -116,6 +117,8 @@ public class GiraffePlayer {
             } else if (v.getId() == R.id.app_video_play) {
                 doPauseResume();
                 show(defaultTimeout);
+            } else if (v.getId() == R.id.app_video_danmaku) {
+                updateDanmakuVisible();
             } else if (v.getId() == R.id.app_video_replay_icon) {
                 videoView.seekTo(0);
                 videoView.start();
@@ -190,6 +193,20 @@ public class GiraffePlayer {
         }
     }
 
+    private void updateDanmakuVisible() {
+        if (isShowDanmaku) {
+            $.id(R.id.app_video_danmaku).image(R.drawable.ic_answer_no_danmaku2);
+            isShowDanmaku = false;
+            if (danmaku != null) {
+                danmaku.hide();
+            }
+        } else {
+            $.id(R.id.app_video_danmaku).image(R.drawable.ic_answer_danmaku2);
+            isShowDanmaku = true;
+            danmaku.show();
+        }
+    }
+
 
     /**
      * @param timeout
@@ -215,6 +232,7 @@ public class GiraffePlayer {
 
     private void showBottomControl(boolean show) {
         $.id(R.id.app_video_play).visibility(show ? View.VISIBLE : View.GONE);
+        $.id(R.id.app_video_danmaku).visibility(show ? View.VISIBLE : View.GONE);
         $.id(R.id.app_video_currentTime).visibility(show ? View.VISIBLE : View.GONE);
         $.id(R.id.app_video_endTime).visibility(show ? View.VISIBLE : View.GONE);
         $.id(R.id.app_video_seekBar).visibility(show ? View.VISIBLE : View.GONE);
@@ -235,7 +253,7 @@ public class GiraffePlayer {
             if (isDragging) {
                 videoView.seekTo(newPosition);
                 danmaku.seekTo((long) newPosition);
-                LogUtil.i(TAG,"拉动seekbar");
+                LogUtil.i(TAG, "拉动seekbar");
             }
             $.id(R.id.app_video_currentTime).text(time);
         }
@@ -247,7 +265,7 @@ public class GiraffePlayer {
             handler.removeMessages(MESSAGE_SHOW_PROGRESS);
             if (isDragging) {
                 audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
-                LogUtil.i(TAG,"start执行了?");
+                LogUtil.i(TAG, "start执行了?");
             }
         }
 
@@ -255,7 +273,7 @@ public class GiraffePlayer {
         public void onStopTrackingTouch(SeekBar seekBar) {
             if (!isDragging) {
                 videoView.seekTo((int) ((duration * seekBar.getProgress() * 1.0) / 1000));
-                LogUtil.i(TAG,"stop执行了?");
+                LogUtil.i(TAG, "stop执行了?");
             }
             show(defaultTimeout);
             handler.removeMessages(MESSAGE_SHOW_PROGRESS);
@@ -436,6 +454,7 @@ public class GiraffePlayer {
         seekBar.setMax(1000);
         seekBar.setOnSeekBarChangeListener(mSeekListener);
         $.id(R.id.app_video_play).clicked(onClickListener);
+        $.id(R.id.app_video_danmaku).clicked(onClickListener);
         $.id(R.id.app_video_fullscreen).clicked(onClickListener);
         $.id(R.id.app_video_finish).clicked(onClickListener);
         $.id(R.id.app_video_replay_icon).clicked(onClickListener);

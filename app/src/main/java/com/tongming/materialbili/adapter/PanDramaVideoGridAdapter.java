@@ -122,7 +122,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
             if (sun != null) {
                 Glide.with(BaseApplication.getInstance()).
                         load(sun.get(position).getCover())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -135,7 +135,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
             } else if (mon != null) {
                 Glide.with(BaseApplication.getInstance()).
                         load(mon.get(position).getCover())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -148,7 +148,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
             } else if (tue != null) {
                 Glide.with(BaseApplication.getInstance()).
                         load(tue.get(position).getCover())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -161,7 +161,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
             } else if (wed != null) {
                 Glide.with(BaseApplication.getInstance()).
                         load(wed.get(position).getCover())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -174,7 +174,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
             } else if (thur != null) {
                 Glide.with(BaseApplication.getInstance()).
                         load(thur.get(position).getCover())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -187,7 +187,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
             } else if (fri != null) {
                 Glide.with(BaseApplication.getInstance()).
                         load(fri.get(position).getCover())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -200,7 +200,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
             } else if (sat != null) {
                 Glide.with(BaseApplication.getInstance()).
                         load(sat.get(position).getCover())
-                        .placeholder(R.drawable.bili_drawerbg_logined)
+                        .placeholder(R.drawable.bili_default_image_tv)
                         .centerCrop()
                         .crossFade()
                         .skipMemoryCache(true)
@@ -214,7 +214,7 @@ public class PanDramaVideoGridAdapter extends BaseAdapter {
                 if (flag) {
                     Glide.with(BaseApplication.getInstance()).
                             load(mPanDramas.get(position).getPic())
-                            .placeholder(R.drawable.bili_drawerbg_logined)
+                            .placeholder(R.drawable.bili_default_image_tv)
                             .centerCrop()
                             .crossFade()
                             .skipMemoryCache(true)

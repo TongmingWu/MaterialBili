@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/app_video_box"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#000">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/app_video_box"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#000">
 
     <com.tongming.materialbili.player.IjkVideoView
         android:id="@+id/video_view"
@@ -139,7 +140,6 @@
 
             </LinearLayout>
 
-
         </FrameLayout>
 
         <!-- status-->
@@ -193,7 +193,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/app_video_play"
-                android:text="06:21"
+                tools:text="06:21"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
@@ -212,10 +212,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/app_video_fullscreen"
-                android:text="10:10"
+                android:layout_toLeftOf="@+id/app_video_danmaku"
+                tools:text="10:10"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
+
+            <!--显示隐藏弹幕-->
+            <ImageView
+                android:id="@+id/app_video_danmaku"
+                android:layout_toLeftOf="@+id/app_video_send"
+                android:background="@drawable/ic_answer_danmaku2"
+                android:backgroundTint="@android:color/white"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--发送弹幕-->
+            <ImageView
+                android:id="@+id/app_video_send"
+                android:layout_toLeftOf="@id/app_video_fullscreen"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <ImageView
                 android:id="@+id/app_video_fullscreen"
