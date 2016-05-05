@@ -18,6 +18,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * Created by Tongming on 2016/4/23.
  */
@@ -30,6 +36,42 @@ public class ReviewPresenterCompl implements IReviewPresenter {
     public ReviewPresenterCompl(IReviewView reviewView) {
         mReviewView = reviewView;
         mHandler = new Handler(Looper.getMainLooper());
+    }
+
+    @Override
+    public void sendReview(String aid, String msg) {
+        FormBody formBody = new FormBody.Builder()
+                .add("oid", aid)
+                .add("message", msg)
+                .build();
+        Request request = new Request.Builder().url(URLUtil.PYTHON_REVIEW)
+                .post(formBody)
+                .build();
+        BaseApplication.client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.code()==200){
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mReviewView.onSendReviewResult(1);
+                        }
+                    });
+                }else {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mReviewView.onSendReviewResult(0);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override

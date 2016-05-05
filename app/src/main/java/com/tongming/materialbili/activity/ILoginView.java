@@ -5,5 +5,5 @@ package com.tongming.materialbili.activity;
  */
 public interface ILoginView {
     void onSuccess(String uid);
-    void onFailed();
+    void onFailed(int code);
 }

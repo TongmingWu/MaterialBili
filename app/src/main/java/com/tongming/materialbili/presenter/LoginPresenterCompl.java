@@ -5,6 +5,7 @@ import android.os.Looper;
 
 import com.tongming.materialbili.activity.ILoginView;
 import com.tongming.materialbili.base.BaseApplication;
+import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.URLUtil;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class LoginPresenterCompl implements ILoginPresenter {
                 .add("pwd", pwd)
                 .add("vdcode", vdcode)
                 .build();
-        Request request = new Request.Builder().url(URLUtil.PYTHON)
+        Request request = new Request.Builder().url(URLUtil.PYTHON_LOGIN)
                 .post(formbody)
                 .build();
 
@@ -47,7 +48,7 @@ public class LoginPresenterCompl implements ILoginPresenter {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mLoginView.onFailed();
+                        mLoginView.onFailed(400);
                     }
                 });
             }
@@ -55,12 +56,22 @@ public class LoginPresenterCompl implements ILoginPresenter {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String uid = response.body().string();
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mLoginView.onSuccess(uid);
-                    }
-                });
+                LogUtil.i("login",response.code()+"");
+                if(response.code()==200){
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLoginView.onSuccess(uid);
+                        }
+                    });
+                }else {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLoginView.onFailed(400);
+                        }
+                    });
+                }
             }
         });
     }

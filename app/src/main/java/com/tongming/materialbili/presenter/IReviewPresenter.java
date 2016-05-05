@@ -5,4 +5,5 @@ package com.tongming.materialbili.presenter;
  */
 public interface IReviewPresenter {
     void getReview(String aid);
+    void sendReview(String aid,String msg);
 }

@@ -18,6 +18,7 @@ import com.tongming.materialbili.R;
 import com.tongming.materialbili.presenter.LoginPresenterCompl;
 import com.tongming.materialbili.utils.LoadNetImage;
 import com.tongming.materialbili.utils.LogUtil;
+import com.tongming.materialbili.utils.ToastUtil;
 import com.tongming.materialbili.utils.URLUtil;
 
 /**
@@ -132,7 +133,9 @@ public class LoginActivity extends Activity implements ILoginView{
     }
 
     @Override
-    public void onFailed() {
-
+    public void onFailed(int code) {
+        mDialog.dismiss();
+        ToastUtil.showToast(this,"登录失败,请重新登录");
+        LoadNetImage.getVd(vdUrl, handler);
     }
 }

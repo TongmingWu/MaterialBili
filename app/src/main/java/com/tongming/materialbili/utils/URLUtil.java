@@ -15,7 +15,8 @@ public class URLUtil {
     public static final String DANCE = "129";//舞蹈
 
     //python服务器地址
-    public static String PYTHON = "http://10.12.243.252:5000/";
+    public static String PYTHON_LOGIN = "http://10.12.243.252:5000/login";
+    public static String PYTHON_REVIEW = "http://10.12.243.252:5000/review";
     //获取用户信息
     public static String GetUserId(String id){
         return "http://api.bilibili.cn/userinfo?mid="+id;

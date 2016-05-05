@@ -103,7 +103,7 @@ public class LoginBilibili {
                 .add("pwd", pwd)
                 .add("vdcode", vdcode)
                 .build();
-        Request request = new Request.Builder().url(URLUtil.PYTHON)
+        Request request = new Request.Builder().url(URLUtil.PYTHON_LOGIN)
                 .post(formbody)
                 .build();
 

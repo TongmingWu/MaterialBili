@@ -7,4 +7,5 @@ import com.tongming.materialbili.model.Comment;
  */
 public interface IReviewView {
     void onGetReviewResult(Comment comment);
+    void onSendReviewResult(int result);
 }
