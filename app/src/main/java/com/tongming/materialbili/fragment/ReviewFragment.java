@@ -21,8 +21,9 @@ import com.tongming.materialbili.adapter.CommentAdapter;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.Comment;
 import com.tongming.materialbili.presenter.ReviewPresenterCompl;
-import com.tongming.materialbili.utils.ListViewUtil;
 import com.tongming.materialbili.utils.ToastUtil;
+
+import java.util.List;
 
 /**
  * Created by Tongming on 2016/3/20.
@@ -31,6 +32,7 @@ public class ReviewFragment extends BaseFragment implements IReviewView {
 
     private View view;
     private String aid;
+    private boolean isSend;
 
     private Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -44,6 +46,8 @@ public class ReviewFragment extends BaseFragment implements IReviewView {
         }
     };
     private Comment mComment;
+    private List<Comment.ListEntity> list;
+    private CommentAdapter adapter;
     private CusListView mHotComment;
     private CusListView mNormalComment;
     private ReviewPresenterCompl mReviewPresenterCompl;
@@ -58,28 +62,23 @@ public class ReviewFragment extends BaseFragment implements IReviewView {
         return view;
     }
 
-    private void initData(Comment comment){
-        mComment = comment;
-//        mHotComment.setAdapter(new CommentAdapter(mComment.getHotList(),0));
-        mNormalComment.setAdapter(new CommentAdapter(mComment.getList(),1));
-//        ListViewUtil.setListViewHeightBasedOnChildren(mHotComment);
-        ListViewUtil.setListViewHeightBasedOnChildren(mNormalComment);
-    }
-
     private void initView(){
 //        mHotComment = (CusListView) view.findViewById(R.id.lv_hot_comment);
         mNormalComment = (CusListView) view.findViewById(R.id.lv_normal_comment);
         mEditMsg = (EditText) view.findViewById(R.id.et_msg);
         mImageButton = (ImageButton) view.findViewById(R.id.btn_send);
+        mImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String msg = mEditMsg.getText().toString();
+                mReviewPresenterCompl.sendReview(aid,msg);
+                mDialog = new ProgressDialog(getActivity());
+                mDialog.setMessage("发送评论中...");
+                mDialog.show();
+            }
+        });
     }
 
-    private void sendMsg(View v){
-        String msg = mEditMsg.getText().toString();
-        mReviewPresenterCompl.sendReview(aid,msg);
-        mDialog = new ProgressDialog(getActivity());
-        mDialog.setMessage("发送评论中...");
-        mDialog.show();
-    }
     @Override
     protected int getLayoutId() {
         return R.layout.pager_review;
@@ -98,7 +97,22 @@ public class ReviewFragment extends BaseFragment implements IReviewView {
 
     @Override
     public void onGetReviewResult(Comment comment) {
-        initData(comment);
+        mComment = comment;
+//        mHotComment.setAdapter(new CommentAdapter(mComment.getHotList(),0));
+
+        if(isSend){
+            list.clear();
+            list.addAll(mComment.getList());
+            adapter.notifyDataSetChanged();
+        }else {
+            //评论成功后刷新数据
+            list = mComment.getList();
+            adapter = new CommentAdapter(list,1);
+            mNormalComment.setAdapter(adapter);
+        }
+
+//        ListViewUtil.setListViewHeightBasedOnChildren(mHotComment);
+//        ListViewUtil.setListViewHeightBasedOnChildren(mNormalComment);
     }
 
     @Override
@@ -106,6 +120,9 @@ public class ReviewFragment extends BaseFragment implements IReviewView {
         mDialog.dismiss();
         if(result==1){
             ToastUtil.showToast(getActivity(),"评论成功");
+            mEditMsg.setText("");
+            isSend = true;
+            mReviewPresenterCompl.getReview(aid);
         }else {
             ToastUtil.showToast(getActivity(),"评论失败");
         }

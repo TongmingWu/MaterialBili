@@ -34,7 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/et_msg"
-            android:onClick="sendMsg"
             android:background="@drawable/ic_send_grey"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>
