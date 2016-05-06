@@ -65,6 +65,7 @@ public class VideoPlayActivity extends FragmentActivity implements IVideoPlayVie
 
     private RelativeLayout mRlLater;
     private String aid;
+    private String cid;
     private VideoPlayPresenterCompl mPlayPresenter;
 
     @Override
@@ -98,6 +99,7 @@ public class VideoPlayActivity extends FragmentActivity implements IVideoPlayVie
     //初始化播放器
     private void initPlayer() {
         player = new GiraffePlayer(VideoPlayActivity.this);
+        player.setVideoInfo(aid,cid);
         player.setTitle(video.getTitle());
     }
 
@@ -233,6 +235,7 @@ public class VideoPlayActivity extends FragmentActivity implements IVideoPlayVie
 
     @Override
     public void onGetVideoInfo(AidVideo video) {
+        cid = video.getList().getZero().getCid()+"";
         this.video = video;
         initPlayer();
         initViewPager();
@@ -245,7 +248,7 @@ public class VideoPlayActivity extends FragmentActivity implements IVideoPlayVie
         fMsg.obj = video;
         mHandler.sendMessage(fMsg);
         //DoRequest.getUrl(cid, handler);
-        mPlayPresenter.getUrl(video.getList().getZero().getCid()+"");
+        mPlayPresenter.getUrl(cid);
     }
 
     @Override

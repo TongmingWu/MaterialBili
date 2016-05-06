@@ -231,19 +231,20 @@
             <!--发送弹幕-->
             <ImageView
                 android:id="@+id/app_video_send"
-                android:layout_toLeftOf="@id/app_video_fullscreen"
+                android:layout_toLeftOf="@+id/app_video_fullscreen"
                 android:layout_marginLeft="5dp"
                 android:layout_centerVertical="true"
+                android:src="@drawable/ic_send_danmaku"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <ImageView
-                android:id="@+id/app_video_fullscreen"
+                android:id="@id/app_video_fullscreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dp"
+                android:paddingLeft="5dp"
                 android:src="@drawable/ic_fullscreen_white_24dp" />
 
         </RelativeLayout>

@@ -2,14 +2,17 @@ package com.tongming.materialbili.player;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -21,13 +24,17 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.tongming.materialbili.R;
+import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.utils.LogUtil;
+import com.tongming.materialbili.utils.URLUtil;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
@@ -40,11 +47,17 @@ import master.flame.danmaku.danmaku.model.DanmakuTimer;
 import master.flame.danmaku.danmaku.model.IDanmakus;
 import master.flame.danmaku.danmaku.model.IDisplayer;
 import master.flame.danmaku.danmaku.model.android.DanmakuContext;
+import master.flame.danmaku.danmaku.model.android.DanmakuFactory;
 import master.flame.danmaku.danmaku.model.android.Danmakus;
 import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
 import master.flame.danmaku.danmaku.parser.IDataSource;
 import master.flame.danmaku.danmaku.parser.android.BiliDanmukuParser;
 import master.flame.danmaku.ui.widget.DanmakuView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Request;
+import okhttp3.Response;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
@@ -107,6 +120,8 @@ public class GiraffePlayer {
     private int defaultTimeout = 3000;
     private int screenWidthPixels;
     private boolean isShowDanmaku = true;//是否显示弹幕
+    private String aid;
+    private String cid;
 
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -119,6 +134,66 @@ public class GiraffePlayer {
                 show(defaultTimeout);
             } else if (v.getId() == R.id.app_video_danmaku) {
                 updateDanmakuVisible();
+            } else if (v.getId() == R.id.app_video_send) {
+                //发送弹幕
+                doPauseResume();
+                final EditText editText = new EditText(activity);
+                final long playTime = videoView.getCurrentPosition();
+                AlertDialog dialog = new AlertDialog.Builder(activity)
+                        .setTitle("请输入")
+                        .setView(editText)
+                        .setPositiveButton("发送", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String message = editText.getText().toString();
+                                FormBody formBody = new FormBody.Builder()
+                                        .add("aid", aid)
+                                        .add("cid", cid)
+                                        .add("message", message)
+                                        .add("playTime", playTime + "")
+                                        .build();
+                                Request request = new Request.Builder()
+                                        .url(URLUtil.PYTHON_DANMAKU)
+                                        .post(formBody)
+                                        .build();
+                                BaseApplication.client.newCall(request)
+                                        .enqueue(new Callback() {
+                                            @Override
+                                            public void onFailure(Call call, IOException e) {
+
+                                            }
+
+                                            @Override
+                                            public void onResponse(Call call, Response response) throws IOException {
+                                                if (response.code() == 200) {
+                                                    try {
+                                                        Class factoryClass = Class.forName(DanmakuFactory.class.getName());
+                                                        DanmakuFactory factory = (DanmakuFactory) factoryClass.newInstance();
+                                                        BaseDanmaku baseDanmaku = factory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL, context);
+                                                        baseDanmaku.text = editText.getText().toString();
+                                                        baseDanmaku.textColor = Color.WHITE;
+                                                        baseDanmaku.textSize = 25f;
+                                                        danmaku.addDanmaku(baseDanmaku);
+                                                    } catch (IllegalAccessException e) {
+                                                        e.printStackTrace();
+                                                    } catch (ClassNotFoundException e) {
+                                                        e.printStackTrace();
+                                                    } catch (InstantiationException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    doPauseResume();
+                                                }
+                                            }
+                                        });
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                start();
+                            }
+                        })
+                        .show();
             } else if (v.getId() == R.id.app_video_replay_icon) {
                 videoView.seekTo(0);
                 videoView.start();
@@ -233,6 +308,7 @@ public class GiraffePlayer {
     private void showBottomControl(boolean show) {
         $.id(R.id.app_video_play).visibility(show ? View.VISIBLE : View.GONE);
         $.id(R.id.app_video_danmaku).visibility(show ? View.VISIBLE : View.GONE);
+        $.id(R.id.app_video_send).visibility(show ? View.VISIBLE : View.GONE);
         $.id(R.id.app_video_currentTime).visibility(show ? View.VISIBLE : View.GONE);
         $.id(R.id.app_video_endTime).visibility(show ? View.VISIBLE : View.GONE);
         $.id(R.id.app_video_seekBar).visibility(show ? View.VISIBLE : View.GONE);
@@ -455,6 +531,7 @@ public class GiraffePlayer {
         seekBar.setOnSeekBarChangeListener(mSeekListener);
         $.id(R.id.app_video_play).clicked(onClickListener);
         $.id(R.id.app_video_danmaku).clicked(onClickListener);
+        $.id(R.id.app_video_send).clicked(onClickListener);
         $.id(R.id.app_video_fullscreen).clicked(onClickListener);
         $.id(R.id.app_video_finish).clicked(onClickListener);
         $.id(R.id.app_video_replay_icon).clicked(onClickListener);
@@ -511,6 +588,11 @@ public class GiraffePlayer {
         if (!playerSupport) {
             showStatus(activity.getResources().getString(R.string.not_support));
         }
+    }
+
+    public void setVideoInfo(String aid, String cid) {
+        this.aid = aid;
+        this.cid = cid;
     }
 
     /**

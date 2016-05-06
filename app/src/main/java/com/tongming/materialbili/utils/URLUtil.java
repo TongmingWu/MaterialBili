@@ -17,6 +17,7 @@ public class URLUtil {
     //python服务器地址
     public static String PYTHON_LOGIN = "http://10.12.243.252:5000/login";
     public static String PYTHON_REVIEW = "http://10.12.243.252:5000/review";
+    public static String PYTHON_DANMAKU = "http://10.12.243.252:5000/danmaku";
     //获取用户信息
     public static String GetUserId(String id){
         return "http://api.bilibili.cn/userinfo?mid="+id;
