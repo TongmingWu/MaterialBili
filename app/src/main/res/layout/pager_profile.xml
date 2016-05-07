@@ -104,8 +104,7 @@
             <LinearLayout
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="@drawable/night_video_action_bg"
-                android:backgroundTint="@android:color/white"
+                android:background="@drawable/daily_video_action_bg"
                 android:gravity="center">
 
                 <ImageView
@@ -142,8 +141,7 @@
             <LinearLayout
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="@drawable/night_video_action_bg"
-                android:backgroundTint="@android:color/white"
+                android:background="@drawable/daily_video_action_bg"
                 android:gravity="center">
 
                 <ImageView
@@ -180,8 +178,7 @@
             <LinearLayout
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="@drawable/night_video_action_bg"
-                android:backgroundTint="@android:color/white"
+                android:background="@drawable/daily_video_action_bg"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -210,8 +207,7 @@
             <LinearLayout
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="@drawable/night_video_action_bg"
-                android:backgroundTint="@android:color/white"
+                android:background="@drawable/daily_video_action_bg"
                 android:gravity="center"
                 android:orientation="vertical">
 

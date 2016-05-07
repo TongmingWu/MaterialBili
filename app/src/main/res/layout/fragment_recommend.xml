@@ -68,6 +68,9 @@
                 android:id="@+id/lv_rec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fadingEdge="none"
+                android:focusable="false"
+                android:scrollbars="none"
                 android:descendantFocusability="afterDescendants"
                 android:divider="@null" />
         </LinearLayout>

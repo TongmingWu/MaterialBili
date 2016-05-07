@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.tongming.materialbili.CusView.CusListView;
+import com.tongming.materialbili.CusView.NetworkImageHolderView;
+import com.tongming.materialbili.CusView.PanItemView;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.activity.VideoPlayActivity;
 import com.tongming.materialbili.adapter.GridInListAdapter;
@@ -26,8 +28,6 @@ import com.tongming.materialbili.model.HotVideo;
 import com.tongming.materialbili.model.IndexBanner;
 import com.tongming.materialbili.presenter.RecPresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.CusView.NetworkImageHolderView;
-import com.tongming.materialbili.CusView.PanItemView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class RecommendFragment extends BaseFragment implements IRecView {
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    private ListView lvRec;
+    private CusListView lvRec;
     private GridView gvPan;
     private GridView gvHot;
     private LinearLayout mTop;
@@ -104,7 +104,7 @@ public class RecommendFragment extends BaseFragment implements IRecView {
         gvHot = (GridView) view.findViewById(R.id.gv_hot);
         PanItemView pivPan = (PanItemView) view.findViewById(R.id.rec_pan);
         gvPan = pivPan.getGvView();
-        lvRec = (ListView) view.findViewById(R.id.lv_rec);
+        lvRec = (CusListView) view.findViewById(R.id.lv_rec);
 
         mPresenterCompl = new RecPresenterCompl(this);
     }
@@ -134,6 +134,7 @@ public class RecommendFragment extends BaseFragment implements IRecView {
             }
         });
         lvRec.setAdapter(new GridInListAdapter(getActivity(), hotVideo));
+        lvRec.setExpanded(true);
     }
 
     private void initBanner(IndexBanner indexBanner) {

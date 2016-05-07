@@ -112,7 +112,6 @@ public class ReviewFragment extends BaseFragment implements IReviewView {
         }
 
 //        ListViewUtil.setListViewHeightBasedOnChildren(mHotComment);
-//        ListViewUtil.setListViewHeightBasedOnChildren(mNormalComment);
     }
 
     @Override

@@ -30,8 +30,12 @@
             <com.tongming.materialbili.CusView.CusListView
                 android:id="@+id/lv_pan"
                 android:divider="@null"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:fadingEdge="none"
+                android:focusable="false"
+                android:scrollbars="none"
+                android:descendantFocusability="afterDescendants"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"/>
             <!--&lt;!&ndash;周日&ndash;&gt;
             <com.tongming.materialbili.view.PanItemView
                 android:id="@+id/pan_sun"

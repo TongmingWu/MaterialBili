@@ -98,7 +98,7 @@ public class Bangumi {
         private boolean newX;
         private int play_count;
         private String pub_time;
-        private int season_id;
+        private String season_id;
         private int spid;
         private String square_cover;
         private String title;
@@ -225,11 +225,11 @@ public class Bangumi {
             this.pub_time = pub_time;
         }
 
-        public int getSeason_id() {
+        public String getSeason_id() {
             return season_id;
         }
 
-        public void setSeason_id(int season_id) {
+        public void setSeason_id(String season_id) {
             this.season_id = season_id;
         }
 
@@ -291,7 +291,7 @@ public class Bangumi {
         private boolean newX;
         private int play_count;
         private String pub_time;
-        private int season_id;
+        private String season_id;
         private int spid;
         private String square_cover;
         private String title;
@@ -418,11 +418,11 @@ public class Bangumi {
             this.pub_time = pub_time;
         }
 
-        public int getSeason_id() {
+        public String getSeason_id() {
             return season_id;
         }
 
-        public void setSeason_id(int season_id) {
+        public void setSeason_id(String season_id) {
             this.season_id = season_id;
         }
 
@@ -484,7 +484,7 @@ public class Bangumi {
         private boolean newX;
         private int play_count;
         private String pub_time;
-        private int season_id;
+        private String season_id;
         private int spid;
         private String square_cover;
         private String title;
@@ -611,11 +611,11 @@ public class Bangumi {
             this.pub_time = pub_time;
         }
 
-        public int getSeason_id() {
+        public String getSeason_id() {
             return season_id;
         }
 
-        public void setSeason_id(int season_id) {
+        public void setSeason_id(String season_id) {
             this.season_id = season_id;
         }
 
@@ -677,7 +677,7 @@ public class Bangumi {
         private boolean newX;
         private int play_count;
         private String pub_time;
-        private int season_id;
+        private String season_id;
         private int spid;
         private String square_cover;
         private String title;
@@ -804,11 +804,11 @@ public class Bangumi {
             this.pub_time = pub_time;
         }
 
-        public int getSeason_id() {
+        public String getSeason_id() {
             return season_id;
         }
 
-        public void setSeason_id(int season_id) {
+        public void setSeason_id(String season_id) {
             this.season_id = season_id;
         }
 
@@ -870,7 +870,7 @@ public class Bangumi {
         private boolean newX;
         private int play_count;
         private String pub_time;
-        private int season_id;
+        private String season_id;
         private int spid;
         private String square_cover;
         private String title;
@@ -997,11 +997,11 @@ public class Bangumi {
             this.pub_time = pub_time;
         }
 
-        public int getSeason_id() {
+        public String getSeason_id() {
             return season_id;
         }
 
-        public void setSeason_id(int season_id) {
+        public void setSeason_id(String season_id) {
             this.season_id = season_id;
         }
 
@@ -1063,7 +1063,7 @@ public class Bangumi {
         private boolean newX;
         private int play_count;
         private String pub_time;
-        private int season_id;
+        private String season_id;
         private int spid;
         private String square_cover;
         private String title;
@@ -1190,11 +1190,11 @@ public class Bangumi {
             this.pub_time = pub_time;
         }
 
-        public int getSeason_id() {
+        public String getSeason_id() {
             return season_id;
         }
 
-        public void setSeason_id(int season_id) {
+        public void setSeason_id(String season_id) {
             this.season_id = season_id;
         }
 
@@ -1256,7 +1256,7 @@ public class Bangumi {
         private boolean newX;
         private int play_count;
         private String pub_time;
-        private int season_id;
+        private String season_id;
         private int spid;
         private String square_cover;
         private String title;
@@ -1383,11 +1383,11 @@ public class Bangumi {
             this.pub_time = pub_time;
         }
 
-        public int getSeason_id() {
+        public String getSeason_id() {
             return season_id;
         }
 
-        public void setSeason_id(int season_id) {
+        public void setSeason_id(String season_id) {
             this.season_id = season_id;
         }
 

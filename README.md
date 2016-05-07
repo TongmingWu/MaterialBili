@@ -1,8 +1,8 @@
 ## 学习Android的第一个项目:Bilibili Android客户端 ##
 ###b站api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>
 ####目前功能还不完善,还需要修改许多地方<br>
+###本项目配合[BiliServer](https://github.com/TongmingWu/BiliServer)项目实现 登录&评论视频&发送弹幕功能
 首页效果<br>
-![](http://i.imgur.com/MB6cUNS.png)
 ![](http://i.imgur.com/cQkk90s.png)
 ![](http://i.imgur.com/3X2uTZv.png)
 ![](http://i.imgur.com/eRI56Ks.png)

@@ -138,7 +138,6 @@ public class GiraffePlayer {
                 //发送弹幕
                 doPauseResume();
                 final EditText editText = new EditText(activity);
-                final long playTime = videoView.getCurrentPosition();
                 AlertDialog dialog = new AlertDialog.Builder(activity)
                         .setTitle("请输入")
                         .setView(editText)
@@ -146,6 +145,8 @@ public class GiraffePlayer {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String message = editText.getText().toString();
+                                //playTime的单位为秒
+                                float playTime = ((float)videoView.getCurrentPosition())/1000;
                                 FormBody formBody = new FormBody.Builder()
                                         .add("aid", aid)
                                         .add("cid", cid)

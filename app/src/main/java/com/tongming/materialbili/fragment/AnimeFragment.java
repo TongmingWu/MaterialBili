@@ -70,6 +70,7 @@ public class AnimeFragment extends BaseFragment implements IAnimeView {
     private void initVideo(Bangumi bangumi) {
         if(bangumi!=null){
             mLv_pan.setAdapter(new GridInListAdapter(bangumi,getActivity()));
+            mLv_pan.setExpanded(true);
         }
     }
 

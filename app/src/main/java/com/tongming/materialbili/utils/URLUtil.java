@@ -15,9 +15,11 @@ public class URLUtil {
     public static final String DANCE = "129";//舞蹈
 
     //python服务器地址
-    public static String PYTHON_LOGIN = "http://10.12.243.252:5000/login";
-    public static String PYTHON_REVIEW = "http://10.12.243.252:5000/review";
-    public static String PYTHON_DANMAKU = "http://10.12.243.252:5000/danmaku";
+    private static String PYTHON = "http://10.12.243.252:5000";
+    public static String PYTHON_LOGIN = PYTHON+"/login";
+    public static String PYTHON_REVIEW = PYTHON+"/review";
+    public static String PYTHON_DANMAKU = PYTHON+"/danmaku";
+    public static String PYTHON_PAN = PYTHON+"/pan";
     //获取用户信息
     public static String GetUserId(String id){
         return "http://api.bilibili.cn/userinfo?mid="+id;
@@ -92,4 +94,7 @@ public class URLUtil {
 
     //获取验证码
     public static final String CAPTCHA = "https://passport.bilibili.com/captcha";
+
+    //获取番剧承包信息
+    public static final String CONTRACT = "http://www.bilibili.com/widget/ajaxGetBP?aid=";
 }

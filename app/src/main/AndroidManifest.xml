@@ -38,6 +38,7 @@
         <activity android:name=".activity.SearchResultActivity"/>
         <activity android:name=".activity.LivePlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".activity.BangumiActivity"/>
     </application>
 
 </manifest>

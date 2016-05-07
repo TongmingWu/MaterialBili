@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.squareup.leakcanary.RefWatcher;
+import com.tongming.materialbili.CusView.CusListView;
+import com.tongming.materialbili.CusView.NetworkImageHolderView;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.adapter.GridInListAdapter;
 import com.tongming.materialbili.adapter.IconGridAdapter;
@@ -24,7 +25,6 @@ import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.LiveVideo;
 import com.tongming.materialbili.presenter.LivePresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.CusView.NetworkImageHolderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class LiveFragment extends BaseFragment implements ILiveView {
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    private ListView lvLive;
+    private CusListView lvLive;
     private Button moreLive;
     private LinearLayout mLlTop;
     private LivePresenterCompl mPresenterCompl;
@@ -86,6 +86,7 @@ public class LiveFragment extends BaseFragment implements ILiveView {
 
         if (live != null) {
             lvLive.setAdapter(new GridInListAdapter(getActivity(), live.getData().getPartitions()));
+            lvLive.setExpanded(true);
         }
     }
 
@@ -106,7 +107,7 @@ public class LiveFragment extends BaseFragment implements ILiveView {
         gv_live = (GridView) view.findViewById(R.id.gv_live);
         gv_live.setAdapter(new IconGridAdapter(mItems, imagesId2));
 
-        lvLive = (ListView) view.findViewById(R.id.lv_live);
+        lvLive = (CusListView) view.findViewById(R.id.lv_live);
 
         mLlTop = (LinearLayout) view.findViewById(R.id.ll_top);
         moreLive = (Button) view.findViewById(R.id.btn_more_live);

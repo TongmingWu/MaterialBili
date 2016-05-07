@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 
 import com.tongming.materialbili.R;
+import com.tongming.materialbili.activity.BangumiActivity;
 import com.tongming.materialbili.activity.LivePlayActivity;
 import com.tongming.materialbili.activity.VideoPlayActivity;
 import com.tongming.materialbili.base.BaseApplication;
@@ -298,6 +299,14 @@ public class GridInListAdapter extends BaseAdapter {
                         holder.mPanItemView.setTvDesc("周末番剧");
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getsundays(),0));
+                            holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(context, BangumiActivity.class);
+                                    intent.putExtra("seasonID",bangumi.getsundays().get(position).getSeason_id());
+                                    context.startActivity(intent);
+                                }
+                            });
                         }
                         break;
                     case 1:
@@ -305,6 +314,14 @@ public class GridInListAdapter extends BaseAdapter {
                         holder.mPanItemView.setTvDesc("周一番剧");
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getmondays(),1));
+                            holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(context, BangumiActivity.class);
+                                    intent.putExtra("seasonID",bangumi.getmondays().get(position).getSeason_id());
+                                    context.startActivity(intent);
+                                }
+                            });
                         }
                         break;
                     case 2:
@@ -312,6 +329,14 @@ public class GridInListAdapter extends BaseAdapter {
                         holder.mPanItemView.setTvDesc("周二番剧");
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.gettuesdays(),2));
+                            holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(context, BangumiActivity.class);
+                                    intent.putExtra("seasonID",bangumi.gettuesdays().get(position).getSeason_id());
+                                    context.startActivity(intent);
+                                }
+                            });
                         }
                         break;
                     case 3:
@@ -319,6 +344,14 @@ public class GridInListAdapter extends BaseAdapter {
                         holder.mPanItemView.setTvDesc("周三番剧");
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getwednesdays(),3));
+                            holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(context, BangumiActivity.class);
+                                    intent.putExtra("seasonID",bangumi.getwednesdays().get(position).getSeason_id());
+                                    context.startActivity(intent);
+                                }
+                            });
                         }
                         break;
                     case 4:
@@ -326,6 +359,14 @@ public class GridInListAdapter extends BaseAdapter {
                         holder.mPanItemView.setTvDesc("周四番剧");
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getthursdays(),4));
+                            holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(context, BangumiActivity.class);
+                                    intent.putExtra("seasonID",bangumi.getthursdays().get(position).getSeason_id());
+                                    context.startActivity(intent);
+                                }
+                            });
                         }
                         break;
                     case 5:
@@ -333,6 +374,14 @@ public class GridInListAdapter extends BaseAdapter {
                         holder.mPanItemView.setTvDesc("周五番剧");
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getfridays(),5));
+                            holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(context, BangumiActivity.class);
+                                    intent.putExtra("seasonID",bangumi.getfridays().get(position).getSeason_id());
+                                    context.startActivity(intent);
+                                }
+                            });
                         }
                         break;
                     case 6:
@@ -340,6 +389,14 @@ public class GridInListAdapter extends BaseAdapter {
                         holder.mPanItemView.setTvDesc("周六番剧");
                         if(holder.gv.getAdapter()==null){
                             holder.gv.setAdapter(new PanDramaVideoGridAdapter(bangumi.getsaturdays(),6));
+                            holder.gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(context, BangumiActivity.class);
+                                    intent.putExtra("seasonID",bangumi.getsaturdays().get(position).getSeason_id());
+                                    context.startActivity(intent);
+                                }
+                            });
                         }
                         break;
                     default:
