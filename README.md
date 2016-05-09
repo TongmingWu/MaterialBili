@@ -11,6 +11,9 @@
 ![](http://i.imgur.com/VgmDTJN.png)
 ![](http://i.imgur.com/LifPbsL.png)
 
+番剧详情<br>
+![](http://i.imgur.com/QSLbxHR.png)
+
 直播页面<br>
 ![](http://i.imgur.com/d07FOqa.png)
 
