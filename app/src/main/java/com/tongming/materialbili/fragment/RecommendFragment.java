@@ -24,8 +24,8 @@ import com.tongming.materialbili.adapter.GridInListAdapter;
 import com.tongming.materialbili.adapter.PanDramaVideoGridAdapter;
 import com.tongming.materialbili.adapter.VideoGridAdapter;
 import com.tongming.materialbili.base.BaseFragment;
+import com.tongming.materialbili.model.Banner;
 import com.tongming.materialbili.model.HotVideo;
-import com.tongming.materialbili.model.IndexBanner;
 import com.tongming.materialbili.presenter.RecPresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
 
@@ -137,11 +137,10 @@ public class RecommendFragment extends BaseFragment implements IRecView {
         lvRec.setExpanded(true);
     }
 
-    private void initBanner(IndexBanner indexBanner) {
+    private void initBanner(Banner indexBanner) {
         //初始化banner数据
-        for (int i = 0; i < indexBanner.getBanners().size(); i++) {
-            netImages.add(indexBanner.getBanners().get(i).getImg());
-
+        for (int i = 0; i < indexBanner.getResult().getBanners().size(); i++) {
+            netImages.add(indexBanner.getResult().getBanners().get(i).getImg());
         }
 
         convenientBanner.setPages(new CBViewHolderCreator() {
@@ -207,7 +206,7 @@ public class RecommendFragment extends BaseFragment implements IRecView {
     }
 
     @Override
-    public void onGetBannerResult(IndexBanner banner) {
+    public void onGetBannerResult(Banner banner) {
         initBanner(banner);
     }
 }

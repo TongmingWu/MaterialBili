@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.fragment.IAnimeView;
 import com.tongming.materialbili.model.Bangumi;
-import com.tongming.materialbili.model.IndexBanner;
+import com.tongming.materialbili.model.Banner;
 import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.URLUtil;
 
@@ -61,7 +61,7 @@ public class AnimePresenterCompl implements IVideoPresenter {
 
     @Override
     public void getBanner() {
-        Request requestBanner = new Request.Builder().url(URLUtil.INDEXINFO).build();
+        Request requestBanner = new Request.Builder().url(URLUtil.BANNER).build();
         BaseApplication.client.newCall(requestBanner).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -73,12 +73,12 @@ public class AnimePresenterCompl implements IVideoPresenter {
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
                 //只获取banner部分的json
-                String jsonBanner = "{" + json.substring(
-                        json.indexOf("\"banners\""),
-                        json.indexOf("]")) + "]}";
+//                String jsonBanner = "{" + json.substring(
+//                        json.indexOf("\"banners\""),
+//                        json.indexOf("]")) + "]}";
                 //LogUtil.i(TAG,jsonBanner);
-                final IndexBanner indexBanner = BaseApplication.gson.fromJson(jsonBanner,
-                        new TypeToken<IndexBanner>() {
+                final Banner indexBanner = BaseApplication.gson.fromJson(json,
+                        new TypeToken<Banner>() {
                         }.getType());
                 mHandler.post(new Runnable() {
                     @Override

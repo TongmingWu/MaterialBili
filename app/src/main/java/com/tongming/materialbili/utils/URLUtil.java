@@ -27,7 +27,7 @@ public class URLUtil {
     //public static String USER = "http://api.bilibili.cn/userinfo?user=莫到家了";
 
     //主要分类下的前9个热门视频
-    public static final String HOT_VIEDO = "http://bilibili-service.daoapp.io/topinfo";
+    public static final String HOT_VIEDO = "http://10.12.243.252:5000/anime";
     //各分类下的排行
     //URL:/sort/tid 例如动画 /sort/13
     public static final String TYPE_VIEDO = "http://bilibili-service.daoapp.io/sort/";
@@ -41,8 +41,11 @@ public class URLUtil {
 
     //番剧更新列表
     public static final String BANGUMI = "http://bilibili-service.daoapp.io/bangumi?btype=2";
+    //获取番剧banner
+    public static final String BANNER = "http://bilibili-service.daoapp.io/bangumiindex";
     //视频地址解析
-    public static final String VIDEODOWNLOAD = "http://bilibili-service.daoapp.io/videoflv/";
+    //http://bilibili-service.daoapp.io/video/3580782?quality=2
+    public static final String VIDEODOWNLOAD = "http://bilibili-service.daoapp.io/video/";
 
     //专题信息查看
     //URL   /spinfo/spid    /spinfo/title=""

@@ -61,7 +61,7 @@ public class VideoPlayPresenterCompl implements IPlayPresenter {
 
     @Override
     public void getUrl(String cid) {
-        Request requestUrl = new Request.Builder().url(URLUtil.VIDEODOWNLOAD + cid).build();
+        Request requestUrl = new Request.Builder().url(URLUtil.VIDEODOWNLOAD + cid+"?quality=2").build();
         BaseApplication.client.newCall(requestUrl).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

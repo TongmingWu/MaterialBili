@@ -38,6 +38,18 @@ public class BaseApplication extends Application {
         super.onCreate();
         mInstance = getApplicationContext();
         refWatcher = LeakCanary.install(this);
+
+        //测试
+        /*AsyncHttpClient.getDefaultInstance().execute("http://10.12.243.252:5000", new HttpConnectCallback() {
+            @Override
+            public void onConnectCompleted(Exception ex, AsyncHttpResponse response) {
+                if (ex != null) {
+                    ex.printStackTrace();
+                    return;
+                }
+                System.out.println("I got a string: " + response.message());
+            }
+        });*/
     }
 
     public static Context getInstance() {

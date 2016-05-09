@@ -13,16 +13,16 @@ import android.widget.LinearLayout;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.squareup.leakcanary.RefWatcher;
+import com.tongming.materialbili.CusView.CusListView;
+import com.tongming.materialbili.CusView.NetworkImageHolderView;
 import com.tongming.materialbili.R;
 import com.tongming.materialbili.adapter.GridInListAdapter;
 import com.tongming.materialbili.base.BaseApplication;
 import com.tongming.materialbili.base.BaseFragment;
 import com.tongming.materialbili.model.Bangumi;
-import com.tongming.materialbili.model.IndexBanner;
+import com.tongming.materialbili.model.Banner;
 import com.tongming.materialbili.presenter.AnimePresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
-import com.tongming.materialbili.CusView.CusListView;
-import com.tongming.materialbili.CusView.NetworkImageHolderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,10 +74,10 @@ public class AnimeFragment extends BaseFragment implements IAnimeView {
         }
     }
 
-    private void initBanner(IndexBanner indexBanner) {
+    private void initBanner(Banner banner) {
         //初始化banner数据
-        for (int i = indexBanner.getBanners().size() - 1; i >= 0; i--) {
-            netImages.add(indexBanner.getBanners().get(i).getImg());
+        for (int i = 0; i < banner.getResult().getBanners().size(); i++) {
+            netImages.add(banner.getResult().getBanners().get(i).getImg());
         }
         convenientBanner.setPages(new CBViewHolderCreator() {
             @Override
@@ -174,7 +174,7 @@ public class AnimeFragment extends BaseFragment implements IAnimeView {
     }
 
     @Override
-    public void onGetBannerResult(IndexBanner banner) {
+    public void onGetBannerResult(Banner banner) {
         initBanner(banner);
     }
 }
