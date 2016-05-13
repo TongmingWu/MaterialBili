@@ -87,6 +87,8 @@ public class LivePlayActivity extends AppCompatActivity {
         titleList.add("评议会");
         titleList.add("投喂榜");
         titleList.add("粉丝榜");
+
+
         for(int i = 0;i<titleList.size();i++){
             tabLayout.addTab(tabLayout.newTab().setText(titleList.get(i)));
         }

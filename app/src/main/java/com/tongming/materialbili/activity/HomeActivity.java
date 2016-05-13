@@ -45,14 +45,22 @@ import com.tongming.materialbili.fragment.SubareaFragment;
 import com.tongming.materialbili.model.User;
 import com.tongming.materialbili.presenter.UserPresenterCompl;
 import com.tongming.materialbili.utils.CommonUtil;
+import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.ToastUtil;
+
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 public class HomeActivity extends AppCompatActivity implements IUserView {
 
@@ -109,6 +117,38 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
         initViews();
 
         //测试
+        try {
+            IO.Options opts = new IO.Options();
+            opts.forceNew = true;
+            opts.reconnection = true;
+            final Socket socket = IO.socket("http://10.12.243.252:5000/live", opts);
+
+            socket.on(socket.EVENT_CONNECT, new Emitter.Listener() {
+                //连接服务器成功之后的回调事件
+                @Override
+                public void call(Object... args) {
+                    socket.emit("live", "1");
+                }
+            }).on("live", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    //接收数据服务器发送过来的数据
+                    JSONObject obj = (JSONObject) args[0];
+                    if (obj != null) {
+                        LogUtil.d(TAG, obj.toString());
+                    }
+                }
+            }).on(socket.EVENT_ERROR, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    LogUtil.d(TAG, "服务器失去连接，正在重新连接。。。");
+                    socket.io().reconnection(true);
+                }
+            });
+            socket.connect();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     //初始化控件
@@ -181,7 +221,7 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
         mTv_coins.setText("硬币:" + user.getCoins());
         mUserName.setText(user.getName());
         int level = user.getLevel_info().getCurrent_level();
-        switch (level){
+        switch (level) {
             case 0:
                 Glide.with(this)
                         .load(R.drawable.ic_lv0)
@@ -218,15 +258,15 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
                         .into(mLevel);
                 break;
         }
-        if(user.getSex().equals("男")){
+        if (user.getSex().equals("男")) {
             Glide.with(this)
                     .load(R.drawable.ic_user_male)
                     .into(mSex);
-        }else if(user.getSex().equals("女")){
+        } else if (user.getSex().equals("女")) {
             Glide.with(this)
                     .load(R.drawable.ic_user_female)
                     .into(mSex);
-        }else {
+        } else {
             Glide.with(this)
                     .load(R.drawable.ic_user_gay)
                     .into(mSex);
@@ -415,10 +455,10 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle.getString("classID").equals("Splash") && sharedPreferences.getBoolean("isLogin", true)) {
-            mPresenterCompl.getUserInfo(sharedPreferences.getString("uid",""));
-        } else if(bundle.getString("classID").equals("Login")) {
+            mPresenterCompl.getUserInfo(sharedPreferences.getString("uid", ""));
+        } else if (bundle.getString("classID").equals("Login")) {
             mPresenterCompl.getUserInfo(bundle.getString("uid"));
-        }else {
+        } else {
 
         }
         //启动应用时跳转到第三个页面:推荐页

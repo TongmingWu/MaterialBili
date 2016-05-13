@@ -26,6 +26,8 @@ import com.tongming.materialbili.model.LiveVideo;
 import com.tongming.materialbili.presenter.LivePresenterCompl;
 import com.tongming.materialbili.utils.LogUtil;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,6 +130,11 @@ public class LiveFragment extends BaseFragment implements ILiveView {
         });
         moreLive.setVisibility(View.VISIBLE);
         mLlTop.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onGetComment(JSONObject object) {
+
     }
 
     private void initSwipeRefresh() {

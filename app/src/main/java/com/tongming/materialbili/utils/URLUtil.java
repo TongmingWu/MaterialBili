@@ -20,6 +20,7 @@ public class URLUtil {
     public static String PYTHON_REVIEW = PYTHON+"/review";
     public static String PYTHON_DANMAKU = PYTHON+"/danmaku";
     public static String PYTHON_PAN = PYTHON+"/pan";
+    public static String PYTHON_LIVE = PYTHON+"/live";
     //获取用户信息
     public static String GetUserId(String id){
         return "http://api.bilibili.cn/userinfo?mid="+id;
