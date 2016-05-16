@@ -84,7 +84,6 @@ public class LivePlayActivity extends AppCompatActivity {
 
     private void initData(){
         titleList.add("互动");
-        titleList.add("评议会");
         titleList.add("投喂榜");
         titleList.add("粉丝榜");
 

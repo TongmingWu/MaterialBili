@@ -45,22 +45,14 @@ import com.tongming.materialbili.fragment.SubareaFragment;
 import com.tongming.materialbili.model.User;
 import com.tongming.materialbili.presenter.UserPresenterCompl;
 import com.tongming.materialbili.utils.CommonUtil;
-import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.ToastUtil;
-
-import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
 
 public class HomeActivity extends AppCompatActivity implements IUserView {
 
@@ -117,7 +109,7 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
         initViews();
 
         //测试
-        try {
+        /*try {
             IO.Options opts = new IO.Options();
             opts.forceNew = true;
             opts.reconnection = true;
@@ -148,7 +140,7 @@ public class HomeActivity extends AppCompatActivity implements IUserView {
             socket.connect();
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     //初始化控件

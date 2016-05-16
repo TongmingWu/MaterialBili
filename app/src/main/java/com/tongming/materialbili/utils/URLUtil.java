@@ -28,7 +28,7 @@ public class URLUtil {
     //public static String USER = "http://api.bilibili.cn/userinfo?user=莫到家了";
 
     //主要分类下的前9个热门视频
-    public static final String HOT_VIEDO = "http://10.12.243.252:5000/anime";
+    public static final String HOT_VIEDO = PYTHON+"/anime";
     //各分类下的排行
     //URL:/sort/tid 例如动画 /sort/13
     public static final String TYPE_VIEDO = "http://bilibili-service.daoapp.io/sort/";

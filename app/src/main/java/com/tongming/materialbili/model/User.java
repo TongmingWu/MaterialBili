@@ -7,6 +7,33 @@ import java.util.List;
  */
 public class User {
 
+
+    /**
+     * mid : 5125795
+     * name : 莫到家了
+     * approve : false
+     * sex : 男
+     * rank : 10000
+     * face : http://i1.hdslb.com/bfs/face/c6a5972c0b0a1b1b6d59a728ab91593bde00cdbd.jpg
+     * coins : 82
+     * DisplayRank : 10000
+     * regtime : 1406008036
+     * spacesta : 0
+     * birthday : 1980-01-01
+     * place :
+     * description :
+     * article : 0
+     * attentions : [282994,14635071,7349]
+     * fans : 0
+     * friend : 3
+     * attention : 3
+     * sign :
+     * level_info : {"current_level":4,"current_min":4500,"current_exp":6085,"next_exp":10800}
+     * pendant : {"pid":0,"name":"","image":"","expire":0}
+     * nameplate : {"nid":0,"name":"","image":""}
+     * code : 0
+     */
+
     private int mid;
     private String name;
     private boolean approve;
@@ -25,10 +52,29 @@ public class User {
     private int friend;
     private int attention;
     private String sign;
-    private LevelInfoEntity level_info;
-    private PendantEntity pendant;
+    /**
+     * current_level : 4
+     * current_min : 4500
+     * current_exp : 6085
+     * next_exp : 10800
+     */
 
-    private NameplateEntity nameplate;
+    private LevelInfoBean level_info;
+    /**
+     * pid : 0
+     * name :
+     * image :
+     * expire : 0
+     */
+
+    private PendantBean pendant;
+    /**
+     * nid : 0
+     * name :
+     * image :
+     */
+
+    private NameplateBean nameplate;
     private int code;
     private List<Integer> attentions;
 
@@ -176,27 +222,27 @@ public class User {
         this.sign = sign;
     }
 
-    public LevelInfoEntity getLevel_info() {
+    public LevelInfoBean getLevel_info() {
         return level_info;
     }
 
-    public void setLevel_info(LevelInfoEntity level_info) {
+    public void setLevel_info(LevelInfoBean level_info) {
         this.level_info = level_info;
     }
 
-    public PendantEntity getPendant() {
+    public PendantBean getPendant() {
         return pendant;
     }
 
-    public void setPendant(PendantEntity pendant) {
+    public void setPendant(PendantBean pendant) {
         this.pendant = pendant;
     }
 
-    public NameplateEntity getNameplate() {
+    public NameplateBean getNameplate() {
         return nameplate;
     }
 
-    public void setNameplate(NameplateEntity nameplate) {
+    public void setNameplate(NameplateBean nameplate) {
         this.nameplate = nameplate;
     }
 
@@ -216,7 +262,7 @@ public class User {
         this.attentions = attentions;
     }
 
-    public static class LevelInfoEntity {
+    public static class LevelInfoBean {
         private int current_level;
         private int current_min;
         private int current_exp;
@@ -255,7 +301,7 @@ public class User {
         }
     }
 
-    public static class PendantEntity {
+    public static class PendantBean {
         private int pid;
         private String name;
         private String image;
@@ -294,7 +340,7 @@ public class User {
         }
     }
 
-    public static class NameplateEntity {
+    public static class NameplateBean {
         private int nid;
         private String name;
         private String image;

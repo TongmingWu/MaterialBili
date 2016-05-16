@@ -43,7 +43,8 @@ public class RecPresenterCompl implements IVideoPresenter {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final HotVideo hotVideo = BaseApplication.gson.fromJson(response.body().string(), new TypeToken<HotVideo>() {
+                String jsonData = response.body().string();
+                final HotVideo hotVideo = BaseApplication.gson.fromJson(jsonData, new TypeToken<HotVideo>() {
                 }.getType());
                 LogUtil.i(TAG, "获取数据成功");
                 mHandler.post(new Runnable() {

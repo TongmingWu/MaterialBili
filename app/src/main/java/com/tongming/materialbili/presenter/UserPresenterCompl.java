@@ -32,7 +32,7 @@ public class UserPresenterCompl implements IUserPresenter {
     }
 
     @Override
-    public void getUserInfo(String id) {
+    public void getUserInfo(final String id) {
         final Request requestVideo = new Request.Builder().url(URLUtil.GetUserId(id)).build();
         BaseApplication.client.newCall(requestVideo).enqueue(new Callback() {
             @Override
@@ -43,8 +43,10 @@ public class UserPresenterCompl implements IUserPresenter {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final User user = BaseApplication.gson.fromJson(response.body().string(), new TypeToken<User>() {
+                String jsonData = response.body().string().replace("\\/\\/","\\\\");
+                final User user = BaseApplication.gson.fromJson(jsonData, new TypeToken<User>() {
                 }.getType());
+                LogUtil.d(TAG,user+"");
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {

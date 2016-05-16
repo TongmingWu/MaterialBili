@@ -32,6 +32,7 @@ import okhttp3.Response;
  */
 public class PanPresenterCompl implements IPanPresenter {
 
+    private static final String TAG = "Pan";
     private IPanView mPanView;
     private Handler mHandler;
     private OkHttpClient client = BaseApplication.client;

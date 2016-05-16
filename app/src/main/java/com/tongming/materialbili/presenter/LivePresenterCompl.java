@@ -10,14 +10,8 @@ import com.tongming.materialbili.model.LiveVideo;
 import com.tongming.materialbili.utils.LogUtil;
 import com.tongming.materialbili.utils.URLUtil;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.net.URISyntaxException;
 
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
@@ -65,7 +59,7 @@ public class LivePresenterCompl implements ILivePresenter {
 
     @Override
     public void getComment(final String roomId) {
-        try {
+        /*try {
             IO.Options options = new IO.Options();
             options.forceNew = true;
             options.reconnection = true;
@@ -90,6 +84,6 @@ public class LivePresenterCompl implements ILivePresenter {
             socket.connect();
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
