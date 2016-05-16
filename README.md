@@ -3,7 +3,6 @@
 ####目前功能还不完善,还需要修改许多地方<br>
 ###本项目配合[BiliServer](https://github.com/TongmingWu/BiliServer)项目实现 登录&评论视频&发送弹幕功能&获取直播弹幕
 首页效果<br>
-![](http://i.imgur.com/cQkk90s.png)
 ![](http://i.imgur.com/3X2uTZv.png)
 ![](http://i.imgur.com/eRI56Ks.png)
 
